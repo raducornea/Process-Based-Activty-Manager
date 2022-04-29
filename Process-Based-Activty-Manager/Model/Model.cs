@@ -8,5 +8,7 @@ namespace ActivityTracker
 {
     public class Model : IModel
     {
+
+
     }
 }

@@ -6,7 +6,14 @@ namespace ActivityTracker
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			Model myModel = new Model();
+			myModel.StartThread();
+
+
+			//myModel.ceva();
+			//myModel.GetAllProcesses();
+
+			Console.ReadKey();
 		}
 	}
 }

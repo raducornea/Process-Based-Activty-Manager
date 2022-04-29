@@ -9,23 +9,44 @@ namespace ActivityTracker
 {
 	 class View :IView
 	{
-	
-
-
+		private Form1 mainWindow;
 		[STAThread]
-		void IView.Display()
-		{
+		
+		void IView.init()
+        {
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
+			mainWindow = new Form1();
+
+		}
+		
+		
+		void IView.Display()
+		{
+			
+			Application.Run(mainWindow);
 
 		}
 
-		public void addProcessToTable()
+        void IView.addProcessToList()
+        {
+			mainWindow.informationInjection();
+		}
+
+    }
+
+
+	class Program
+	{
+		static void Main(string[] args)
 		{
-
-
+			IView view = new View();
+			view.init();
+			view.addProcessToList();
+			view.Display();
+			
 
 		}
 	}
+
 }

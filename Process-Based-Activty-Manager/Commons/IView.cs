@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Commons
+namespace ActivityTracker
 {
 	public interface IView
 	{
-		void init();
-        void Display();
-		void addProcessToList();
+		void setPresenter(IPresenter presenter);
+		void addProcessToList(List<string> nameList);
 	}
 }

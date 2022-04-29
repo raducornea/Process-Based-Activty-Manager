@@ -2,51 +2,54 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ActivityTracker
 {
-	 class View :IView
+	public class View : IView
 	{
+		private IPresenter _presenter;
+
 		private Form1 mainWindow;
+
+		public View()
+		{
+			init();
+			Display();
+		}
+
+		public void setPresenter(IPresenter presenter)
+		{
+			_presenter = presenter;
+		}
+
 		[STAThread]
-		
-		void IView.init()
+		void init()
         {
-			Application.EnableVisualStyles();
+			 Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			mainWindow = new Form1();
-
 		}
-		
-		
-		void IView.Display()
+
+		void Display()
 		{
-			
 			Application.Run(mainWindow);
-
 		}
 
-        void IView.addProcessToList()
-        {
-			mainWindow.informationInjection();
-		}
-
-    }
-
-
-	class Program
-	{
-		static void Main(string[] args)
+		void IView.addProcessToList(List<string> nameList)
 		{
-			IView view = new View();
-			view.init();
-			view.addProcessToList();
-			view.Display();
-			
-
+			mainWindow.informationInjection(nameList);
 		}
 	}
+
+	class Program {
+		static void Main(string[] args)
+		{
+			
+		}
+	}
+	
 
 }

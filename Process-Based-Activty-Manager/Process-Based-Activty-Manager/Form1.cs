@@ -29,8 +29,6 @@ namespace ActivityTracker
 			foreach (Process theprocess in processlist)
 			{
 				Console.WriteLine("Process: {0} ID: {1}", theprocess.ProcessName, theprocess.Id);
-
-				
 			}
 		}
 
@@ -40,13 +38,13 @@ namespace ActivityTracker
         }
 
 
-		public void informationInjection()
+		public void informationInjection(List<string> listNames)
         {
-			listBox1.Items.Add("monkey");
-			listBox1.Items.Add("banana");
-			listBox1.Items.Add("sussy baka");
-
-
+			listBox1.Items.Add("CostiTheMonkey");
+			foreach (var name in listNames)
+			{
+				listBox1.Items.Add(name);
+			}
 		}
 
 		// when a process is clicked a new window of type Form2 is opened for displaying information about the process

@@ -10,36 +10,48 @@ using System.Threading;
 
 namespace ActivityTracker
 {
-	public class Model : IModel
+    public class Model : IModel
     {
+        private IPresenter _presenter;
 
         private DatabaseManager _database;
-        private Thread _thread;
+
+        private List<string> _processesFromDatabase;
+
+        public List<string> ProcessNameList
+        {
+            get { return _processesFromDatabase; }
+        }
 
         public Model()
         {
             _database = new DatabaseManager();
-            _thread = new Thread(new ThreadStart(GetAllProcesses));
+        }
+        public void setPresenter(IPresenter presenter)
+        {
+            _presenter = presenter;
         }
 
         public void StartThread()
         {
-            _thread.Start();
+            GetAllProcesses();
         }
+
+
 
         public void GetAllProcesses()
         {
             try
             {
-                while (true)
+                //     while (true)
                 {
-                    List<string> processesFromDatabase = _database.GetProcessesNames();
+                    List<string> _processesFromDatabase = _database.GetProcessesNames();
 
                     Process[] processCollection = Process.GetProcesses();
                     foreach (Process p in processCollection)
                     {
-                    
-                        if (!processesFromDatabase.Contains(p.ProcessName))
+
+                        if (!_processesFromDatabase.Contains(p.ProcessName))
                         {
                             try
                             {
@@ -61,6 +73,9 @@ namespace ActivityTracker
             {
                 Console.WriteLine(e.Message);
             }
+            // }
+
+
         }
     }
 }

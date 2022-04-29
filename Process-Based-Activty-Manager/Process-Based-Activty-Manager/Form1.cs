@@ -13,9 +13,13 @@ namespace ActivityTracker
 {
 	public partial class Form1 : Form
 	{
+
+		private Process_Based_Activty_Manager.Form2 detailsWindow;
+
 		public Form1()
 		{
 			InitializeComponent();
+			detailsWindow = new Process_Based_Activty_Manager.Form2();
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -29,5 +33,29 @@ namespace ActivityTracker
 				
 			}
 		}
-	}
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+		public void informationInjection()
+        {
+			listBox1.Items.Add("monkey");
+			listBox1.Items.Add("banana");
+			listBox1.Items.Add("sussy baka");
+
+
+		}
+
+		// when a process is clicked a new window of type Form2 is opened for displaying information about the process
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if(detailsWindow.IsDisposed)
+				detailsWindow = new Process_Based_Activty_Manager.Form2();
+			detailsWindow.Text = listBox1.SelectedItem.ToString();
+			detailsWindow.Show();
+		}
+    }
 }

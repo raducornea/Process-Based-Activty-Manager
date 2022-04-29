@@ -8,6 +8,8 @@ namespace Commons
 {
 	public interface IView
 	{
-		void  Display();
+		void init();
+        void Display();
+		void addProcessToList();
 	}
 }

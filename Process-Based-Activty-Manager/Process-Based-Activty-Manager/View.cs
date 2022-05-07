@@ -17,12 +17,13 @@ namespace ActivityTracker
 		public View()
 		{
 			init();
-			Display();
 		}
 
 		public void setPresenter(IPresenter presenter)
 		{
 			_presenter = presenter;
+			mainWindow.setPresenter(_presenter);
+
 		}
 
 		[STAThread]
@@ -33,14 +34,9 @@ namespace ActivityTracker
 			mainWindow = new Form1();
 		}
 
-		void Display()
+		void IView.Display()
 		{
 			Application.Run(mainWindow);
-		}
-
-		void IView.addProcessToList(List<string> nameList)
-		{
-			mainWindow.informationInjection(nameList);
 		}
 	}
 

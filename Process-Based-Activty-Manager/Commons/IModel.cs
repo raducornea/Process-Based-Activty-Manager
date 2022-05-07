@@ -14,7 +14,7 @@ namespace ActivityTracker
 		}
 
 		void setPresenter(IPresenter presenter);
+		void GetAllProcesses();
 
-		void StartThread();
 	}
 }

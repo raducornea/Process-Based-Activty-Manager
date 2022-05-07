@@ -9,5 +9,11 @@ namespace ActivityTracker
 
 	public interface IPresenter
 	{
+		List<string> ComputerProcesses
+		{
+			get;
+		}
+
+		void presenterTick();
 	}
 }

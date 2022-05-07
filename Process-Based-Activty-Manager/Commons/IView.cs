@@ -9,6 +9,6 @@ namespace ActivityTracker
 	public interface IView
 	{
 		void setPresenter(IPresenter presenter);
-		void addProcessToList(List<string> nameList);
+		void Display();
 	}
 }

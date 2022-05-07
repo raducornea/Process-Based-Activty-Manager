@@ -17,6 +17,7 @@ namespace ActivityTracker
         private DatabaseManager _database;
 
         private List<string> _processesFromDatabase;
+        
 
         public List<string> ProcessNameList
         {
@@ -32,20 +33,12 @@ namespace ActivityTracker
             _presenter = presenter;
         }
 
-        public void StartThread()
-        {
-            GetAllProcesses();
-        }
-
-
-
         public void GetAllProcesses()
         {
             try
             {
-                //     while (true)
                 {
-                    List<string> _processesFromDatabase = _database.GetProcessesNames();
+                    _processesFromDatabase = _database.GetProcessesNames();
 
                     Process[] processCollection = Process.GetProcesses();
                     foreach (Process p in processCollection)
@@ -73,9 +66,6 @@ namespace ActivityTracker
             {
                 Console.WriteLine(e.Message);
             }
-            // }
-
-
         }
     }
 }

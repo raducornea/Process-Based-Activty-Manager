@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Commons;
 
 namespace ActivityTracker
@@ -7,18 +8,23 @@ namespace ActivityTracker
 	{
 		IView _view;
 		IModel _model;
+		private List<string> _processesFromDatabase;
+
+		List<string> IPresenter.ComputerProcesses
+		{
+			get { return _processesFromDatabase; }
+		}
 
 		public Presenter(IView view, IModel model)
 		{
 			_view = view;
 			_model = model;
-
-			while (true) {
-				_model.StartThread();
-				_view.addProcessToList(_model.ProcessNameList);
-			}
 		}
 
-
+		public void presenterTick()
+		{
+			_model.GetAllProcesses();
+			_processesFromDatabase = _model.ProcessNameList;
+		}
 	}
 }

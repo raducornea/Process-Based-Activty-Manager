@@ -14,6 +14,7 @@ namespace ActivityTracker
 	public partial class Form1 : Form
 	{
 
+		static private IPresenter _presenter;
 		private Process_Based_Activty_Manager.Form2 detailsWindow;
 
 		public Form1()
@@ -21,6 +22,9 @@ namespace ActivityTracker
 			InitializeComponent();
 			detailsWindow = new Process_Based_Activty_Manager.Form2();
 		}
+
+
+
 
 		private void button1_Click(object sender, EventArgs e)
 		{
@@ -37,16 +41,6 @@ namespace ActivityTracker
 
         }
 
-
-		public void informationInjection(List<string> listNames)
-        {
-			listBox1.Items.Add("CostiTheMonkey");
-			foreach (var name in listNames)
-			{
-				listBox1.Items.Add(name);
-			}
-		}
-
 		// when a process is clicked a new window of type Form2 is opened for displaying information about the process
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -55,5 +49,29 @@ namespace ActivityTracker
 			detailsWindow.Text = listBox1.SelectedItem.ToString();
 			detailsWindow.Show();
 		}
-    }
+
+		private void sampleTimer_Tick(object sender, EventArgs e)
+		{
+			if( _presenter != null) { 
+				_presenter.presenterTick();
+
+			
+				foreach (var process in _presenter.ComputerProcesses)
+				{
+					if (!listBox1.Items.Contains(process)){
+						listBox1.Items.Add(process);
+					}
+				}
+
+			}
+		}
+
+		public void setPresenter(IPresenter presenter)
+		{
+			_presenter = presenter;
+		}
+
+
+
+	}
 }

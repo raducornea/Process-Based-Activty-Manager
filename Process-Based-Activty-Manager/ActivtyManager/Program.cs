@@ -17,8 +17,7 @@ namespace ActivtyManager
 			IPresenter presenter = new Presenter(view, model);
 			view.setPresenter(presenter);
 			model.setPresenter(presenter);
-
-			Console.ReadKey();
+			view.Display();
 		}
 	}
 }

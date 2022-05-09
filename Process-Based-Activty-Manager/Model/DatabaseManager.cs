@@ -5,15 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
-using Commons;
 
 namespace ActivityTracker
 {
     public class DatabaseManager
     {
-        public SQLiteConnection connection;
+        private SQLiteConnection connection;
+        private static DatabaseManager instance = null;
 
-        public DatabaseManager()
+        public static DatabaseManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DatabaseManager();
+                }
+                return instance;
+            }
+        }
+
+        private DatabaseManager()
         {
             connection = new SQLiteConnection("Data Source=database.sqlite3");
             OpenConnection();
@@ -26,10 +38,11 @@ namespace ActivityTracker
             }
         }
 
-        /// <summary>
-        /// INSERT INTO DATABASE
-        /// </summary>
-        /// <param name="title"></param>
+        ~DatabaseManager()
+		{
+            CloseConnection();
+		}
+
         public void AddProcess(string title)
         {
             string query = "INSERT INTO user_processes ('title') VALUES(@title)";
@@ -41,10 +54,9 @@ namespace ActivityTracker
             Console.WriteLine("Rows added: {0}", result);
         }
 
-
-        public List<UserProcess> GetProcesses()
+        public List<StoredProcess> GetProcesses()
         {
-            List<UserProcess> userProcesses = new List<UserProcess>();
+            List<StoredProcess> userProcesses = new List<StoredProcess>();
 
             string query = "SELECT * FROM user_processes";
             SQLiteCommand command = new SQLiteCommand(query, connection);
@@ -60,7 +72,7 @@ namespace ActivityTracker
                         string title = (result["title"]).ToString();
 
                         // Console.WriteLine("Process Title: {0}", result["title"]);
-                        userProcesses.Add(new UserProcess(id, title));
+                        userProcesses.Add(new StoredProcess(id, title));
                     }
                     catch(Exception e)
                     {
@@ -99,7 +111,17 @@ namespace ActivityTracker
             return userProcesses;
         }
 
-        public void OpenConnection()
+        public uint getTotalTimeForProcess(StoredProcess process)
+		{
+            throw new Exception("Nobody done this");
+		}
+        
+        public List<Timeslot> gotTimeSlotsForProcess(StoredProcess process)
+		{
+            throw new Exception("Nobody done this");
+        }
+
+        private void OpenConnection()
         {
             if(connection.State != System.Data.ConnectionState.Open)
             {
@@ -107,11 +129,11 @@ namespace ActivityTracker
             }
         }
 
-        public void CloseConnection()
+        private void CloseConnection()
         {
             if(connection.State != System.Data.ConnectionState.Closed)
             {
-                connection.Clone();
+                connection.Close();
             }
         }
     }

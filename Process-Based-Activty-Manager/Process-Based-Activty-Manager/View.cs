@@ -1,5 +1,4 @@
-﻿using Commons;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,8 +10,7 @@ namespace ActivityTracker
 	public class View : IView
 	{
 		private IPresenter _presenter;
-
-		private Form1 mainWindow;
+		private Form1 _mainWindow;
 
 		public View()
 		{
@@ -22,7 +20,7 @@ namespace ActivityTracker
 		public void setPresenter(IPresenter presenter)
 		{
 			_presenter = presenter;
-			mainWindow.setPresenter(_presenter);
+			_mainWindow.setPresenter(_presenter);
 
 		}
 
@@ -31,21 +29,18 @@ namespace ActivityTracker
         {
 			 Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			mainWindow = new Form1();
+			_mainWindow = new Form1();
 		}
 
 		void IView.Display()
 		{
-			Application.Run(mainWindow);
+			Application.Run(_mainWindow);
 		}
-	}
 
-	class Program {
-		static void Main(string[] args)
+		void IView.UpdateProcessList(List<string> processNames)
 		{
-			
+			_mainWindow.updateProcessList(processNames);
 		}
-	}
-	
 
+	}
 }

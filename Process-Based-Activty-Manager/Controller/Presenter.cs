@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Commons;
 
 namespace ActivityTracker
 {
 	public class Presenter : IPresenter
 	{
-		IView _view;
-		IModel _model;
+		private IView _view;
+		private IModel _model;
 		private List<string> _processesFromDatabase;
 
 		List<string> IPresenter.ComputerProcesses
@@ -23,8 +22,9 @@ namespace ActivityTracker
 
 		public void presenterTick()
 		{
-			_model.GetAllProcesses();
-			_processesFromDatabase = _model.ProcessNameList;
+			_model.ScreenWindowsProcesses();
+			_view.UpdateProcessList(_model.ProcessNameList);
+
 		}
 	}
 }

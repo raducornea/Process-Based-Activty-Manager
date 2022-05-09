@@ -23,9 +23,6 @@ namespace ActivityTracker
 			detailsWindow = new Process_Based_Activty_Manager.Form2();
 		}
 
-
-
-
 		private void button1_Click(object sender, EventArgs e)
 		{
 			Process[] processlist = Process.GetProcesses();
@@ -36,15 +33,15 @@ namespace ActivityTracker
 			}
 		}
 
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+		private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
-        }
+		}
 
 		// when a process is clicked a new window of type Form2 is opened for displaying information about the process
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-			if(detailsWindow.IsDisposed)
+		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (detailsWindow.IsDisposed)
 				detailsWindow = new Process_Based_Activty_Manager.Form2();
 			detailsWindow.Text = listBox1.SelectedItem.ToString();
 			detailsWindow.Show();
@@ -52,17 +49,20 @@ namespace ActivityTracker
 
 		private void sampleTimer_Tick(object sender, EventArgs e)
 		{
-			if( _presenter != null) { 
+			if (_presenter != null)
+			{
 				_presenter.presenterTick();
+			}
+		}
 
-			
-				foreach (var process in _presenter.ComputerProcesses)
+		public void updateProcessList(List<string> processNames)
+		{
+			foreach (var process in processNames)
+			{
+				if (!listBox1.Items.Contains(process))
 				{
-					if (!listBox1.Items.Contains(process)){
-						listBox1.Items.Add(process);
-					}
+					listBox1.Items.Add(process);
 				}
-
 			}
 		}
 

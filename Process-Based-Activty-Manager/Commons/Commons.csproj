@@ -80,7 +80,8 @@
     <Compile Include="IPresenter.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserProcess.cs" />
+    <Compile Include="Timeslot.cs" />
+    <Compile Include="StoredProcess.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

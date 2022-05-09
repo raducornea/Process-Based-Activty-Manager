@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Commons
+namespace ActivityTracker
 {
-    public class UserProcess
+    public class StoredProcess
     {
         uint _uniqueProcesID;
         string _processName;
@@ -21,7 +21,7 @@ namespace Commons
             get => _processName;
         }
 
-        public UserProcess(uint uniqueProcesID, string processName)
+        public StoredProcess(uint uniqueProcesID, string processName)
         {
             _uniqueProcesID = uniqueProcesID;
             _processName = processName;

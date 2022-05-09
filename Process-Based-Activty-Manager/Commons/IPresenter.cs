@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Commons
+namespace ActivityTracker
 {
 
 	public interface IPresenter
 	{
+		List<string> ComputerProcesses
+		{
+			get;
+		}
+
+		void presenterTick();
 	}
 }

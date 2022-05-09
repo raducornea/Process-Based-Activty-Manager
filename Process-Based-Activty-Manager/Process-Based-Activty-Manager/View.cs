@@ -1,31 +1,46 @@
-﻿using Commons;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ActivityTracker
 {
-	 class View :IView
+	public class View : IView
 	{
-	
+		private IPresenter _presenter;
+		private Form1 _mainWindow;
 
+		public View()
+		{
+			init();
+		}
+
+		public void setPresenter(IPresenter presenter)
+		{
+			_presenter = presenter;
+			_mainWindow.setPresenter(_presenter);
+
+		}
 
 		[STAThread]
+		void init()
+        {
+			 Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			_mainWindow = new Form1();
+		}
+
 		void IView.Display()
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
-
+			Application.Run(_mainWindow);
 		}
 
-		public void addProcessToTable()
+		void IView.UpdateProcessList(List<string> processNames)
 		{
-
-
-
+			_mainWindow.updateProcessList(processNames);
 		}
+
 	}
 }

@@ -8,9 +8,13 @@ namespace ActivityTracker
 {
 	public interface IModel
 	{
-		void getProcessList();
-
-		void addTagToProcess();
-
+		List<string> ProcessNameList
+		{
+			get;
 		}
+
+		void setPresenter(IPresenter presenter);
+		void ScreenWindowsProcesses();
+
+	}
 }

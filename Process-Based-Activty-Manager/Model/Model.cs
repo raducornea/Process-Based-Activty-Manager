@@ -50,7 +50,22 @@ namespace ActivityTracker
 			throw new Exception("Nimeni nu facut asta");
 		}
 
-		public Model()
+		public string addNewTimeSlot(uint processID)
+		{
+			throw new Exception("Nimeni nu facut asta");
+
+			string uniqueID = processID.ToString();
+
+
+			return uniqueID;
+		}
+
+		public void updateTimeSlot(string timeslotID, int duration) 
+		{
+			throw new Exception("Nimeni nu facut asta");
+		}
+
+	public Model()
 		{
 			_database = DatabaseManager.Instance;
 

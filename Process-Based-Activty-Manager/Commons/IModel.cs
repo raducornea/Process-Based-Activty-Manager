@@ -15,6 +15,7 @@ namespace ActivityTracker
 
 		void setPresenter(IPresenter presenter);
 		void ScreenWindowsProcesses();
-
+		uint getProcessTotalTime(uint processID);
+		List<Timeslot> getProcessTimeslots(uint processID);
 	}
 }

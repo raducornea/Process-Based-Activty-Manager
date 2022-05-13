@@ -12,7 +12,6 @@ namespace ActivityTracker
 	public class Model : IModel
 	{
 		private IPresenter _presenter;
-
 		private DatabaseManager _database;
 		private List<StoredProcess> _generalProcessList;  //We need to avoid using the database very often
 														  // so this is it's in memory representation
@@ -38,13 +37,13 @@ namespace ActivityTracker
 			}
 		}
 
-		//TODO: Adauga in interfata si implementeaza - RADUCU
+		//TODO: implementeaza - RADUCU
 		public uint getProcessTotalTime(uint processID)
 		{
 			throw new Exception("Nimeni nu facut asta");
 		}
 
-		//TODO: Adauga in interfata si implementeaza - RADUCU
+		//TODO: implementeaza - RADUCU
 		public List<Timeslot> getProcessTimeslots(uint processID)
 		{
 			throw new Exception("Nimeni nu facut asta");
@@ -65,13 +64,14 @@ namespace ActivityTracker
 			throw new Exception("Nimeni nu facut asta");
 		}
 
-	public Model()
+		public Model()
 		{
 			_database = DatabaseManager.Instance;
 
 			//For performance reasons we sincronyze with the database only once at the start of the program.
 			_generalProcessList = _database.GetProcesses();
 		}
+
 		public void setPresenter(IPresenter presenter)
 		{
 			_presenter = presenter;

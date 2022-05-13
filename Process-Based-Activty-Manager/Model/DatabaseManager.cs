@@ -47,7 +47,11 @@ namespace ActivityTracker
             {
                 // da override la baza de date
                 SQLiteConnection.CreateFile("database.sqlite3");
+                
             }
+
+            // in cazul in care nu exista tabele, se vor crea
+            CreateTables();
         }
 
         // TODO: call CloseConnection upon exiting program
@@ -57,6 +61,20 @@ namespace ActivityTracker
             CloseConnection();
 		}
 
+        // TODO: add second table to refer 
+        /// <summary>
+        /// When there are no tables created, create them automatically
+        /// </summary>
+        public void CreateTables()
+        {
+            string query = "CREATE TABLE IF NOT EXISTS user_processes (" +
+                "id INTEGER PRIMARY KEY UNIQUE," +
+                "title TEXT NOT NULL UNIQUE" +
+            ")";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            command.ExecuteNonQuery();
+        }
 
         /// <summary>
         /// Se adauga un nou proces in baza de date

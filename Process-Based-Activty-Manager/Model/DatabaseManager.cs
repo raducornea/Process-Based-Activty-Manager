@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Diagnostics;
 
 namespace ActivityTracker
 {
@@ -25,9 +26,17 @@ namespace ActivityTracker
             }
         }
 
+        /// <summary>
+        /// Realizeaza o conexiune SQLite in functie de path-uri diferite (dinamice)
+        /// </summary>
         private DatabaseManager()
         {
-            connection = new SQLiteConnection("Data Source=database.sqlite3");
+            // trebuie avut in vedere ca aplicatia poate fi rulata de pe orice calculator, de aceea luam path-ul dinamic si nu-l setam ca absolute path
+            string path = Directory.GetCurrentDirectory() + @"\database.sqlite3";
+
+            // de asemenea, path-ul gasit este in ActivityManager, NU ActivityTracker. Am pus in "ActivtyManager\bin\Debug\netcoreapp3.1" database.sqlite3
+            connection = new SQLiteConnection(@"Data Source=" + path);
+
             OpenConnection();
 
             if (!File.Exists("./database.sqlite3"))

@@ -45,9 +45,7 @@ namespace ActivityTracker
 
             if (!File.Exists("./database.sqlite3"))
             {
-                // da override la baza de date
                 SQLiteConnection.CreateFile("database.sqlite3");
-                
             }
 
             // in cazul in care nu exista tabele, se vor crea
@@ -61,18 +59,28 @@ namespace ActivityTracker
             CloseConnection();
 		}
 
-        // TODO: add second table to refer 
         /// <summary>
         /// When there are no tables created, create them automatically
+        /// NOTE: there is not DATE type in SQLite. We use REAL instead
+        /// Docs: https://www.sqlite.org/lang_datefunc.html
         /// </summary>
         public void CreateTables()
         {
-            string query = "CREATE TABLE IF NOT EXISTS user_processes (" +
+            string queryUserProcesses = "CREATE TABLE IF NOT EXISTS user_processes (" +
                 "id INTEGER PRIMARY KEY UNIQUE," +
-                "title TEXT NOT NULL UNIQUE" +
+                "title VARCHAR(100) NOT NULL UNIQUE" +
             ")";
-            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            SQLiteCommand command = new SQLiteCommand(queryUserProcesses, _connection);
+            command.ExecuteNonQuery();
 
+            string queryTimestamps = "CREATE TABLE IF NOT EXISTS timestamps (" +
+                "id INTEGER PRIMARY KEY UNIQUE," +
+                "pid INTEGER," +
+                "date_start REAL," +
+                "date_stop REAL," +
+                "FOREIGN KEY(pid) REFERENCES user_processes(id)" +
+            ")";
+            command = new SQLiteCommand(queryTimestamps, _connection);
             command.ExecuteNonQuery();
         }
 
@@ -82,7 +90,8 @@ namespace ActivityTracker
         /// <param name="title"></param>
         public void AddProcess(string title)
         {
-            string query = "INSERT INTO user_processes ('title') VALUES(@title)";
+            // trebuie pus si OR IGNORE in cazul in care nu e Unic
+            string query = "INSERT OR IGNORE INTO user_processes ('title') VALUES(@title)";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
             command.Parameters.AddWithValue("@title", title);

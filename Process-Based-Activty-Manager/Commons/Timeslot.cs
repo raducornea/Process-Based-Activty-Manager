@@ -6,15 +6,41 @@ using System.Threading.Tasks;
 
 namespace ActivityTracker
 {
-	public class Timeslot
+    public class Timeslot
 	{
-		DateTime _createdTime;
-		uint _duration;    //in seconds amigo
+		private long _startTime;
+		private long _endTime;
+		private String _ID;
+		private String _processID;
 
-		public Timeslot(DateTime createdTime, uint duration) 
+
+		public Timeslot(long startTime, long endTime, String ID, String processID)
 		{
-			_createdTime = createdTime;
-			_duration = duration;
+			_startTime = startTime;
+			_endTime = endTime;
+			_ID = ID;
+			_processID = processID;
 		}
+
+
+
+        public long getDuration()
+		{
+			return _endTime - _startTime;
+		}
+
+		public long getStartTime()
+		{
+			return _startTime;
+		}
+
+		public long getEndTime()
+		{
+			return _endTime;
+		}
+
+
+
+
 	}
 }

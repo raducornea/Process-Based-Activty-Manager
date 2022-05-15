@@ -18,6 +18,8 @@ namespace ActivityTracker
 		{
 			_view = view;
 			_model = model;
+			// _model.getProcessTotalTime(52);
+			// _model.updateTimeSlot(13, 69);
 		}
 
 		public void presenterTick()

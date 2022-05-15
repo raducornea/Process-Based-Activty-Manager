@@ -8,10 +8,10 @@ namespace ActivityTracker
 {
     public class StoredProcess
     {
-        uint _uniqueProcesID;
+        string _uniqueProcesID;
         string _processName;
 
-        public uint UniqueProcesID
+        public string UniqueProcesID
         {
             get => _uniqueProcesID;
         }
@@ -21,7 +21,7 @@ namespace ActivityTracker
             get => _processName;
         }
 
-        public StoredProcess(uint uniqueProcesID, string processName)
+        public StoredProcess(string uniqueProcesID, string processName)
         {
             _uniqueProcesID = uniqueProcesID;
             _processName = processName;

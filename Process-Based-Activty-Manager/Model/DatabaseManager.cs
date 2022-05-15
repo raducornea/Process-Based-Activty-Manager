@@ -67,18 +67,19 @@ namespace ActivityTracker
         public void CreateTables()
         {
             string queryUserProcesses = "CREATE TABLE IF NOT EXISTS user_processes (" +
-                "id INTEGER PRIMARY KEY UNIQUE," +
+                "id VARCHAR(100) PRIMARY KEY UNIQUE," +
                 "title VARCHAR(100) NOT NULL UNIQUE" +
             ")";
             SQLiteCommand command = new SQLiteCommand(queryUserProcesses, _connection);
             command.ExecuteNonQuery();
 
             string queryTimestamps = "CREATE TABLE IF NOT EXISTS timestamps (" +
-                "id INTEGER PRIMARY KEY UNIQUE," +
-                "pid INTEGER," +
-                "date_start REAL," +
-                "date_stop REAL," +
-                "FOREIGN KEY(pid) REFERENCES user_processes(id)" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "pid VARCHAR(100), " +
+                "date_start REAL, " +
+                "date_stop REAL, " +
+                "FOREIGN KEY(pid) REFERENCES user_processes(id), " +
+                "UNIQUE (id, pid) " +
             ")";
             command = new SQLiteCommand(queryTimestamps, _connection);
             command.ExecuteNonQuery();
@@ -91,13 +92,14 @@ namespace ActivityTracker
         public void AddProcess(string title)
         {
             // trebuie pus si OR IGNORE in cazul in care nu e Unic
-            string query = "INSERT OR IGNORE INTO user_processes ('title') VALUES(@title)";
+            string query = "INSERT OR IGNORE INTO user_processes ('id', 'title') VALUES(@id, @title)";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
+            command.Parameters.AddWithValue("@id", "id:" + title);
             command.Parameters.AddWithValue("@title", title);
             var result = command.ExecuteNonQuery();
 
-            Console.WriteLine("Rows added: {0}", result);
+            // Console.WriteLine("Rows added: {0}", result);
         }
 
         /// <summary>
@@ -117,8 +119,8 @@ namespace ActivityTracker
                 while (result.Read())
                 {
                     try
-                    { 
-                        uint id = uint.Parse((result["id"]).ToString());
+                    {
+                        string id = (result["id"]).ToString();
                         string title = (result["title"]).ToString();
 
                         userProcesses.Add(new StoredProcess(id, title));
@@ -164,14 +166,95 @@ namespace ActivityTracker
             return userProcesses;
         }
 
-        public uint getTotalTimeForProcess(StoredProcess process)
+        public uint getTotalTimeForProcess(uint processID)
 		{
-            throw new Exception("Nobody done this");
-		}
-        
-        public List<Timeslot> gotTimeSlotsForProcess(StoredProcess process)
+            uint timestampsSum = 0;
+
+            string query = "SELECT sum(date_stop - date_start) AS timestamps_sum " +
+                "FROM timestamps " +
+                "INNER JOIN user_processes ON " +
+                "timestamps.pid = user_processes.id " +
+                "WHERE pid == " + processID;
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            SQLiteDataReader result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    try
+                    {
+                        timestampsSum = uint.Parse(result["timestamps_sum"].ToString());
+                        // Debug.WriteLine(timestampsSum);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.StackTrace);
+                    }
+                }
+            }
+
+            return timestampsSum;
+        }
+
+        public List<Timeslot> gotTimeSlotsForProcess(uint processID)
 		{
-            throw new Exception("Nobody done this");
+            List<Timeslot> timestamps = new List<Timeslot>();
+
+            string query = "SELECT id, pid, date_start, date_stop " +
+                "FROM timestamps " +
+                "WHERE pid = " + processID;
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            SQLiteDataReader result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    try
+                    {
+                        Timeslot timeslot = new Timeslot(
+                            result["id"].ToString(),
+                            result["pid"].ToString(),
+                            long.Parse(result["date_start"].ToString()),
+                            long.Parse(result["date_stop"].ToString())
+                        );
+                        
+                        timestamps.Add(timeslot);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.StackTrace);
+                    }
+                }
+            }
+
+            return timestamps;
+        }
+
+        public void addNewTimeSlot(uint processID)
+        {
+            long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            Debug.WriteLine(timestamp);
+
+            string query = "INSERT OR IGNORE INTO timestamps ('pid', 'date_start', 'date_stop') " +
+                "VALUES(@processID, @timestamp, @timestamp)";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            command.Parameters.AddWithValue("@processID", "id:" + processID);
+            command.Parameters.AddWithValue("@timestamp", timestamp);
+
+            command.ExecuteNonQuery();
+        }
+
+        public void updateTimeSlot(int timeslotID, int duration)
+        {
+            string query = "UPDATE timestamps " +
+                "SET date_stop = date_stop + (" + duration + ") " +
+                "WHERE id == " + timeslotID + " ";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            command.ExecuteNonQuery();
         }
 
         /// <summary>

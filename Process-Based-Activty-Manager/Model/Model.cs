@@ -37,38 +37,31 @@ namespace ActivityTracker
 			}
 		}
 
-		//TODO: implementeaza - RADUCU
 		public uint getProcessTotalTime(uint processID)
 		{
-			throw new Exception("Nimeni nu facut asta");
+			return _database.getTotalTimeForProcess(processID);
 		}
 
-		//TODO: implementeaza - RADUCU
 		public List<Timeslot> getProcessTimeslots(uint processID)
 		{
-			throw new Exception("Nimeni nu facut asta");
+			return _database.gotTimeSlotsForProcess(processID);
 		}
 
-		public string addNewTimeSlot(uint processID)
+		public void addNewTimeSlot(uint processID)
 		{
-			throw new Exception("Nimeni nu facut asta");
-
-			string uniqueID = processID.ToString();
-
-
-			return uniqueID;
+			_database.addNewTimeSlot(processID);
 		}
 
-		public void updateTimeSlot(string timeslotID, int duration) 
+		public void updateTimeSlot(int timeslotID, int duration) 
 		{
-			throw new Exception("Nimeni nu facut asta");
+			_database.updateTimeSlot(timeslotID, duration);
 		}
 
 		public Model()
 		{
 			_database = DatabaseManager.Instance;
 
-			//For performance reasons we sincronyze with the database only once at the start of the program.
+			// For performance reasons we synchronize with the database only once at the start of the program.
 			_generalProcessList = _database.GetProcesses();
 		}
 
@@ -89,16 +82,16 @@ namespace ActivityTracker
 					{
 						try
 						{
-							// it might be more performant to agregate all new peocesses and add the all in a single database
-							//quary but not really a priority
+							// it might be more performant to aggregate all new peocesses and add all in a single database
+							// query, but not really a priority
 							_database.AddProcess(p.ProcessName);
 
-							//Usually we would read a process from the database along with it's id.
-							//But when a process is first detected, there is no representation of it in the database
-							//Because of that we need to att in the database, recover when id it was given and finally
-							//add that new process in the runtime list with processes
-							//The id is requited as to properly write timeslopts in the database for the new peocess as soon as
-							//it is detected
+							// Usually, we read a process from the database - along with it's ID.
+							// But when a process is first detected, there is no representation of it in the database.
+							// Because of that, we need to add it in the database, recover when id it was given and finally
+							// add that new process in the runtime list with processes
+							// The id is requited as to properly write timeslopts in the database for the new peocess as soon as
+							// it is detected
 
 							//TODO: Raducu
 

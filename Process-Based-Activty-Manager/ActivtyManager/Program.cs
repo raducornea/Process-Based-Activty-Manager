@@ -16,7 +16,7 @@ namespace ActivtyManager
 			IModel model = new Model();
 			IPresenter presenter = new Presenter(view, model);
 			view.setPresenter(presenter);
-			model.setPresenter(presenter);
+			model.SetPresenter(presenter);
 			view.Display();
 		}
 	}

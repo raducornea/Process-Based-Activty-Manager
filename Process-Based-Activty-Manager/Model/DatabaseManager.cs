@@ -60,7 +60,7 @@ namespace ActivityTracker
 		}
 
         /// <summary>
-        /// When there are no tables created, create them automatically
+        /// Cand nu sunt tabele create, creaza-le automat
         /// NOTE: there is not DATE type in SQLite. We use REAL instead
         /// Docs: https://www.sqlite.org/lang_datefunc.html
         /// </summary>
@@ -166,7 +166,12 @@ namespace ActivityTracker
             return userProcesses;
         }
 
-        public uint getTotalTimeForProcess(string processID)
+        /// <summary>
+        /// Avem nevoie sa stim duratele de viata ale proceselor spre informarea utilizatorilor
+        /// </summary>
+        /// <param name="processID"></param>
+        /// <returns>Timpul rularii totale a aplicatiei de la inceput pana la prezent</returns>
+        public uint GetTotalTimeForProcess(string processID)
 		{
             uint timestampsSum = 0;
 
@@ -185,7 +190,6 @@ namespace ActivityTracker
                     try
                     {
                         timestampsSum = uint.Parse(result["timestamps_sum"].ToString());
-                        // Debug.WriteLine(timestampsSum);
                     }
                     catch (Exception e)
                     {
@@ -197,7 +201,12 @@ namespace ActivityTracker
             return timestampsSum;
         }
 
-        public List<Timeslot> gotTimeSlotsForProcess(string processID)
+        /// <summary>
+        /// Se obtin toate timestamp-urile pentru un proces, ca sa le vada utilizatorul
+        /// </summary>
+        /// <param name="processID"></param>
+        /// <returns>Lista tuturor timestamp-urilor</returns>
+        public List<Timeslot> GetTimeSlotsForProcess(string processID)
 		{
             List<Timeslot> timestamps = new List<Timeslot>();
 
@@ -232,7 +241,11 @@ namespace ActivityTracker
             return timestamps;
         }
 
-        public void addNewTimeSlot(string processID)
+        /// <summary>
+        /// Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data
+        /// </summary>
+        /// <param name="processID"></param>
+        public void AddNewTimeSlot(string processID)
         {
             long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
 
@@ -246,7 +259,12 @@ namespace ActivityTracker
             command.ExecuteNonQuery();
         }
 
-        public void updateTimeSlot(int timeslotID, int duration)
+        /// <summary>
+        /// Pe parcursul aplicatiei e nevoie sa updatam si timestamp-urile din cand in cand, ca sa nu ramana aceleasi date
+        /// </summary>
+        /// <param name="timeslotID"></param>
+        /// <param name="duration"></param>
+        public void UpdateTimeSlot(int timeslotID, int duration)
         {
             string query = "UPDATE timestamps " +
                 "SET date_stop = date_stop + (" + duration + ") " +

@@ -13,6 +13,7 @@ namespace ActivityTracker
 	{
 		private IPresenter _presenter;
 		private DatabaseManager _database;
+		private List<Timeslot> _timeslotsList; // current processes running ONLY
 		private List<StoredProcess> _generalProcessList;  //We need to avoid using the database very often
 														  // so this is it's in memory representation
 														  //Any diference between the database and this is a big problem
@@ -37,17 +38,17 @@ namespace ActivityTracker
 			}
 		}
 
-		public uint getProcessTotalTime(uint processID)
+		public uint getProcessTotalTime(string processID)
 		{
 			return _database.getTotalTimeForProcess(processID);
 		}
 
-		public List<Timeslot> getProcessTimeslots(uint processID)
+		public List<Timeslot> getProcessTimeslots(string processID)
 		{
 			return _database.gotTimeSlotsForProcess(processID);
 		}
 
-		public void addNewTimeSlot(uint processID)
+		public void addNewTimeSlot(string processID)
 		{
 			_database.addNewTimeSlot(processID);
 		}
@@ -63,6 +64,18 @@ namespace ActivityTracker
 
 			// For performance reasons we synchronize with the database only once at the start of the program.
 			_generalProcessList = _database.GetProcesses();
+
+			List<Timeslot> _timeslotsList = new List<Timeslot>();
+			foreach (StoredProcess process in _generalProcessList)
+            {
+				_database.addNewTimeSlot(process.UniqueProcesID);
+				_timeslotsList.AddRange(_database.gotTimeSlotsForProcess(process.UniqueProcesID));
+			}
+
+			foreach(Timeslot timeslot in _timeslotsList)
+            {
+				Debug.WriteLine(timeslot.getStartTime() + " " + timeslot.getEndTime());
+            }
 		}
 
 		public void setPresenter(IPresenter presenter)

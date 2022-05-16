@@ -166,7 +166,7 @@ namespace ActivityTracker
             return userProcesses;
         }
 
-        public uint getTotalTimeForProcess(uint processID)
+        public uint getTotalTimeForProcess(string processID)
 		{
             uint timestampsSum = 0;
 
@@ -197,13 +197,13 @@ namespace ActivityTracker
             return timestampsSum;
         }
 
-        public List<Timeslot> gotTimeSlotsForProcess(uint processID)
+        public List<Timeslot> gotTimeSlotsForProcess(string processID)
 		{
             List<Timeslot> timestamps = new List<Timeslot>();
 
             string query = "SELECT id, pid, date_start, date_stop " +
                 "FROM timestamps " +
-                "WHERE pid = " + processID;
+                "WHERE pid = '" + processID + "'";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
             SQLiteDataReader result = command.ExecuteReader();
@@ -232,16 +232,15 @@ namespace ActivityTracker
             return timestamps;
         }
 
-        public void addNewTimeSlot(uint processID)
+        public void addNewTimeSlot(string processID)
         {
             long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-            Debug.WriteLine(timestamp);
 
             string query = "INSERT OR IGNORE INTO timestamps ('pid', 'date_start', 'date_stop') " +
                 "VALUES(@processID, @timestamp, @timestamp)";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
-            command.Parameters.AddWithValue("@processID", "id:" + processID);
+            command.Parameters.AddWithValue("@processID", processID);
             command.Parameters.AddWithValue("@timestamp", timestamp);
 
             command.ExecuteNonQuery();

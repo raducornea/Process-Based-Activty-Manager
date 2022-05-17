@@ -14,9 +14,9 @@ namespace ActivityTracker
 		// so this is it's in memory representation
 		// Any diference between the database and this is a big problem
 		// Properties
-		private List<Timeslot> _timeslotsList;
-		private List<StoredProcess> _generalProcessList;
-        private IPresenter _presenter;
+		private List<StoredProcess> _generalProcessList;   //This list is supposed to be a mirror of the database list of processes
+														   //Any deviation is a big problem
+		private IPresenter _presenter;
 		private DatabaseManager _database;
 
 		/// <summary>
@@ -34,15 +34,30 @@ namespace ActivityTracker
 		{
 			get
 			{
-				List<string> _processNames = new List<string>();
+				List<string> processNames = new List<string>();
 
 				foreach (StoredProcess storedProcess in _generalProcessList)
 				{
-					_processNames.Add(storedProcess.ProcessName);
+					processNames.Add(storedProcess.ProcessName);
 				}
-				return _processNames;
+				return processNames;
 			}
 		}
+
+		public List<long> ActiveTimestampsID
+		{
+			get
+			{
+				List<long> timeslotIDs = new List<long>();
+
+				foreach (StoredProcess storedProcess in _generalProcessList)
+				{
+					timeslotIDs.Add(storedProcess.CurrentTimeslotID);
+				}
+				return timeslotIDs;
+			}
+		}
+
 
 		/// <summary>
 		/// Se cauta obtinerea timpului total petrecut pe un anumit proces din baza de date, in functie de numele lui
@@ -78,9 +93,12 @@ namespace ActivityTracker
 		/// </summary>
 		/// <param name="timeslotID"></param>
 		/// <param name="duration"></param>
-		public void UpdateTimeSlot(int timeslotID, int duration) 
+		void IModel.UpdateTimeSlots() 
 		{
-			_database.UpdateTimeSlot(timeslotID, duration);
+			foreach (var storedProcess in _generalProcessList)
+			{
+				_database.UpdateTimeSlot(storedProcess.CurrentTimeslotID, storedProcess.UniqueProcesID);
+			}
 		}
 
 		/// <summary>
@@ -95,15 +113,6 @@ namespace ActivityTracker
 			_generalProcessList = _database.GetProcesses();
 
 			// se initializeaza lista cu timestamp-uri pentru procesere rulante curente
-			_timeslotsList = new List<Timeslot>();
-			foreach (StoredProcess process in _generalProcessList)
-            {
-				// se genereaza un timeslot nou procesului tinta
-				_database.AddNewTimeSlot(process.UniqueProcesID);
-
-				// se adauga in lista toate timeslot-urile unui proces
-				_timeslotsList.AddRange(_database.GetTimeSlotsForProcess(process.UniqueProcesID));
-			}
 		}
 
 		/// <summary>
@@ -131,20 +140,11 @@ namespace ActivityTracker
 					{
 						try
 						{
-							// it might be more performant to aggregate all new peocesses and add all in a single database
-							// query, but not really a priority
-							_database.AddProcess(p.ProcessName);
+							//We insert the new found process and also recover it's ID
+							string newProcessID = _database.AddProcess(p.ProcessName);
 
-							// Usually, we read a process from the database - along with it's ID.
-							// But when a process is first detected, there is no representation of it in the database.
-							// Because of that, we need to add it in the database, recover when id it was given and finally
-							// add that new process in the runtime list with processes
-							// The id is requited as to properly write timeslopts in the database for the new peocess as soon as
-							// it is detected
-
-							//TODO: Raducu
-
-							//_generalProcessList.Add(new StoredProcess( , ));
+							long newTimeslotID = _database.AddNewTimeSlot(newProcessID);
+							_generalProcessList.Add(new StoredProcess(newProcessID, p.ProcessName, newTimeslotID));
 						}
 						catch (Exception e)
 						{

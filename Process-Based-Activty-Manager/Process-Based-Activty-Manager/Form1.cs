@@ -15,12 +15,12 @@ namespace ActivityTracker
 	{
 
 		static private IPresenter _presenter;
-		private Process_Based_Activty_Manager.Form2 detailsWindow;
+		private Process_Based_Activty_Manager.FormProcessDetails detailsWindow;
 
 		public Form1()
 		{
 			InitializeComponent();
-			detailsWindow = new Process_Based_Activty_Manager.Form2();
+			//detailsWindow = new Process_Based_Activty_Manager.FormProcessDetails();
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -41,8 +41,10 @@ namespace ActivityTracker
 		// when a process is clicked a new window of type Form2 is opened for displaying information about the process
 		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (detailsWindow.IsDisposed)
-				detailsWindow = new Process_Based_Activty_Manager.Form2();
+			var timeslots= _presenter.RequestTimeslots(listBox1.SelectedItem.ToString());
+
+			detailsWindow = new Process_Based_Activty_Manager.FormProcessDetails(timeslots);
+
 			detailsWindow.Text = listBox1.SelectedItem.ToString();
 			detailsWindow.Show();
 		}
@@ -55,19 +57,29 @@ namespace ActivityTracker
 			}
 		}
 
-		public void updateProcessList(List<string> processNames)
+		public void AddProcessToList(List<string> processNames)
 		{
-			foreach (var process in processNames)
+			foreach(var name in processNames)
 			{
-				if (!listBox1.Items.Contains(process))
+				if (!listBox1.Items.Contains(name))
 				{
-					listBox1.Items.Add(process);
+					listBox1.Items.Add(name);
+				}
+			}
+
+			foreach (var displayedName in listBox1.Items)
+			{
+				if (!processNames.Contains(displayedName))
+				{
+					listBox1.Items.Remove(displayedName);
 				}
 			}
 		}
 
+
 		public void setPresenter(IPresenter presenter)
 		{
+		
 			_presenter = presenter;
 		}
 

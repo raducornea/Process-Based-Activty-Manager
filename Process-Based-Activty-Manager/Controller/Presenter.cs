@@ -23,8 +23,14 @@ namespace ActivityTracker
 		public void presenterTick()
 		{
 			_model.ScreenWindowsProcesses();
-			_view.UpdateProcessList(_model.ProcessNameList);
 
+			_view.DisplayProcess(_model.ProcessNameList);
+			_model.UpdateTimeSlots();
+		}
+
+		List<Timeslot> IPresenter.RequestTimeslots(string processName)
+		{
+			return _model.GetProcessTimeslots("id:" + processName);
 		}
 	}
 }

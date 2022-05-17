@@ -49,7 +49,7 @@ namespace ActivityTracker
 		/// </summary>
 		/// <param name="timeslotID"></param>
 		/// <param name="duration"></param>
-		void UpdateTimeSlot(int timeslotID, int duration);
+		void UpdateTimeSlots();
 
 		/// <summary>
 		/// Se seteaza prezentatorul - MVP Pattern

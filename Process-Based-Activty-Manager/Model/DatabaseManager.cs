@@ -73,14 +73,14 @@ namespace ActivityTracker
             SQLiteCommand command = new SQLiteCommand(queryUserProcesses, _connection);
             command.ExecuteNonQuery();
 
-            string queryTimestamps = "CREATE TABLE IF NOT EXISTS timestamps (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "pid VARCHAR(100), " +
-                "date_start REAL, " +
-                "date_stop REAL, " +
-                "FOREIGN KEY(pid) REFERENCES user_processes(id), " +
-                "UNIQUE (id, pid) " +
-            ")";
+            string queryTimestamps = @"  CREATE TABLE IF NOT EXISTS timestamps ( 
+                id INTEGER NOT NULL ,  
+                pid VARCHAR(100) NOT NULL,  
+                date_start REAL, 
+                date_stop REAL,  
+                FOREIGN KEY(pid) REFERENCES user_processes(id),  
+                PRIMARY KEY (id, pid)  
+                );";
             command = new SQLiteCommand(queryTimestamps, _connection);
             command.ExecuteNonQuery();
         }
@@ -89,16 +89,18 @@ namespace ActivityTracker
         /// Se adauga un nou proces in baza de date
         /// </summary>
         /// <param name="title"></param>
-        public void AddProcess(string title)
+        public string AddProcess(string title)
         {
             // trebuie pus si OR IGNORE in cazul in care nu e Unic
             string query = "INSERT OR IGNORE INTO user_processes ('id', 'title') VALUES(@id, @title)";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
-            command.Parameters.AddWithValue("@id", "id:" + title);
+            string newProcessID = "id:" + title;
+            command.Parameters.AddWithValue("@id", newProcessID);
             command.Parameters.AddWithValue("@title", title);
             var result = command.ExecuteNonQuery();
 
+            return newProcessID;
             // Console.WriteLine("Rows added: {0}", result);
         }
 
@@ -123,7 +125,9 @@ namespace ActivityTracker
                         string id = (result["id"]).ToString();
                         string title = (result["title"]).ToString();
 
-                        userProcesses.Add(new StoredProcess(id, title));
+                        long newTimeslotID = AddNewTimeSlot(id);
+
+                        userProcesses.Add(new StoredProcess(id, title, newTimeslotID));
                     }
                     catch(Exception e)
                     {
@@ -131,7 +135,6 @@ namespace ActivityTracker
                     }
                 }
             }
-
             return userProcesses;
         }
 
@@ -223,7 +226,7 @@ namespace ActivityTracker
                     try
                     {
                         Timeslot timeslot = new Timeslot(
-                            result["id"].ToString(),
+                            long.Parse(result["id"].ToString()),
                             result["pid"].ToString(),
                             long.Parse(result["date_start"].ToString()),
                             long.Parse(result["date_stop"].ToString())
@@ -245,18 +248,21 @@ namespace ActivityTracker
         /// Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data
         /// </summary>
         /// <param name="processID"></param>
-        public void AddNewTimeSlot(string processID)
+        public long AddNewTimeSlot(string processID)
         {
             long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
 
-            string query = "INSERT OR IGNORE INTO timestamps ('pid', 'date_start', 'date_stop') " +
-                "VALUES(@processID, @timestamp, @timestamp)";
+            string query = "INSERT OR IGNORE INTO timestamps ('id','pid', 'date_start', 'date_stop') " +
+                "VALUES(@ID,@processID, @timestamp, @timestamp)";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
+            command.Parameters.AddWithValue("@ID", timestamp);
             command.Parameters.AddWithValue("@processID", processID);
             command.Parameters.AddWithValue("@timestamp", timestamp);
 
             command.ExecuteNonQuery();
+
+            return timestamp;
         }
 
         /// <summary>
@@ -264,12 +270,20 @@ namespace ActivityTracker
         /// </summary>
         /// <param name="timeslotID"></param>
         /// <param name="duration"></param>
-        public void UpdateTimeSlot(int timeslotID, int duration)
+        public void UpdateTimeSlot(long timestampID, string processID)
         {
-            string query = "UPDATE timestamps " +
-                "SET date_stop = date_stop + (" + duration + ") " +
-                "WHERE id == " + timeslotID + " ";
+            long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+
+
+            string query = @"UPDATE timestamps  
+                            SET date_stop =  @timestamp
+                            WHERE id == @ID AND pid == @processID;";
+
             SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            command.Parameters.AddWithValue("@timestamp", timestamp);
+            command.Parameters.AddWithValue("@ID", timestampID);
+            command.Parameters.AddWithValue("@processID", processID);
 
             command.ExecuteNonQuery();
         }

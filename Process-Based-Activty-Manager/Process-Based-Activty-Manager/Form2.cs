@@ -11,33 +11,34 @@ using System.Windows.Forms;
 
 namespace Process_Based_Activty_Manager
 {
-    public partial class Form2 : Form
+    public partial class FormProcessDetails : Form
     {
 
         public Graphics timeSlotDisplayer;
         public Graphics graph;
         public Pen pen = new Pen(Color.Black, 1);
-        Bitmap surface;
+        public Bitmap surface;
 
-        public Form2()
+        List<Timeslot> _timeslots;
+
+        const int xSize = 500;
+        const int ySize = 60;
+
+        public FormProcessDetails(List<Timeslot> timeslots)
         {
             InitializeComponent();
 
-            //initializing the graphic display
-           
-            //200 is the amount we go back
-            initCanvas(500,60);
+            _timeslots = timeslots;
 
+            initCanvas();
         }
 
 
         //resizing the information for what we need
-        private void initCanvas(int x ,int y)
+        private void initCanvas()
         {
-
-
-            timeSlotDisplay.Width = x;
-            timeSlotDisplay.Height = y;
+            timeSlotDisplay.Width = xSize;
+            timeSlotDisplay.Height = ySize;
 
 
             timeSlotDisplayer = timeSlotDisplay.CreateGraphics();
@@ -55,66 +56,52 @@ namespace Process_Based_Activty_Manager
 
             //this is only for markers
             Point pointX1 = new Point(0,0);
-            Point pointX2 = new Point(x, 0);
+            Point pointX2 = new Point(xSize, 0);
             for(int hourIndex = 0; hourIndex< 6; hourIndex++)
             {
-                pointX1.Y += y/6;
-                pointX2.Y += y/6;
+                pointX1.Y += ySize / 6;
+                pointX2.Y += ySize / 6;
                 timeSlotDisplayer.DrawLine(pen, pointX1, pointX2);
                 graph.DrawLine(pen, pointX1, pointX2);
 
             }
 
-            Timeslot ceva1 = new Timeslot(100, 150, "ceva", "acolo");
-            Timeslot ceva2 = new Timeslot(200, 2000, "ceva", "acolo");
-            Timeslot ceva3 = new Timeslot(7500, 8000, "ceva", "acolo");
-            Timeslot ceva4 = new Timeslot(1000, 2400, "ceva", "acolo");
-
             List <Timeslot> list = new List<Timeslot>();
-            list.Add(ceva1);
-            list.Add(ceva2);
-            list.Add(ceva3);
-            list.Add(ceva4);
 
-
-            insertProcess(list, x, y);
+            insertProcess(_timeslots);
 
         }
 
 
-        private void insertProcess(List<Timeslot> times, int x, int y)
+        private void insertProcess(List<Timeslot> times)
         {
 
-            int currentTime = 10000;
-            int backTime = 5000;
+            long currentTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(); ;
+            long timelineSize = 5000;
 
-            int realSize = currentTime - backTime;
+            long realSize = currentTime - timelineSize;
+
             pen.Color = Color.Blue;
             SolidBrush blueBrush = new SolidBrush(Color.Blue);
             pen.Width = 5;
+
             foreach (Timeslot time in times)
             {
-
-
-                if (time.getStartTime() >= backTime)
+                if (time.getStartTime() >= realSize)
                 {
-                    int relativeStart = (int)((time.getStartTime() - backTime) * x / realSize);
-                    int relativeEnd = (int)((time.getEndTime()-backTime) * x / realSize);
+                    int relativeStart = (int)((time.getStartTime() - realSize) * xSize / timelineSize);
+                    int relativeEnd = (int)((time.getEndTime()- realSize) * xSize / timelineSize);
 
                     //MessageBox.Show(relativeStart.ToString() +" "+ x.ToString());
                     Point pointX1 = new Point(relativeStart, 0);
                     Point pointX2 = new Point(relativeEnd, 0);
 
-                    Point[] points = { pointX1, new Point(relativeStart, y), new Point(relativeEnd, y), pointX2 };
+                    Point[] points = { pointX1, new Point(relativeStart, ySize), new Point(relativeEnd, ySize), pointX2 };
                    
                     graph.FillPolygon(blueBrush, points);
-                  
                 }
             }
         }
-
-
-
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

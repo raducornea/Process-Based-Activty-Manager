@@ -15,5 +15,7 @@ namespace ActivityTracker
 		}
 
 		void presenterTick();
+
+		List<Timeslot> RequestTimeslots(string processName);
 	}
 }

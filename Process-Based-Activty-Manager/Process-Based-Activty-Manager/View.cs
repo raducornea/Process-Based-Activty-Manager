@@ -37,10 +37,12 @@ namespace ActivityTracker
 			Application.Run(_mainWindow);
 		}
 
-		void IView.UpdateProcessList(List<string> processNames)
+		void IView.DisplayProcess(List<string> processNames)
 		{
-			_mainWindow.updateProcessList(processNames);
+			_mainWindow.AddProcessToList(processNames);
 		}
+
+
 
 	}
 }

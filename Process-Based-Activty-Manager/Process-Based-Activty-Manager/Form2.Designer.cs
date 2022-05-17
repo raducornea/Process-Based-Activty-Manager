@@ -1,6 +1,6 @@
 ﻿namespace Process_Based_Activty_Manager
 {
-    partial class Form2
+    partial class FormProcessDetails
     {
         /// <summary>
         /// Required designer variable.

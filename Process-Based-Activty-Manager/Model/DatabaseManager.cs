@@ -1,65 +1,117 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Diagnostics;
 
 namespace ActivityTracker
 {
+    /// <summary>
+    /// Clasa pentru operatii directe cu baza de date, folosita 
+    /// pentru extragerea si afisarea informatiilor in interfata
+    /// </summary>
     public class DatabaseManager
     {
-        private SQLiteConnection connection;
-        private static DatabaseManager instance = null;
+        private SQLiteConnection _connection;
+        private static DatabaseManager _instance = null;
 
+        /// <summary>
+        /// Obtine instanta clasei sau creaza una noua - Singleton
+        /// </summary>
         public static DatabaseManager Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new DatabaseManager();
+                    _instance = new DatabaseManager();
                 }
-                return instance;
+                return _instance;
             }
         }
 
+        /// <summary>
+        /// Realizeaza o conexiune SQLite in functie de path-uri diferite (dinamice)
+        /// </summary>
         private DatabaseManager()
         {
-            connection = new SQLiteConnection("Data Source=database.sqlite3");
+            // trebuie avut in vedere ca aplicatia poate fi rulata de pe orice calculator, de aceea luam path-ul dinamic si nu-l setam ca absolute path
+            string path = Directory.GetCurrentDirectory() + @"\database.sqlite3";
+
+            // de asemenea, path-ul gasit este in ActivityManager, NU ActivityTracker. Am pus in "ActivtyManager\bin\Debug\netcoreapp3.1" database.sqlite3
+            _connection = new SQLiteConnection(@"Data Source=" + path);
+
             OpenConnection();
 
             if (!File.Exists("./database.sqlite3"))
             {
-                // da override la baza de date
-                SQLiteConnection.CreateFile("database.sqlite3"); 
-                System.Console.WriteLine("Database file created");
+                SQLiteConnection.CreateFile("database.sqlite3");
             }
+
+            // in cazul in care nu exista tabele, se vor crea
+            CreateTables();
         }
 
+        // TODO: call CloseConnection upon exiting program
         ~DatabaseManager()
 		{
+            Debug.WriteLine("Destructor la DatabaseManager");
             CloseConnection();
 		}
 
+        /// <summary>
+        /// Cand nu sunt tabele create, creaza-le automat
+        /// NOTE: there is not DATE type in SQLite. We use REAL instead
+        /// Docs: https://www.sqlite.org/lang_datefunc.html
+        /// </summary>
+        public void CreateTables()
+        {
+            string queryUserProcesses = "CREATE TABLE IF NOT EXISTS user_processes (" +
+                "id VARCHAR(100) PRIMARY KEY UNIQUE," +
+                "title VARCHAR(100) NOT NULL UNIQUE" +
+            ")";
+            SQLiteCommand command = new SQLiteCommand(queryUserProcesses, _connection);
+            command.ExecuteNonQuery();
+
+            string queryTimestamps = "CREATE TABLE IF NOT EXISTS timestamps (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "pid VARCHAR(100), " +
+                "date_start REAL, " +
+                "date_stop REAL, " +
+                "FOREIGN KEY(pid) REFERENCES user_processes(id), " +
+                "UNIQUE (id, pid) " +
+            ")";
+            command = new SQLiteCommand(queryTimestamps, _connection);
+            command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Se adauga un nou proces in baza de date
+        /// </summary>
+        /// <param name="title"></param>
         public void AddProcess(string title)
         {
-            string query = "INSERT INTO user_processes ('title') VALUES(@title)";
-            SQLiteCommand command = new SQLiteCommand(query, connection);
+            // trebuie pus si OR IGNORE in cazul in care nu e Unic
+            string query = "INSERT OR IGNORE INTO user_processes ('id', 'title') VALUES(@id, @title)";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
 
+            command.Parameters.AddWithValue("@id", "id:" + title);
             command.Parameters.AddWithValue("@title", title);
             var result = command.ExecuteNonQuery();
 
-            Console.WriteLine("Rows added: {0}", result);
+            // Console.WriteLine("Rows added: {0}", result);
         }
 
+        /// <summary>
+        /// Se obtin procesele din baza de date cu totul
+        /// </summary>
+        /// <returns></returns>
         public List<StoredProcess> GetProcesses()
         {
             List<StoredProcess> userProcesses = new List<StoredProcess>();
 
             string query = "SELECT * FROM user_processes";
-            SQLiteCommand command = new SQLiteCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
 
             SQLiteDataReader result = command.ExecuteReader();
             if (result.HasRows)
@@ -67,11 +119,10 @@ namespace ActivityTracker
                 while (result.Read())
                 {
                     try
-                    { 
-                        uint id = uint.Parse((result["id"]).ToString());
+                    {
+                        string id = (result["id"]).ToString();
                         string title = (result["title"]).ToString();
 
-                        // Console.WriteLine("Process Title: {0}", result["title"]);
                         userProcesses.Add(new StoredProcess(id, title));
                     }
                     catch(Exception e)
@@ -84,12 +135,16 @@ namespace ActivityTracker
             return userProcesses;
         }
 
+        /// <summary>
+        /// Obtine lista numelor proceselor pentru a le afisa pe interfata
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetProcessesNames()
         {
             List<string> userProcesses = new List<string>();
 
             string query = "SELECT title FROM user_processes";
-            SQLiteCommand command = new SQLiteCommand(query, connection);
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
 
             SQLiteDataReader result = command.ExecuteReader();
             if (result.HasRows)
@@ -111,29 +166,133 @@ namespace ActivityTracker
             return userProcesses;
         }
 
-        public uint getTotalTimeForProcess(StoredProcess process)
+        /// <summary>
+        /// Avem nevoie sa stim duratele de viata ale proceselor spre informarea utilizatorilor
+        /// </summary>
+        /// <param name="processID"></param>
+        /// <returns>Timpul rularii totale a aplicatiei de la inceput pana la prezent</returns>
+        public uint GetTotalTimeForProcess(string processID)
 		{
-            throw new Exception("Nobody done this");
-		}
-        
-        public List<Timeslot> gotTimeSlotsForProcess(StoredProcess process)
-		{
-            throw new Exception("Nobody done this");
+            uint timestampsSum = 0;
+
+            string query = "SELECT sum(date_stop - date_start) AS timestamps_sum " +
+                "FROM timestamps " +
+                "INNER JOIN user_processes ON " +
+                "timestamps.pid = user_processes.id " +
+                "WHERE pid == " + processID;
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            SQLiteDataReader result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    try
+                    {
+                        timestampsSum = uint.Parse(result["timestamps_sum"].ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.StackTrace);
+                    }
+                }
+            }
+
+            return timestampsSum;
         }
 
+        /// <summary>
+        /// Se obtin toate timestamp-urile pentru un proces, ca sa le vada utilizatorul
+        /// </summary>
+        /// <param name="processID"></param>
+        /// <returns>Lista tuturor timestamp-urilor</returns>
+        public List<Timeslot> GetTimeSlotsForProcess(string processID)
+		{
+            List<Timeslot> timestamps = new List<Timeslot>();
+
+            string query = "SELECT id, pid, date_start, date_stop " +
+                "FROM timestamps " +
+                "WHERE pid = '" + processID + "'";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            SQLiteDataReader result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    try
+                    {
+                        Timeslot timeslot = new Timeslot(
+                            result["id"].ToString(),
+                            result["pid"].ToString(),
+                            long.Parse(result["date_start"].ToString()),
+                            long.Parse(result["date_stop"].ToString())
+                        );
+                        
+                        timestamps.Add(timeslot);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.StackTrace);
+                    }
+                }
+            }
+
+            return timestamps;
+        }
+
+        /// <summary>
+        /// Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data
+        /// </summary>
+        /// <param name="processID"></param>
+        public void AddNewTimeSlot(string processID)
+        {
+            long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+
+            string query = "INSERT OR IGNORE INTO timestamps ('pid', 'date_start', 'date_stop') " +
+                "VALUES(@processID, @timestamp, @timestamp)";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            command.Parameters.AddWithValue("@processID", processID);
+            command.Parameters.AddWithValue("@timestamp", timestamp);
+
+            command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Pe parcursul aplicatiei e nevoie sa updatam si timestamp-urile din cand in cand, ca sa nu ramana aceleasi date
+        /// </summary>
+        /// <param name="timeslotID"></param>
+        /// <param name="duration"></param>
+        public void UpdateTimeSlot(int timeslotID, int duration)
+        {
+            string query = "UPDATE timestamps " +
+                "SET date_stop = date_stop + (" + duration + ") " +
+                "WHERE id == " + timeslotID + " ";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+
+            command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Porneste conexiunea cu baza de date
+        /// </summary>
         private void OpenConnection()
         {
-            if(connection.State != System.Data.ConnectionState.Open)
+            if(_connection.State != System.Data.ConnectionState.Open)
             {
-                connection.Open();
+                _connection.Open();
             }
         }
 
+        /// <summary>
+        /// Inchide conexiunea bazei de date
+        /// </summary>
         private void CloseConnection()
         {
-            if(connection.State != System.Data.ConnectionState.Closed)
+            if(_connection.State != System.Data.ConnectionState.Closed)
             {
-                connection.Close();
+                _connection.Close();
             }
         }
     }

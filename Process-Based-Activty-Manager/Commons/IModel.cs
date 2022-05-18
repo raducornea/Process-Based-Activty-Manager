@@ -11,15 +11,12 @@ namespace ActivityTracker
 		/// <summary>
 		/// Proprietate pentru obtinerea proceselor rulante curente
 		/// </summary>
-		List<StoredProcess> GeneralProcessList
+		List<StoredProcess> AllProcessesList
 		{
 			get;
 		}
 
-		/// <summary>
-		/// Proprietate pentru a primi numele proceselor curente
-		/// </summary>
-		List<string> ProcessNameList
+		List<string> ActiveProcessNames
 		{
 			get;
 		}

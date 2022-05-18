@@ -41,12 +41,15 @@ namespace ActivityTracker
 		// when a process is clicked a new window of type Form2 is opened for displaying information about the process
 		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var timeslots= _presenter.RequestTimeslots(listBox1.SelectedItem.ToString());
+		
+			if (listBox1.SelectedItem != null) { 
+				var timeslots = _presenter.RequestTimeslots(listBox1.SelectedItem.ToString());
 
-			detailsWindow = new Process_Based_Activty_Manager.FormProcessDetails(timeslots);
+				detailsWindow = new Process_Based_Activty_Manager.FormProcessDetails(timeslots);
 
-			detailsWindow.Text = listBox1.SelectedItem.ToString();
-			detailsWindow.Show();
+				detailsWindow.Text = listBox1.SelectedItem.ToString();
+				detailsWindow.Show();
+			}
 		}
 
 		private void sampleTimer_Tick(object sender, EventArgs e)
@@ -67,12 +70,20 @@ namespace ActivityTracker
 				}
 			}
 
+
+			List<object> toRemoveList = new List<object>();
+
 			foreach (var displayedName in listBox1.Items)
 			{
 				if (!processNames.Contains(displayedName))
 				{
-					listBox1.Items.Remove(displayedName);
+					toRemoveList.Add(displayedName);
 				}
+			}
+
+			foreach( var displayedName in toRemoveList)
+			{
+				listBox1.Items.Remove(displayedName);
 			}
 		}
 

@@ -77,7 +77,7 @@ namespace Process_Based_Activty_Manager
         {
 
             long currentTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(); ;
-            long timelineSize = 5000;
+            long timelineSize = 3000;
 
             long realSize = currentTime - timelineSize;
 

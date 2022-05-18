@@ -9,34 +9,57 @@ namespace ActivityTracker
 	/// </summary>
 	public class Model : IModel
 	{
-		// current processes running ONLY
-		// We need to avoid using the database very often
-		// so this is it's in memory representation
-		// Any diference between the database and this is a big problem
-		// Properties
-		private List<StoredProcess> _generalProcessList;   //This list is supposed to be a mirror of the database list of processes
-														   //Any deviation is a big problem
+		private CompositeProcessList _generalProcessList;
+
 		private IPresenter _presenter;
 		private DatabaseManager _database;
 
 		/// <summary>
-		/// Proprietate pentru obtinerea proceselor rulante curente
+		/// Constructor pentru Model - trebuie initializata si lista de timestamp-uri, fiind prima rulare a programului
 		/// </summary>
-		public List<StoredProcess> GeneralProcessList
+		public Model()
 		{
-			get { return _generalProcessList; }
+			// se obtine instanta bazei de date
+			_database = DatabaseManager.Instance;
+
+			// For performance reasons we synchronize with the database only once at the start of the program.
+			// All the processes here don't have an active timestamp
+
+			_generalProcessList = new CompositeProcessList();
+
+			_generalProcessList.AddDormantProcesses(_database.GetProcesses());
+		}
+
+		public List<StoredProcess> AllProcessesList
+		{
+			get { return _generalProcessList.AllProcessesList; }
 		}
 
 		/// <summary>
 		/// Proprietate pentru a primi numele proceselor curente
 		/// </summary>
-		public List<string> ProcessNameList
+		List<string> ActiveProcessNames
 		{
 			get
 			{
 				List<string> processNames = new List<string>();
+				foreach (StoredProcess storedProcess in _generalProcessList.ActiveProcessesList)
+				{
+					processNames.Add(storedProcess.ProcessName);
+				}
+				return processNames;
+			}
+		}
 
-				foreach (StoredProcess storedProcess in _generalProcessList)
+		List<string> IModel.ActiveProcessNames => ActiveProcessNames;
+
+
+		public List<string> DormandProcessNames
+		{
+			get
+			{
+				List<string> processNames = new List<string>();
+				foreach (StoredProcess storedProcess in _generalProcessList.DormantProcessesList)
 				{
 					processNames.Add(storedProcess.ProcessName);
 				}
@@ -50,13 +73,14 @@ namespace ActivityTracker
 			{
 				List<long> timeslotIDs = new List<long>();
 
-				foreach (StoredProcess storedProcess in _generalProcessList)
+				foreach (ActiveProcess activeProcess in _generalProcessList.ActiveProcessesList)
 				{
-					timeslotIDs.Add(storedProcess.CurrentTimeslotID);
+					timeslotIDs.Add(activeProcess.CurrentTimeslotID);
 				}
 				return timeslotIDs;
 			}
 		}
+
 
 
 		/// <summary>
@@ -95,25 +119,13 @@ namespace ActivityTracker
 		/// <param name="duration"></param>
 		void IModel.UpdateTimeSlots() 
 		{
-			foreach (var storedProcess in _generalProcessList)
+			foreach (var activeProcess in _generalProcessList.ActiveProcessesList)
 			{
-				_database.UpdateTimeSlot(storedProcess.CurrentTimeslotID, storedProcess.UniqueProcesID);
+				_database.UpdateTimeSlot(activeProcess.CurrentTimeslotID, activeProcess.UniqueProcesID);
 			}
 		}
 
-		/// <summary>
-		/// Constructor pentru Model - trebuie initializata si lista de timestamp-uri, fiind prima rulare a programului
-		/// </summary>
-		public Model()
-		{
-			// se obtine instanta bazei de date
-			_database = DatabaseManager.Instance;
 
-			// For performance reasons we synchronize with the database only once at the start of the program.
-			_generalProcessList = _database.GetProcesses();
-
-			// se initializeaza lista cu timestamp-uri pentru procesere rulante curente
-		}
 
 		/// <summary>
 		/// Se seteaza prezentatorul - MVP Pattern
@@ -125,42 +137,72 @@ namespace ActivityTracker
 		}
 
 		/// <summary>
-		/// Se obtin toate procesele rulante curente si se adauga in baza de date
-		/// TODO: nu ar trebui sa le transmita mai departe si pe interfata cu user-ul????
+		/// The core of our fuctionality
 		/// </summary>
 		public void ScreenWindowsProcesses()
 		{
-			try
-			{
-				Process[] processCollection = Process.GetProcesses();
-				foreach (Process p in processCollection)
-				{
+			//We recover all active processes
+			var processCollection = new List<Process>(Process.GetProcesses());
 
-					if (!ProcessNameList.Contains(p.ProcessName))
+			foreach (Process p in processCollection)
+			{
+				//Daca e in lista de procese recuperate dar nu e in lista de procese active, fa logica
+				if (!ActiveProcessNames.Contains(p.ProcessName))
+				{
+					StoredProcess storedProcess = null;
+
+					//Daca nu exista deloc in baza de date
+					if (!DormandProcessNames.Contains(p.ProcessName))
 					{
 						try
 						{
 							//We insert the new found process and also recover it's ID
-							string newProcessID = _database.AddProcess(p.ProcessName);
+							string processID = _database.AddProcess(p.ProcessName);
 
-							long newTimeslotID = _database.AddNewTimeSlot(newProcessID);
-							_generalProcessList.Add(new StoredProcess(newProcessID, p.ProcessName, newTimeslotID));
+							//We also add it in the dormand process list
+							storedProcess = new StoredProcess(processID, p.ProcessName);
+
+							_generalProcessList.AddDormantProcesses(storedProcess);
 						}
 						catch (Exception e)
 						{
 							Console.WriteLine("Model exception" + e.Message);
 						}
-
-						Console.WriteLine("Am adaugat {0}", p.ProcessName);
+						Console.WriteLine("Am adaugat {0} in baza de date.", p.ProcessName);
 					}
-				}
-				Console.WriteLine("Ciclu terminat");
+					else
+					{
+						storedProcess = _database.GetProcessFromName(p.ProcessName);
+					}
 
+					long newTimeslotID = _database.AddNewTimeSlot(storedProcess.UniqueProcesID);
+
+					//Activam procesul 
+					_generalProcessList.ActivateProcess(storedProcess, p, newTimeslotID);
+				}
 			}
-			catch (Exception e)
+
+
+			List<string> processCollectionNames = new List<string>();
+
+			foreach( var process in processCollection)
 			{
-				Console.WriteLine(e.Message);
+				processCollectionNames.Add(process.ProcessName);
 			}
+
+
+			foreach (ActiveProcess activeProcess in _generalProcessList.ActiveProcessesList)
+			{
+				if (!processCollectionNames.Contains(activeProcess.ProcessName))
+				{
+					_generalProcessList.DeactivateProcess(activeProcess);
+
+					Console.WriteLine("Am dezactivat procesul {0}", activeProcess.ProcessName);
+				}
+			}
+			_generalProcessList.UpdateList();
+
+			Console.WriteLine("Ciclu terminat");
 		}
 	}
 }

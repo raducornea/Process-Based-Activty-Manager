@@ -24,7 +24,7 @@ namespace ActivityTracker
 		{
 			_model.ScreenWindowsProcesses();
 
-			_view.DisplayProcess(_model.ProcessNameList);
+			_view.DisplayProcess(_model.ActiveProcessNames);
 			_model.UpdateTimeSlots();
 		}
 

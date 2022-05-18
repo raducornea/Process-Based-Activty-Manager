@@ -108,6 +108,40 @@ namespace ActivityTracker
         /// Se obtin procesele din baza de date cu totul
         /// </summary>
         /// <returns></returns>
+        /// 
+        public StoredProcess GetProcessFromName(string name)
+		{
+            StoredProcess storedProcess = null;
+
+            string query = @"SELECT * FROM user_processes
+                             WHERE title == @title";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            command.Parameters.AddWithValue("@title", name);
+       
+            SQLiteDataReader result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                result.Read();
+                if (result.StepCount > 1)
+				{
+                    throw new Exception("Processes with the name name in the database.");
+				}
+                try
+                {
+                    string id = (result["id"]).ToString();
+                    string title = (result["title"]).ToString();
+
+                    storedProcess =  new StoredProcess(id, title);
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+
+            return storedProcess;
+        }
+
         public List<StoredProcess> GetProcesses()
         {
             List<StoredProcess> userProcesses = new List<StoredProcess>();
@@ -125,9 +159,7 @@ namespace ActivityTracker
                         string id = (result["id"]).ToString();
                         string title = (result["title"]).ToString();
 
-                        long newTimeslotID = AddNewTimeSlot(id);
-
-                        userProcesses.Add(new StoredProcess(id, title, newTimeslotID));
+                        userProcesses.Add(new StoredProcess(id, title));
                     }
                     catch(Exception e)
                     {

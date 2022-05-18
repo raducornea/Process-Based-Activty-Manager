@@ -76,6 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveProcess.cs" />
+    <Compile Include="CompositeList.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="IPresenter.cs" />
     <Compile Include="IView.cs" />

@@ -10,7 +10,7 @@ namespace ActivityTracker
 	public class View : IView
 	{
 		private IPresenter _presenter;
-		private Form1 _mainWindow;
+		private MainForm _mainWindow;
 
 		public View()
 		{
@@ -21,28 +21,31 @@ namespace ActivityTracker
 		{
 			_presenter = presenter;
 			_mainWindow.setPresenter(_presenter);
-
 		}
 
 		[STAThread]
 		void init()
         {
-			 Application.EnableVisualStyles();
+			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			_mainWindow = new Form1();
+			_mainWindow = new MainForm();
 		}
 
-		void IView.Display()
+		//INTERFACE 
+
+		public void Display()
 		{
 			Application.Run(_mainWindow);
 		}
 
-		void IView.DisplayProcess(List<string> processNames)
+		public void DisplayActiveProcess(List<string> processNames)
 		{
 			_mainWindow.AddProcessToList(processNames);
 		}
 
-
-
+		public void DisplayAllProcess(List<string> processNames)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

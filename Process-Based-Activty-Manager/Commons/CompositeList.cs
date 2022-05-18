@@ -17,6 +17,7 @@ namespace ActivityTracker
 		{
 			_dormantProcessList = new List<StoredProcess>();
 			_activeProcessList = new List<ActiveProcess>();
+
 			_activeProcessToRemove = new List<ActiveProcess>();
 		}
 
@@ -29,7 +30,6 @@ namespace ActivityTracker
 				allProcessesList.Concat(_activeProcessList);
 				return allProcessesList;
 			}
-
 		}
 
 		public List<StoredProcess> DormantProcessesList
@@ -56,11 +56,11 @@ namespace ActivityTracker
 
 		public void DeactivateProcess(ActiveProcess activeProcess)
 		{
-			_activeProcessToRemove.Add(activeProcess);
-			_dormantProcessList.Add(activeProcess);//not sure what happens here
+			_activeProcessToRemove.Add(activeProcess);	//Everything here will be deleted when the 
+			_dormantProcessList.Add(activeProcess);		//not sure what happens here
 		}
 
-		public void UpdateList()
+		public void ReadyToRemove()
 		{
 			foreach(var activeProcess in _activeProcessToRemove)
 			{
@@ -76,7 +76,7 @@ namespace ActivityTracker
 			_dormantProcessList.Concat(newDormantProcesses);
 		}
 
-		public void AddDormantProcesses(StoredProcess newDormantProcess)
+		public void AddDormantProcess(StoredProcess newDormantProcess)
 		{
 			_dormantProcessList.Add(newDormantProcess);
 		}

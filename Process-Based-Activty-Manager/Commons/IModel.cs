@@ -7,11 +7,27 @@ namespace ActivityTracker
 	/// </summary>
 	public interface IModel
 	{
+		/// <summary>
+		/// Se seteaza prezentatorul - MVP Pattern
+		/// </summary>
+		/// <param name="presenter"></param>
+		void SetPresenter(IPresenter presenter);
+
 
 		/// <summary>
 		/// Proprietate pentru obtinerea proceselor rulante curente
 		/// </summary>
 		List<StoredProcess> AllProcessesList
+		{
+			get;
+		}
+
+		List<string> AllProcessNames
+		{
+			get;
+		}
+
+		List<ActiveProcess> ActiveProcess
 		{
 			get;
 		}
@@ -24,22 +40,16 @@ namespace ActivityTracker
 		/// <summary>
 		/// Se cauta obtinerea timpului total petrecut pe un anumit proces din baza de date, in functie de numele lui
 		/// </summary>
-		/// <param name="processID"></param>
+		/// <param name="processName"></param>
 		/// <returns></returns>
-		uint GetProcessTotalTime(string processID);
+		uint GetProcessTotalTime(string processName);
 
 		/// <summary>
 		/// Se cauta toate timestamp-urile unui proces spre a fi afisate pe interfata grafica
 		/// </summary>
-		/// <param name="processID"></param>
+		/// <param name="processName"></param>
 		/// <returns></returns>
-		List<Timeslot> GetProcessTimeslots(string processID);
-
-		/// <summary>
-		/// Se adauga un timeslot nou - posibil atunci cand apare un nou proces pe fundal
-		/// </summary>
-		/// <param name="processID"></param>
-		void AddNewTimeSlot(string processID);
+		List<Timeslot> GetProcessTimeslots(string processName);
 
 		/// <summary>
 		/// Se updateaza timeslot-ul din baza de data - mai precis, se modifica durata de executie in functie de end time
@@ -49,15 +59,9 @@ namespace ActivityTracker
 		void UpdateTimeSlots();
 
 		/// <summary>
-		/// Se seteaza prezentatorul - MVP Pattern
-		/// </summary>
-		/// <param name="presenter"></param>
-		void SetPresenter(IPresenter presenter);
-
-		/// <summary>
 		/// Se obtin toate procesele rulante curente si se adauga in baza de date
-		/// TODO: nu ar trebui sa le transmita mai departe si pe interfata cu user-ul????
+		///
 		/// </summary>
-		void ScreenWindowsProcesses();
+		void ScreenProcesses();
 	}
 }

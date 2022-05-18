@@ -1,5 +1,4 @@
-﻿using ActivityTracker;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,27 +8,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Process_Based_Activty_Manager
+namespace ActivityTracker
 {
-    public partial class FormProcessDetails : Form
+    public partial class DetailsForm : Form
     {
+        static private IPresenter _presenter;
+        public void setPresenter(IPresenter presenter)
+        {
+            _presenter = presenter;
+        }
 
         public Graphics timeSlotDisplayer;
-        public Graphics graph;
+        public Graphics graphics;
         public Pen pen = new Pen(Color.Black, 1);
         public Bitmap surface;
 
-        List<Timeslot> _timeslots;
-
-        const int xSize = 500;
+        const int xSize = 900;
         const int ySize = 60;
 
-        public FormProcessDetails(List<Timeslot> timeslots)
+        public DetailsForm()
         {
             InitializeComponent();
-
-            _timeslots = timeslots;
-
             initCanvas();
         }
 
@@ -48,7 +47,7 @@ namespace Process_Based_Activty_Manager
 
             surface = new Bitmap(timeSlotDisplay.Width, timeSlotDisplay.Height);
 
-            graph = Graphics.FromImage(surface);
+            graphics = Graphics.FromImage(surface);
 
             timeSlotDisplay.BackgroundImage = surface;
             timeSlotDisplay.BackgroundImageLayout = ImageLayout.None;
@@ -62,19 +61,20 @@ namespace Process_Based_Activty_Manager
                 pointX1.Y += ySize / 6;
                 pointX2.Y += ySize / 6;
                 timeSlotDisplayer.DrawLine(pen, pointX1, pointX2);
-                graph.DrawLine(pen, pointX1, pointX2);
+                graphics.DrawLine(pen, pointX1, pointX2);
 
             }
 
             List <Timeslot> list = new List<Timeslot>();
 
-            insertProcess(_timeslots);
+          //  insertProcess(_timeslots);
 
         }
 
 
-        private void insertProcess(List<Timeslot> times)
+        public void displayTimeslots(List<Timeslot> times)
         {
+             //graphics.Clear(Color.Transparent);
 
             long currentTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(); ;
             long timelineSize = 3000;
@@ -98,7 +98,7 @@ namespace Process_Based_Activty_Manager
 
                     Point[] points = { pointX1, new Point(relativeStart, ySize), new Point(relativeEnd, ySize), pointX2 };
                    
-                    graph.FillPolygon(blueBrush, points);
+                    graphics.FillPolygon(blueBrush, points);
                 }
             }
         }

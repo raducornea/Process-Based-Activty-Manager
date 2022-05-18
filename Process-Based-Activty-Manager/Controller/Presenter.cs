@@ -7,12 +7,6 @@ namespace ActivityTracker
 	{
 		private IView _view;
 		private IModel _model;
-		private List<string> _processesFromDatabase;
-
-		List<string> IPresenter.ComputerProcesses
-		{
-			get { return _processesFromDatabase; }
-		}
 
 		public Presenter(IView view, IModel model)
 		{
@@ -20,17 +14,22 @@ namespace ActivityTracker
 			_model = model;
 		}
 
+		//This fuction works periodically, called by a timer in the main form.
 		public void presenterTick()
 		{
-			_model.ScreenWindowsProcesses();
+			//Update the process lists
+			_model.ScreenProcesses();
 
-			_view.DisplayProcess(_model.ActiveProcessNames);
+			//Display the updated process lists
+			_view.DisplayActiveProcess(_model.ActiveProcessNames);
+
+			//Update the timeslots
 			_model.UpdateTimeSlots();
 		}
 
-		List<Timeslot> IPresenter.RequestTimeslots(string processName)
+		public List<Timeslot> RequestTimeslots(string processName)
 		{
-			return _model.GetProcessTimeslots("id:" + processName);
+			return _model.GetProcessTimeslots(processName);
 		}
 	}
 }

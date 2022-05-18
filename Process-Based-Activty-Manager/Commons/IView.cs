@@ -10,7 +10,8 @@ namespace ActivityTracker
 	{
 		void setPresenter(IPresenter presenter);
 		void Display();
-		void DisplayProcess(List<string> processNames);
+		void DisplayActiveProcess(List<string> processNames);
+		void DisplayAllProcess(List<string> processNames);
 
 	}
 }

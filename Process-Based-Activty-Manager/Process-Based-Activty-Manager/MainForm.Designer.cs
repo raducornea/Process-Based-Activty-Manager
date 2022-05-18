@@ -1,7 +1,7 @@
 ﻿
 namespace ActivityTracker
 {
-	partial class Form1
+	partial class MainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -35,7 +35,7 @@ namespace ActivityTracker
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.listBoxActiveProcesses = new System.Windows.Forms.ListBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.sampleTimer = new System.Windows.Forms.Timer(this.components);
@@ -85,7 +85,7 @@ namespace ActivityTracker
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.Add(this.listBox1);
+			this.tabPage1.Controls.Add(this.listBoxActiveProcesses);
 			this.tabPage1.Location = new System.Drawing.Point(4, 25);
 			this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
 			this.tabPage1.Name = "tabPage1";
@@ -95,16 +95,16 @@ namespace ActivityTracker
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
-			// listBox1
+			// listBoxActiveProcesses
 			// 
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.ItemHeight = 16;
-			this.listBox1.Location = new System.Drawing.Point(4, 4);
-			this.listBox1.Margin = new System.Windows.Forms.Padding(4);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(773, 372);
-			this.listBox1.TabIndex = 0;
-			this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+			this.listBoxActiveProcesses.FormattingEnabled = true;
+			this.listBoxActiveProcesses.ItemHeight = 16;
+			this.listBoxActiveProcesses.Location = new System.Drawing.Point(4, 4);
+			this.listBoxActiveProcesses.Margin = new System.Windows.Forms.Padding(4);
+			this.listBoxActiveProcesses.Name = "listBoxActiveProcesses";
+			this.listBoxActiveProcesses.Size = new System.Drawing.Size(773, 372);
+			this.listBoxActiveProcesses.TabIndex = 0;
+			this.listBoxActiveProcesses.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
 			// 
 			// tabPage2
 			// 
@@ -133,7 +133,7 @@ namespace ActivityTracker
 			this.sampleTimer.Interval = 3000;
 			this.sampleTimer.Tick += new System.EventHandler(this.sampleTimer_Tick);
 			// 
-			// Form1
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -142,8 +142,8 @@ namespace ActivityTracker
 			this.Controls.Add(this.userMenu);
 			this.MainMenuStrip = this.userMenu;
 			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.Name = "Form1";
-			this.Text = "Form1";
+			this.Name = "MainForm";
+			this.Text = "Process Tracker";
 			this.userMenu.ResumeLayout(false);
 			this.userMenu.PerformLayout();
 			this.tabControl1.ResumeLayout(false);
@@ -161,7 +161,7 @@ namespace ActivityTracker
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxActiveProcesses;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.RichTextBox richTextBox1;
 		private System.Windows.Forms.Timer sampleTimer;

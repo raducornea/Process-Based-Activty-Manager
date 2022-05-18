@@ -9,11 +9,6 @@ namespace ActivityTracker
 
 	public interface IPresenter
 	{
-		List<string> ComputerProcesses
-		{
-			get;
-		}
-
 		void presenterTick();
 
 		List<Timeslot> RequestTimeslots(string processName);

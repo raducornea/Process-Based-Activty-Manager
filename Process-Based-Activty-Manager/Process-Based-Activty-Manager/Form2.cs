@@ -125,5 +125,10 @@ namespace Process_Based_Activty_Manager
         {
 
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

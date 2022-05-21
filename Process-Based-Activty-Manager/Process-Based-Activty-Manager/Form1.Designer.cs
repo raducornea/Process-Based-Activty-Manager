@@ -1,6 +1,7 @@
-﻿namespace ActivityTracker
+﻿
+namespace ActivityTracker
 {
-	partial class DetailsForm
+	partial class MainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,25 +29,33 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.components = new System.ComponentModel.Container();
+			this.userMenu = new System.Windows.Forms.MenuStrip();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.timeSlotDisplay = new System.Windows.Forms.PictureBox();
-			this.menuStrip1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.timeSlotDisplay)).BeginInit();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.listBoxActiveProcesses = new System.Windows.Forms.ListBox();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+			this.sampleTimer = new System.Windows.Forms.Timer(this.components);
+			this.userMenu.SuspendLayout();
+			this.tabControl1.SuspendLayout();
+			this.tabPage1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// menuStrip1
+			// userMenu
 			// 
-			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
-			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.userMenu.ImageScalingSize = new System.Drawing.Size(19, 19);
+			this.userMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem});
-			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-			this.menuStrip1.Size = new System.Drawing.Size(982, 28);
-			this.menuStrip1.TabIndex = 0;
-			this.menuStrip1.Text = "menuStrip1";
+			this.userMenu.Location = new System.Drawing.Point(0, 0);
+			this.userMenu.Name = "userMenu";
+			this.userMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+			this.userMenu.Size = new System.Drawing.Size(800, 28);
+			this.userMenu.TabIndex = 0;
+			this.userMenu.Text = "menuStrip1";
 			// 
 			// optionsToolStripMenuItem
 			// 
@@ -55,48 +64,107 @@
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
 			this.optionsToolStripMenuItem.Text = "Options";
+			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
 			// 
 			// helpToolStripMenuItem
 			// 
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			this.helpToolStripMenuItem.Size = new System.Drawing.Size(123, 26);
 			this.helpToolStripMenuItem.Text = "Help";
-			this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
 			// 
-			// timeSlotDisplay
+			// tabControl1
 			// 
-			this.timeSlotDisplay.Location = new System.Drawing.Point(47, 49);
-			this.timeSlotDisplay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.timeSlotDisplay.Name = "timeSlotDisplay";
-			this.timeSlotDisplay.Size = new System.Drawing.Size(667, 74);
-			this.timeSlotDisplay.TabIndex = 1;
-			this.timeSlotDisplay.TabStop = false;
-			this.timeSlotDisplay.Click += new System.EventHandler(this.pictureBox1_Click);
+			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Location = new System.Drawing.Point(0, 33);
+			this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+			this.tabControl1.Name = "tabControl1";
+			this.tabControl1.SelectedIndex = 0;
+			this.tabControl1.Size = new System.Drawing.Size(800, 422);
+			this.tabControl1.TabIndex = 2;
 			// 
-			// DetailsForm
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.listBoxActiveProcesses);
+			this.tabPage1.Location = new System.Drawing.Point(4, 25);
+			this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+			this.tabPage1.Size = new System.Drawing.Size(792, 393);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "tabPage1";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// listBoxActiveProcesses
+			// 
+			this.listBoxActiveProcesses.FormattingEnabled = true;
+			this.listBoxActiveProcesses.ItemHeight = 16;
+			this.listBoxActiveProcesses.Location = new System.Drawing.Point(4, 4);
+			this.listBoxActiveProcesses.Margin = new System.Windows.Forms.Padding(4);
+			this.listBoxActiveProcesses.Name = "listBoxActiveProcesses";
+			this.listBoxActiveProcesses.Size = new System.Drawing.Size(773, 372);
+			this.listBoxActiveProcesses.TabIndex = 0;
+			this.listBoxActiveProcesses.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.richTextBox1);
+			this.tabPage2.Location = new System.Drawing.Point(4, 25);
+			this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+			this.tabPage2.Size = new System.Drawing.Size(792, 393);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "tabPage2";
+			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// richTextBox1
+			// 
+			this.richTextBox1.Location = new System.Drawing.Point(4, 7);
+			this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
+			this.richTextBox1.Name = "richTextBox1";
+			this.richTextBox1.Size = new System.Drawing.Size(773, 374);
+			this.richTextBox1.TabIndex = 2;
+			this.richTextBox1.Text = "";
+			// 
+			// sampleTimer
+			// 
+			this.sampleTimer.Enabled = true;
+			this.sampleTimer.Interval = 3000;
+			this.sampleTimer.Tick += new System.EventHandler(this.sampleTimer_Tick);
+			// 
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(982, 450);
-			this.Controls.Add(this.timeSlotDisplay);
-			this.Controls.Add(this.menuStrip1);
-			this.MainMenuStrip = this.menuStrip1;
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-			this.Name = "DetailsForm";
-			this.Text = "Form2";
-			this.menuStrip1.ResumeLayout(false);
-			this.menuStrip1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.timeSlotDisplay)).EndInit();
+			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.userMenu);
+			this.MainMenuStrip = this.userMenu;
+			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.Name = "MainForm";
+			this.Text = "Process Tracker";
+			this.userMenu.ResumeLayout(false);
+			this.userMenu.PerformLayout();
+			this.tabControl1.ResumeLayout(false);
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-		private System.Windows.Forms.PictureBox timeSlotDisplay;
+        private System.Windows.Forms.MenuStrip userMenu;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ListBox listBoxActiveProcesses;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+		private System.Windows.Forms.Timer sampleTimer;
 	}
 }
+

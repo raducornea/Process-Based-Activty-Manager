@@ -27,7 +27,7 @@ namespace ActivityTracker
 			get{
 				List<StoredProcess> allProcessesList = _dormantProcessList;
 
-				allProcessesList.Concat(_activeProcessList);
+				allProcessesList.AddRange(_activeProcessList);
 				return allProcessesList;
 			}
 		}
@@ -73,7 +73,7 @@ namespace ActivityTracker
 
 		public void AddDormantProcesses(List<StoredProcess> newDormantProcesses)
 		{
-			_dormantProcessList.Concat(newDormantProcesses);
+			_dormantProcessList.AddRange(newDormantProcesses);
 		}
 
 		public void AddDormantProcess(StoredProcess newDormantProcess)

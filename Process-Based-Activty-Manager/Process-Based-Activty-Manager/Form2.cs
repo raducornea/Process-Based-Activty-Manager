@@ -7,102 +7,110 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace ActivityTracker
 {
-	public partial class MainForm : Form
-	{
+    public partial class DetailsForm : Form
+    {
+        static private IPresenter _presenter;
+        public void setPresenter(IPresenter presenter)
+        {
+            _presenter = presenter;
+        }
 
-		static private IPresenter _presenter;
-		private DetailsForm currentDetailsWindow;
+        public Graphics timeSlotDisplayer;
+        public Graphics graphics;
+        public Pen pen = new Pen(Color.Black, 1);
+        public Bitmap surface;
 
-		public MainForm()
-		{
-			InitializeComponent();
-		}
+        const int xSize = 900;
+        const int ySize = 60;
 
-		public void setPresenter(IPresenter presenter)
-		{
-			_presenter = presenter;
-		}
-
-		//TOOL MENU
-		private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		//ACTIVE PROCESS LIST
-
-		// when a process is clicked a new window of type Form2 is opened for displaying information about the process
-		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (listBoxActiveProcesses.SelectedItem != null) {
-				//We close the old window
-
-				if(currentDetailsWindow != null) { 
-					currentDetailsWindow.Close();
-
-				}
-		
-
-				//And open a new updated window
-				currentDetailsWindow = new DetailsForm();
-
-				var timeslots = _presenter.RequestTimeslots(listBoxActiveProcesses.SelectedItem.ToString());
-				currentDetailsWindow.displayTimeslots(timeslots);
-
-				currentDetailsWindow.Text = listBoxActiveProcesses.SelectedItem.ToString();
-				currentDetailsWindow.Show();
-			}
-		}
-
-		//Here we run the recurent logic of this aplication (witch is most of 
-		private void sampleTimer_Tick(object sender, EventArgs e)
-		{
-			if (_presenter != null)
-			{
-				_presenter.presenterTick();
+        public DetailsForm()
+        {
+            InitializeComponent();
+            initCanvas();
+        }
 
 
-			//	if (currentDetailsWindow != null)
-			//	{
-					//Multithreaded issues
-					//var timeslots = _presenter.RequestTimeslots(listBoxActiveProcesses.SelectedItem.ToString());
-				//	currentDetailsWindow.displayTimeslots(timeslots);
-			//	}
-			}
-		}
-
-		public void AddProcessToList(List<string> processNames)
-		{
-			foreach(var name in processNames)
-			{
-				if (!listBoxActiveProcesses.Items.Contains(name))
-				{
-					listBoxActiveProcesses.Items.Add(name);
-				}
-			}
+        //resizing the information for what we need
+        private void initCanvas()
+        {
+            timeSlotDisplay.Width = xSize;
+            timeSlotDisplay.Height = ySize;
 
 
-			List<object> toRemoveList = new List<object>();
+            timeSlotDisplayer = timeSlotDisplay.CreateGraphics();
 
-			foreach (var displayedName in listBoxActiveProcesses.Items)
-			{
-				if (!processNames.Contains(displayedName))
-				{
-					toRemoveList.Add(displayedName);
-				}
-			}
+            timeSlotDisplayer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            pen.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
 
-			foreach( var displayedName in toRemoveList)
-			{
-				listBoxActiveProcesses.Items.Remove(displayedName);
-			}
-		}
+            surface = new Bitmap(timeSlotDisplay.Width, timeSlotDisplay.Height);
+
+            graphics = Graphics.FromImage(surface);
+
+            timeSlotDisplay.BackgroundImage = surface;
+            timeSlotDisplay.BackgroundImageLayout = ImageLayout.None;
 
 
+            //this is only for markers
+            Point pointX1 = new Point(0,0);
+            Point pointX2 = new Point(xSize, 0);
+            for(int hourIndex = 0; hourIndex< 6; hourIndex++)
+            {
+                pointX1.Y += ySize / 6;
+                pointX2.Y += ySize / 6;
+                timeSlotDisplayer.DrawLine(pen, pointX1, pointX2);
+                graphics.DrawLine(pen, pointX1, pointX2);
 
-	}
+            }
+
+            List <Timeslot> list = new List<Timeslot>();
+
+          //  insertProcess(_timeslots);
+
+        }
+
+
+        public void displayTimeslots(List<Timeslot> times)
+        {
+             //graphics.Clear(Color.Transparent);
+
+            long currentTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(); ;
+            long timelineSize = 3000;
+
+            long realSize = currentTime - timelineSize;
+
+            pen.Color = Color.Blue;
+            SolidBrush blueBrush = new SolidBrush(Color.Blue);
+            pen.Width = 5;
+
+            foreach (Timeslot time in times)
+            {
+                if (time.getStartTime() >= realSize)
+                {
+                    int relativeStart = (int)((time.getStartTime() - realSize) * xSize / timelineSize);
+                    int relativeEnd = (int)((time.getEndTime()- realSize) * xSize / timelineSize);
+
+                    //MessageBox.Show(relativeStart.ToString() +" "+ x.ToString());
+                    Point pointX1 = new Point(relativeStart, 0);
+                    Point pointX2 = new Point(relativeEnd, 0);
+
+                    Point[] points = { pointX1, new Point(relativeStart, ySize), new Point(relativeEnd, ySize), pointX2 };
+                   
+                    graphics.FillPolygon(blueBrush, points);
+                }
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

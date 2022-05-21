@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Collections;
 
 namespace ActivityTracker
 {
@@ -16,10 +17,14 @@ namespace ActivityTracker
 
 		static private IPresenter _presenter;
 		private DetailsForm currentDetailsWindow;
+		private ArrayList _descendingListTemporary;
+		private ArrayList _searchListTemporary;
 
 		public MainForm()
 		{
 			InitializeComponent();
+			_descendingListTemporary = new ArrayList();
+			_searchListTemporary = new ArrayList();
 		}
 
 		public void setPresenter(IPresenter presenter)
@@ -77,14 +82,49 @@ namespace ActivityTracker
 
 		public void AddProcessToList(List<string> processNames)
 		{
-			foreach(var name in processNames)
+
+			if (textBox1.Text == "")
 			{
-				if (!listBoxActiveProcesses.Items.Contains(name))
+				foreach (var name in processNames)
 				{
-					listBoxActiveProcesses.Items.Add(name);
+					if (!listBoxActiveProcesses.Items.Contains(name))
+					{
+						listBoxActiveProcesses.Items.Add(name);
+					}
 				}
 			}
+			else
+			{
+				_searchListTemporary.Clear();
+				foreach(String s in listBoxActiveProcesses.Items)
+				{
+					if(s.ToUpper().Contains(textBox1.Text.ToUpper()))
+						_searchListTemporary.Add(s);
+				}
 
+				listBoxActiveProcesses.Items.Clear();
+
+				foreach (String s in _searchListTemporary)
+					listBoxActiveProcesses.Items.Add(s);
+
+				//in case a new process appeared while the search is made
+				foreach (var name in processNames)
+				{
+					if (!listBoxActiveProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox1.Text.ToUpper()))
+					{
+						listBoxActiveProcesses.Items.Add(name);
+					}
+				}
+
+
+
+			}
+
+
+
+
+
+			// this does not break the search functionality
 
 			List<object> toRemoveList = new List<object>();
 
@@ -104,5 +144,49 @@ namespace ActivityTracker
 
 
 
+		/// <summary>
+		/// Function that enables the sorted attribute of the listbox of processes, thus sorting it ascending by name 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button1_Click(object sender, EventArgs e)
+		{
+			listBoxActiveProcesses.Sorted = true;
+		}
+
+		/// <summary>
+		/// Function that uses a secondary ArrayList in order to sort the process listbox descending by name
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button2_Click(object sender, EventArgs e)
+		{
+			_descendingListTemporary.Clear();
+
+			if (listBoxActiveProcesses.Sorted)
+				listBoxActiveProcesses.Sorted = false;
+
+			foreach (object o in listBoxActiveProcesses.Items)
+				_descendingListTemporary.Add(o);
+			listBoxActiveProcesses.Items.Clear();
+
+			_descendingListTemporary.Sort();
+			_descendingListTemporary.Reverse();
+
+			foreach (object o in _descendingListTemporary)
+				listBoxActiveProcesses.Items.Add(o);
+
+		}
+
+		/// <summary>
+		/// Function that clears the listbox of processes when the searched word is empty, thus making the program restore the list to its original state
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+			if (textBox1.Text == "")
+				listBoxActiveProcesses.Items.Clear();
+		}
 	}
 }

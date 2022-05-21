@@ -15,6 +15,11 @@ namespace ActivityTracker
 
         public Timeslot(long ID, string processID, long startTime, long endTime)
         {
+            if (startTime > endTime || startTime < 0 || endTime < 0)
+            {
+                throw new Exception("Timeslots introduced wrongly!");
+            }    
+
             _ID = ID;
             _processID = processID;
             _startTime = startTime;

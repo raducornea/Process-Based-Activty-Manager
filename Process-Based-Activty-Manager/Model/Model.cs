@@ -200,7 +200,7 @@ namespace ActivityTracker
 				}
 			}
 
-			//Verificare daca vreun process activ nu a disparut cunva din API
+			// Verificare daca vreun process activ nu a disparut cumva din API
 			List<string> processCollectionNames = new List<string>();
 			foreach( var process in processCollection)
 			{

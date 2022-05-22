@@ -119,7 +119,12 @@ namespace ActivityTracker
         private void DetailsForm_Load(object sender, EventArgs e)
         {
             label3.Text = this.Text;
-            
+        
+        }
+
+        public void displayTotalTime(uint totalTime)
+        {
+            label4.Text = totalTime.ToString();
         }
     }
 }

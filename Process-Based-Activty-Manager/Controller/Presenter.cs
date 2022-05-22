@@ -35,5 +35,10 @@ namespace ActivityTracker
 		{
 			return _model.GetProcessTimeslots(processName);
 		}
+
+		public uint RequestProcessTotalTime(string processName)
+        {
+			return _model.GetProcessTotalTime(processName);
+        }
 	}
 }

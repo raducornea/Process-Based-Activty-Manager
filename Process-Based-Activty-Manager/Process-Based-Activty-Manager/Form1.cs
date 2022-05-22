@@ -56,7 +56,10 @@ namespace ActivityTracker
 				currentDetailsWindow = new DetailsForm();
 
 				var timeslots = _presenter.RequestTimeslots(listBoxActiveProcesses.SelectedItem.ToString());
+				var totalTime = _presenter.RequestProcessTotalTime(listBoxActiveProcesses.SelectedItem.ToString());
+				
 				currentDetailsWindow.displayTimeslots(timeslots);
+				currentDetailsWindow.displayTotalTime(totalTime);
 
 				currentDetailsWindow.Text = listBoxActiveProcesses.SelectedItem.ToString();
 				currentDetailsWindow.Show();

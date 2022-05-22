@@ -23,6 +23,7 @@ namespace ActivityTracker
 		public MainForm()
 		{
 			InitializeComponent();
+			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 			_descendingListTemporary = new ArrayList();
 			_searchListTemporary = new ArrayList();
 		}
@@ -51,7 +52,6 @@ namespace ActivityTracker
 
 				}
 		
-
 				//And open a new updated window
 				currentDetailsWindow = new DetailsForm();
 
@@ -81,7 +81,6 @@ namespace ActivityTracker
 				//	currentDetailsWindow.displayTimeslots(timeslots);
 			//	}
 			}
-
 		}
 
 		public void AddProcessToList(List<string> processNames)
@@ -120,11 +119,8 @@ namespace ActivityTracker
 					}
 				}
 			}
-
 			// this does not break the search functionality
-
 			List<object> toRemoveList = new List<object>();
-
 			foreach (var displayedName in listBoxActiveProcesses.Items)
 			{
 				if (!processNames.Contains(displayedName))

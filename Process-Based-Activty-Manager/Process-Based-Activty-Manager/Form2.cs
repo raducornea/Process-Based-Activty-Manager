@@ -29,6 +29,7 @@ namespace ActivityTracker
         public DetailsForm()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             initCanvas();
         }
 
@@ -124,7 +125,22 @@ namespace ActivityTracker
 
         public void displayTotalTime(uint totalTime)
         {
-            label4.Text = totalTime.ToString();
+            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(totalTime);
+            label4.Text = dateTimeOffset.ToString();
+        }
+
+
+        /// <summary>
+        /// Since the data is already changing while this is running there is no point of adding this in the presenter.
+        /// This is only useful for refreshing the drawing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void drawTimer_Tick(object sender, EventArgs e)
+        {
+            initCanvas();
+            var timeslots = _presenter.RequestTimeslots(this.Text);
+            displayTimeslots(timeslots);
         }
     }
 }

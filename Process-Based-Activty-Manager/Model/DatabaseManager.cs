@@ -219,7 +219,6 @@ namespace ActivityTracker
             return userProcesses;
         }
 
-
         /// <summary>
         /// Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data
         /// </summary>
@@ -349,6 +348,15 @@ namespace ActivityTracker
         }
 
         /// <summary>
+        /// Sterge ambele tabele din existenta
+        /// </summary>
+        public void DeleteTables()
+        {
+            DeleteTimeSlotsTable();
+            DeleteProcessTable();
+        }
+
+        /// <summary>
         /// Porneste conexiunea cu baza de date
         /// </summary>
         private void OpenConnection()
@@ -369,5 +377,6 @@ namespace ActivityTracker
                 _connection.Close();
             }
         }
+
     }
 }

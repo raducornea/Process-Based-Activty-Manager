@@ -53,11 +53,13 @@ namespace ActivityTracker
                 SQLiteConnection.CreateFile(databaseName);
             }
 
-            // in cazul in care nu exista tabele, se vor crea
+            // In cazul in care nu exista tabele, se vor crea
             CreateTables();
         }
 
-        // Destructor to call CloseConnection upon exiting program or tests
+        /// <summary>
+        /// Destructor de apelat cand se termina form-ul sau testele
+        /// </summary>
         ~DatabaseManager()
 		{
             Debug.WriteLine("Destructor la DatabaseManager");
@@ -71,26 +73,24 @@ namespace ActivityTracker
         /// </summary>
         public void CreateTables()
         {
-            string queryUserProcesses = "CREATE TABLE IF NOT EXISTS user_processes (" +
-                "id VARCHAR(100) PRIMARY KEY UNIQUE," +
-                "title VARCHAR(100) NOT NULL UNIQUE" +
-            ")";
+            string queryUserProcesses = @"CREATE TABLE IF NOT EXISTS user_processes (
+                id VARCHAR(100) PRIMARY KEY UNIQUE,
+                title VARCHAR(100) NOT NULL UNIQUE
+            );";
             SQLiteCommand command = new SQLiteCommand(queryUserProcesses, _connection);
             command.ExecuteNonQuery();
 
-            string queryTimestamps = @"  CREATE TABLE IF NOT EXISTS timestamps ( 
+            string queryTimestamps = @"CREATE TABLE IF NOT EXISTS timestamps ( 
                 id INTEGER NOT NULL ,  
                 pid VARCHAR(100) NOT NULL,  
                 date_start REAL, 
                 date_stop REAL,  
                 FOREIGN KEY(pid) REFERENCES user_processes(id),  
                 PRIMARY KEY (id, pid)  
-                );";
+            );";
             command = new SQLiteCommand(queryTimestamps, _connection);
             command.ExecuteNonQuery();
         }
-
-
 
         /// <summary>
         /// Se adauga un nou proces in baza de date
@@ -105,23 +105,21 @@ namespace ActivityTracker
             string newProcessID = "id:" + title;
             command.Parameters.AddWithValue("@id", newProcessID);
             command.Parameters.AddWithValue("@title", title);
-            var result = command.ExecuteNonQuery();
 
+            // se adauga {result} randuri in tabela;
+            var result = command.ExecuteNonQuery();
             return newProcessID;
-            // Console.WriteLine("Rows added: {0}", result);
         }
 
         /// <summary>
         /// Se obtin procesele din baza de date cu totul
         /// </summary>
-        /// <returns></returns>
-        /// 
+        /// <returns>Se returneaza un obiect de tip StoredProcess</returns>
         public StoredProcess GetProcessFromName(string name)
 		{
             StoredProcess storedProcess = null;
 
-            string query = @"SELECT * FROM user_processes
-                             WHERE title == @title";
+            string query = @"SELECT * FROM user_processes WHERE title == @title";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
             command.Parameters.AddWithValue("@title", name);
        
@@ -137,18 +135,21 @@ namespace ActivityTracker
                 {
                     string id = (result["id"]).ToString();
                     string title = (result["title"]).ToString();
-
                     storedProcess = new StoredProcess(id, title);
                 }
-                catch (Exception e)
+                catch (Exception exception)
                 {
-                    throw e;
+                    throw exception;
                 }
             }
 
             return storedProcess;
         }
 
+        /// <summary>
+        /// Se obtine lista de procese, ca obiecte de tip StoredProcess, din baza de date
+        /// </summary>
+        /// <returns></returns>
         public List<StoredProcess> GetProcesses()
         {
             List<StoredProcess> userProcesses = new List<StoredProcess>();
@@ -165,16 +166,26 @@ namespace ActivityTracker
                     {
                         string id = (result["id"]).ToString();
                         string title = (result["title"]).ToString();
-
                         userProcesses.Add(new StoredProcess(id, title));
                     }
-                    catch(Exception e)
+                    catch(Exception exception)
                     {
-                        Console.WriteLine(e.StackTrace);
+                        Console.WriteLine(exception.StackTrace);
                     }
                 }
             }
+
             return userProcesses;
+        }
+
+        /// <summary>
+        /// Se sterg toate procesele din tabela, structura ei ramanand intacta
+        /// </summary>
+        public void DeleteProcessTable()
+        {
+            string query = "DELETE FROM user_processes";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            SQLiteDataReader result = command.ExecuteReader();
         }
 
         /// <summary>

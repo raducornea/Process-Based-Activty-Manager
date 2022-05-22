@@ -85,6 +85,8 @@ namespace ActivityTracker
             command.ExecuteNonQuery();
         }
 
+
+
         /// <summary>
         /// Se adauga un nou proces in baza de date
         /// </summary>
@@ -131,7 +133,7 @@ namespace ActivityTracker
                     string id = (result["id"]).ToString();
                     string title = (result["title"]).ToString();
 
-                    storedProcess =  new StoredProcess(id, title);
+                    storedProcess = new StoredProcess(id, title);
                 }
                 catch (Exception e)
                 {
@@ -214,7 +216,7 @@ namespace ActivityTracker
                 "FROM timestamps " +
                 "INNER JOIN user_processes ON " +
                 "timestamps.pid = user_processes.id " +
-                "WHERE pid == " + processID;
+                "WHERE pid == '" + processID + "'";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
             SQLiteDataReader result = command.ExecuteReader();
@@ -341,5 +343,7 @@ namespace ActivityTracker
                 _connection.Close();
             }
         }
+
+
     }
 }

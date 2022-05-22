@@ -325,9 +325,8 @@ namespace ActivityTracker
         {
             long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
 
-
             string query = @"UPDATE timestamps  
-                            SET date_stop =  @timestamp
+                            SET date_stop = @timestamp
                             WHERE id == @ID AND pid == @processID;";
 
             SQLiteCommand command = new SQLiteCommand(query, _connection);

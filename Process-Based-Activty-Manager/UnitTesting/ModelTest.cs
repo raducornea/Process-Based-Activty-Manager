@@ -4,6 +4,7 @@ using ActivityTracker;
 using System.Data.SQLite;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace UnitTesting
 {
@@ -193,12 +194,87 @@ namespace UnitTesting
             }
         }
 
+        /// <summary>
+        /// Test pentru a verifica daca timestamp-ul daca se modifica corect
+        /// </summary>
+        [TestMethod]
+        public async Task TestUpdateTimeSlot()
+        {
+            try
+            {
+                string processName = "SuspiciousActivity";
+
+                long timestampStart = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.AddNewTimeSlot(processName);
+
+                await Task.Delay(1000);
+
+                // timestampEnd should be the same as the one in the table after updating it
+                long timestampEnd = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.UpdateTimeSlot(timestampStart, processName);
+
+                List<Timeslot> timeSlots = _database.GetTimeSlotsForProcess(processName);
+                long timeLookingFor = 0;
+                foreach (Timeslot timeslot in timeSlots)
+                {
+                    if (timeslot.getStartTime() == timestampStart)
+                    {
+                        timeLookingFor = timeslot.getEndTime();
+                        break;
+                    }
+                }
+
+                Assert.AreNotEqual(0, timeLookingFor);
+                Assert.AreEqual(1, timestampEnd - timestampStart);
+                Assert.AreEqual(timestampEnd, timeLookingFor);
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail("Expected no exception in TestUpdateTimeSlot(), but got: " + exception.Message);
+            }
+        }
+
         [TestMethod]
         public void TestGetTotalTimeForProcess()
         {
             try
             {
-                _database.GetTotalTimeForProcess("");
+                string processName = "HackerActivity";
+
+                // se asuma ca nu este in tabela
+                _database.AddProcess(processName);
+
+                long timestamp1 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                long newTimeStamp1 = _database.AddNewTimeSlot(processName);
+
+
+                long timestamp2 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                long newTimeStamp2 = _database.AddNewTimeSlot(processName);
+                long timestamp3 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                long newTimeStamp3 = _database.AddNewTimeSlot(processName);
+
+       
+
+                Assert.AreEqual(timestamp1, newTimeStamp1);
+                Assert.AreEqual(timestamp2, newTimeStamp2);
+                Assert.AreEqual(timestamp3, newTimeStamp3);
+
+                List<Timeslot> timeSlots = _database.GetTimeSlotsForProcess(processName);
+
+                // lista trebuie sa aiba elemente, tinand seama ca de abia am adaugat in baza de date
+                Assert.AreNotEqual(0, timeSlots.Count);
+
+                bool isFound = false;
+                foreach (Timeslot timeslot in timeSlots)
+                {
+                    if (timeslot.getStartTime() == 0)//timestamp)
+                    {
+                        isFound = true;
+                        break;
+                    }
+                }
+
+                Assert.IsTrue(isFound);
             }
             catch (Exception exception)
             {

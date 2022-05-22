@@ -47,6 +47,7 @@ namespace ActivityTracker
             this.listBoxAllProcesses = new System.Windows.Forms.ListBox();
             this.sampleTimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userMenu.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -59,7 +60,8 @@ namespace ActivityTracker
             // 
             this.userMenu.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.userMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.userMenu.Location = new System.Drawing.Point(0, 0);
             this.userMenu.Name = "userMenu";
             this.userMenu.Size = new System.Drawing.Size(302, 24);
@@ -228,6 +230,12 @@ namespace ActivityTracker
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,6 +280,7 @@ namespace ActivityTracker
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.ListBox listBoxAllProcesses;
-	}
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+    }
 }
 

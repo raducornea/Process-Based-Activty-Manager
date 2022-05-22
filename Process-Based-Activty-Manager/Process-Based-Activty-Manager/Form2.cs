@@ -15,13 +15,16 @@ namespace ActivityTracker
         static private IPresenter _presenter;
         static private string _processName;
 
-        public Graphics timeSlotDisplayer;
-        public Graphics graphics;
-        public Pen pen = new Pen(Color.Black, 1);
-        public Bitmap surface;
+        private Graphics _timeSlotDisplayer;
+        private Graphics _graphics;
+        private Bitmap _surface;
 
-        const int xSize = 590;
-        const int ySize = 60;
+        private Pen _linePen;
+        SolidBrush _timeslotBrush;
+
+
+        private const int _xSize = 590;
+        private const int _ySize = 60;
 
         public DetailsForm(IPresenter presenter, String processName)
         {
@@ -29,48 +32,56 @@ namespace ActivityTracker
 
             _presenter = presenter;
             _processName = processName;
-
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.Text = processName;
 
             drawTimer.Enabled = true;
 
+            //graphics
+            _linePen = new Pen(Color.Black, 1);
+            _timeslotBrush = new SolidBrush(Color.Blue);
+
             initCanvas();
+            var timeslots = _presenter.RequestTimeslots(processName);
+            displayTimeslots(timeslots);
+            var totalTime = _presenter.RequestProcessTotalTime(processName);
+            displayTotalTime(totalTime);
+
+
         }
 
+        /// <summary>
+        /// Function that cleans up the drawn canvas for refreshing the timeslots
+        /// </summary>
+        private void cleanCanvas()
+        {
+            _timeSlotDisplayer.Dispose();
+            _graphics.Clear(Color.Transparent);
+        }
 
-        //resizing the information for what we need
+        /// <summary>
+        /// Function that initializes an empty canvas
+        /// </summary>
         private void initCanvas()
         {
-            timeSlotDisplay.Width = xSize;
-            timeSlotDisplay.Height = ySize;
+            timeSlotDisplay.Width = _xSize;
+            timeSlotDisplay.Height = _ySize;
 
+            _timeSlotDisplayer = timeSlotDisplay.CreateGraphics();
 
-            timeSlotDisplayer = timeSlotDisplay.CreateGraphics();
+            _timeSlotDisplayer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            _linePen.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
 
-            timeSlotDisplayer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            pen.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+            _surface = new Bitmap(timeSlotDisplay.Width, timeSlotDisplay.Height);
 
-            surface = new Bitmap(timeSlotDisplay.Width, timeSlotDisplay.Height);
+            _graphics = Graphics.FromImage(_surface);
 
-            graphics = Graphics.FromImage(surface);
-
-            timeSlotDisplay.BackgroundImage = surface;
+            timeSlotDisplay.BackgroundImage = _surface;
             timeSlotDisplay.BackgroundImageLayout = ImageLayout.None;
 
-            //this is only for markers
-            Point pointX1 = new Point(0,0);
-            Point pointX2 = new Point(xSize, 0);
-            for(int hourIndex = 0; hourIndex< 6; hourIndex++)
-            {
-                pointX1.Y += ySize / 6;
-                pointX2.Y += ySize / 6;
-                timeSlotDisplayer.DrawLine(pen, pointX1, pointX2);
-                graphics.DrawLine(pen, pointX1, pointX2);
+           
 
-            }
-
-            List <Timeslot> list = new List<Timeslot>();
+          //List <Timeslot> list = new List<Timeslot>();
           //  insertProcess(_timeslots);
 
         }
@@ -78,44 +89,44 @@ namespace ActivityTracker
 
         public void displayTimeslots(List<Timeslot> times)
         {
-             //graphics.Clear(Color.Transparent);
+
+            //this is only for markers
+            Point pointX1 = new Point(0, 0);
+            Point pointX2 = new Point(_xSize, 0);
+            for (int hourIndex = 0; hourIndex < 6; hourIndex++)
+            {
+                pointX1.Y += _ySize / 6;
+                pointX2.Y += _ySize / 6;
+                _timeSlotDisplayer.DrawLine(_linePen, pointX1, pointX2);
+                _graphics.DrawLine(_linePen, pointX1, pointX2);
+
+            }
 
             long currentTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(); ;
             long timelineSize = 3000;
 
             long realSize = currentTime - timelineSize;
 
-            pen.Color = Color.Blue;
-            SolidBrush blueBrush = new SolidBrush(Color.Blue);
-            pen.Width = 5;
-
+           
             foreach (Timeslot time in times)
             {
                 if (time.getStartTime() >= realSize)
                 {
-                    int relativeStart = (int)((time.getStartTime() - realSize) * xSize / timelineSize);
-                    int relativeEnd = (int)((time.getEndTime()- realSize) * xSize / timelineSize);
+                    int relativeStart = (int)((time.getStartTime() - realSize) * _xSize / timelineSize);
+                    int relativeEnd = (int)((time.getEndTime()- realSize) * _xSize / timelineSize);
 
                     //MessageBox.Show(relativeStart.ToString() +" "+ x.ToString());
-                    Point pointX1 = new Point(relativeStart, 0);
-                    Point pointX2 = new Point(relativeEnd, 0);
+                    pointX1 = new Point(relativeStart, 0);
+                    pointX2 = new Point(relativeEnd, 0);
 
-                    Point[] points = { pointX1, new Point(relativeStart, ySize), new Point(relativeEnd, ySize), pointX2 };
+                    Point[] points = { pointX1, new Point(relativeStart, _ySize), new Point(relativeEnd, _ySize), pointX2 };
                    
-                    graphics.FillPolygon(blueBrush, points);
+                    _graphics.FillPolygon(_timeslotBrush, points);
                 }
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// Adding the process information(name and total time) to the Details section
@@ -146,12 +157,18 @@ namespace ActivityTracker
         /// <param name="e"></param>
         private void drawTimer_Tick(object sender, EventArgs e)
         {
-            initCanvas();
+            cleanCanvas();
             var timeslots = _presenter.RequestTimeslots(this.Text);
             displayTimeslots(timeslots);
 
             var totalTime = _presenter.RequestProcessTotalTime(this.Text);
             displayTotalTime(totalTime);
         }
+
+        //Discarded
+
+        private void pictureBox1_Click(object sender, EventArgs e){}
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e){}
     }
 }

@@ -13,10 +13,7 @@ namespace ActivityTracker
     public partial class DetailsForm : Form
     {
         static private IPresenter _presenter;
-        public void setPresenter(IPresenter presenter)
-        {
-            _presenter = presenter;
-        }
+        static private string _processName;
 
         public Graphics timeSlotDisplayer;
         public Graphics graphics;
@@ -26,10 +23,18 @@ namespace ActivityTracker
         const int xSize = 590;
         const int ySize = 60;
 
-        public DetailsForm()
+        public DetailsForm(IPresenter presenter, String processName)
         {
-            InitializeComponent();
+            InitializeComponent( );
+
+            _presenter = presenter;
+            _processName = processName;
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Text = processName;
+
+            drawTimer.Enabled = true;
+
             initCanvas();
         }
 
@@ -132,6 +137,7 @@ namespace ActivityTracker
 
             label4.Text = hours.ToString() +" : " + minutes.ToString() + " : " + seconds.ToString()  ;
         }
+
         /// <summary>
         /// Since the data is already changing while this is running there is no point of adding this in the presenter.
         /// This is only useful for refreshing the drawing

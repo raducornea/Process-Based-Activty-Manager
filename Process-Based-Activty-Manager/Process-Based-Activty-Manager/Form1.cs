@@ -53,15 +53,14 @@ namespace ActivityTracker
 				}
 		
 				//And open a new updated window
-				currentDetailsWindow = new DetailsForm();
+				currentDetailsWindow = new DetailsForm(_presenter, listBoxActiveProcesses.SelectedItem.ToString());
 
-				var timeslots = _presenter.RequestTimeslots(listBoxActiveProcesses.SelectedItem.ToString());
-				var totalTime = _presenter.RequestProcessTotalTime(listBoxActiveProcesses.SelectedItem.ToString());
+				//var timeslots = _presenter.RequestTimeslots(listBoxActiveProcesses.SelectedItem.ToString());
+				//var totalTime = _presenter.RequestProcessTotalTime(listBoxActiveProcesses.SelectedItem.ToString());
 				
-				currentDetailsWindow.displayTimeslots(timeslots);
-				currentDetailsWindow.displayTotalTime(totalTime);
+				//currentDetailsWindow.displayTimeslots(timeslots);
+				//currentDetailsWindow.displayTotalTime(totalTime);
 
-				currentDetailsWindow.Text = listBoxActiveProcesses.SelectedItem.ToString();
 				currentDetailsWindow.Show();
 			}
 		}
@@ -296,16 +295,13 @@ namespace ActivityTracker
 
 				}
 				//And open a new updated window
-				currentDetailsWindow = new DetailsForm();
+				currentDetailsWindow = new DetailsForm(_presenter, listBoxAllProcesses.SelectedItem.ToString());
 
-				var timeslots = _presenter.RequestTimeslots(listBoxAllProcesses.SelectedItem.ToString());
-				var totalTime = _presenter.RequestProcessTotalTime(listBoxAllProcesses.SelectedItem.ToString());
+				//var timeslots = _presenter.RequestTimeslots(listBoxAllProcesses.SelectedItem.ToString());
+				//var totalTime = _presenter.RequestProcessTotalTime(listBoxAllProcesses.SelectedItem.ToString());
 
-				currentDetailsWindow.setPresenter(_presenter);
-				currentDetailsWindow.displayTimeslots(timeslots);
-				currentDetailsWindow.displayTotalTime(totalTime);
 
-				currentDetailsWindow.Text = listBoxAllProcesses.SelectedItem.ToString();
+				//currentDetailsWindow.Text = ;
 				currentDetailsWindow.Show();
 			}
 		}

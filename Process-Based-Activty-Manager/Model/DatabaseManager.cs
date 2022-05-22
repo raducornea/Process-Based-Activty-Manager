@@ -13,24 +13,11 @@ namespace ActivityTracker
     public class DatabaseManager
     {
         private SQLiteConnection _connection;
-        private static DatabaseManager _instance = null;
-
-        /// <summary>
-        /// Obtine instanta clasei sau creaza una noua - Singleton
-        /// </summary>
-        public static DatabaseManager Instance(string databaseName)
-        {
-            if (_instance == null)
-            {
-                _instance = new DatabaseManager(databaseName);
-            }
-            return _instance;
-        }
 
         /// <summary>
         /// Realizeaza o conexiune SQLite in functie de path-uri diferite (dinamice)
         /// </summary>
-        private DatabaseManager(string databaseName)
+        public  DatabaseManager(string databaseName)
         {
             // Vor exista doua baze de date: una pentru teste si una pentru aplicatia propriu-zisa.
             if (databaseName == "")
@@ -43,16 +30,15 @@ namespace ActivityTracker
             string path;
             path = Directory.GetCurrentDirectory() + @"\" + databaseName;
 
-            // Path-ul gasit este in ActivityManager
-            _connection = new SQLiteConnection(@"Data Source=" + path);
-
-            OpenConnection();
-
             if (!File.Exists("./" + databaseName))
             {
                 SQLiteConnection.CreateFile(databaseName);
             }
 
+            // Path-ul gasit este in ActivityManager
+            _connection = new SQLiteConnection(@"Data Source=" + path);
+
+            OpenConnection();
             // In cazul in care nu exista tabele, se vor crea
             CreateTables();
         }

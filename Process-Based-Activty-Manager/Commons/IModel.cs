@@ -63,5 +63,7 @@ namespace ActivityTracker
 		///
 		/// </summary>
 		void ScreenProcesses();
+
+		void ResetAllInformation();
 	}
 }

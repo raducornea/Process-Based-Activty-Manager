@@ -31,6 +31,12 @@ namespace ActivityTracker
 			_model.UpdateTimeSlots();
 		}
 
+		public void DeleteDatabase()
+		{
+			_model.ResetAllInformation();
+		}
+
+
 		public List<Timeslot> RequestTimeslots(string processName)
 		{
 			return _model.GetProcessTimeslots(processName);

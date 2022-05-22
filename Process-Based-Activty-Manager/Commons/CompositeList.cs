@@ -81,5 +81,10 @@ namespace ActivityTracker
 			_dormantProcessList.Add(newDormantProcess);
 		}
 
+		public void RemoveEverything()
+		{
+			_dormantProcessList.Clear();
+			_activeProcessList.Clear();
+		}
 	}
 }

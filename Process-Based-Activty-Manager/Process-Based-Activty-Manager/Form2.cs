@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.UI.ViewManagement;
 
 namespace ActivityTracker
 {
@@ -16,15 +17,12 @@ namespace ActivityTracker
 		static private string _processName;
 
 		private Graphics _timeSlotDisplayer;
-		private Graphics _graphics;
-		private Bitmap _surface;
-
 		private Pen _linePen;
 		SolidBrush _timeslotBrush;
 
 		long _timelineSize = 300;
 
-		private const int _xSize = 650;
+		private const int _xSize = 660;
 		private const int _ySize = 60;
 
 		public DetailsForm(IPresenter presenter, String processName)
@@ -36,13 +34,19 @@ namespace ActivityTracker
 			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 			this.Text = "Details for " + processName;
 
-			drawTimer.Enabled = true;
 
+			var uiSettings = new UISettings();
+			var accentColor = uiSettings.GetColorValue(UIColorType.Accent);
+
+			Color brushColor = Color.FromArgb(255, accentColor.R, accentColor.G, accentColor.B);
 			//graphics
+
 			_linePen = new Pen(Color.Black, 1);
-			_timeslotBrush = new SolidBrush(Color.Blue);
+			_timeslotBrush = new SolidBrush(brushColor);
 
 			initCanvas();
+			//This must be enabled at the end.
+			drawTimer.Enabled = true;
 		}
 
 		/// <summary>
@@ -50,7 +54,7 @@ namespace ActivityTracker
 		/// </summary>
 		private void cleanCanvas()
 		{
-			_timeSlotDisplayer.Clear(Color.White);
+			_timeSlotDisplayer.Clear(Color.FromArgb(255,248,244,244));
 		}
 
 		/// <summary>
@@ -88,13 +92,24 @@ namespace ActivityTracker
 			long currentTime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(); ;
 
 			long lastDisplayedSecond = currentTime - _timelineSize;
+			int minimalDisplayedDuration =(int)Math.Ceiling((double)_timelineSize / _xSize  );
 
 			foreach (Timeslot time in times)
 			{
-				if (time.EndTime >= lastDisplayedSecond && time.Duration > 2.5)
+				if (time.EndTime >= lastDisplayedSecond )
 				{
-					float relativeStart = (time.StartTime - lastDisplayedSecond) * _xSize / _timelineSize;
-					float relativeEnd = (time.EndTime - lastDisplayedSecond) * _xSize / _timelineSize;
+					float relativeStart;
+					float relativeEnd;
+
+					if (time.Duration < minimalDisplayedDuration)
+					{
+						 relativeStart = (time.StartTime - lastDisplayedSecond) * _xSize / _timelineSize;
+						 relativeEnd = (time.StartTime + minimalDisplayedDuration - lastDisplayedSecond) * _xSize / _timelineSize;
+					}
+					else { 
+						relativeStart = (time.StartTime - lastDisplayedSecond) * _xSize / _timelineSize;
+						relativeEnd = (time.EndTime - lastDisplayedSecond) * _xSize / _timelineSize;
+					}
 
 					int pixelStart = (int)Math.Floor(relativeStart);
 					int pixelEnd = (int)Math.Floor(relativeEnd);
@@ -127,12 +142,15 @@ namespace ActivityTracker
 		public void displayTotalTime(uint totalTime)
 		{
 			int hours, minutes, seconds;
+
 			minutes = (int)totalTime / 60;
 			seconds = (int)(totalTime - minutes * 60);
 			hours = (int)(minutes / 60);
 			minutes = (int)(minutes - hours * 60);
 
-			label4.Text = hours.ToString() + " : " + minutes.ToString() + " : " + seconds.ToString();
+			label4.Text = hours.ToString() + " : " +
+					 (minutes <= 9 ? "0" : "") + minutes.ToString() + " : " +
+					 (seconds <= 9 ? "0" : "") + seconds.ToString()  ;
 		}
 
 		/// <summary>
@@ -163,20 +181,27 @@ namespace ActivityTracker
 		{
 			switch (comboBox1.Text)
 			{
+
+
 				case "1 minute":  // statement sequence
 					_timelineSize = 60;
+					labelPastLimit.Text = "1 minute ago";
 					break;
 				case "5 minutes":
 					_timelineSize = 300;
+					labelPastLimit.Text = "5 minutes ago";
 					break;
 				case "30 minutes":
 					_timelineSize = 1800;
+					labelPastLimit.Text = "30 minute ago";
 					break;
 				case "1 hour":
 					_timelineSize = 3600;
+					labelPastLimit.Text = "1 hour ago";
 					break;
 				case "24 hours":
 					_timelineSize =86400;
+					labelPastLimit.Text = "24 hours ago";
 					break;
 			}
 

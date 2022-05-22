@@ -10,8 +10,11 @@ namespace ActivtyManager
 	static class Program
 	{
 		[STAThread]
+	
 		static void Main()
 		{
+
+			//MVP Pattern implemented
 			IView view = new ActivityTracker.View();
 			IModel model = new Model();
 			IPresenter presenter = new Presenter(view, model);

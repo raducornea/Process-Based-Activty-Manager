@@ -40,12 +40,12 @@ namespace ActivityTracker
 
 		public void DisplayActiveProcess(List<string> processNames)
 		{
-			_mainWindow.AddProcessToList(processNames);
+			_mainWindow.UpdateActiveProcessesList(processNames);
 		}
 
 		public void DisplayAllProcess(List<string> processNames)
 		{
-			_mainWindow.AddAllProcessesToList(processNames);
+			_mainWindow.UpdateAllProcessesList(processNames);
 		}
 	}
 }

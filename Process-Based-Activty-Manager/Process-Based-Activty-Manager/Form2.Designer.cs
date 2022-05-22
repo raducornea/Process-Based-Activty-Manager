@@ -29,8 +29,11 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DetailsForm));
 			this.timeSlotDisplay = new System.Windows.Forms.PictureBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.labelPastLimit = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -56,6 +59,8 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.labelPastLimit);
+			this.groupBox1.Controls.Add(this.label6);
 			this.groupBox1.Controls.Add(this.timeSlotDisplay);
 			this.groupBox1.Location = new System.Drawing.Point(12, 12);
 			this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -65,6 +70,24 @@
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Timeline";
+			// 
+			// labelPastLimit
+			// 
+			this.labelPastLimit.AutoSize = true;
+			this.labelPastLimit.Location = new System.Drawing.Point(7, 81);
+			this.labelPastLimit.Name = "labelPastLimit";
+			this.labelPastLimit.Size = new System.Drawing.Size(97, 17);
+			this.labelPastLimit.TabIndex = 3;
+			this.labelPastLimit.Text = "5 minutes ago";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(615, 83);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(57, 17);
+			this.label6.TabIndex = 2;
+			this.label6.Text = "Present";
 			// 
 			// groupBox2
 			// 
@@ -113,18 +136,18 @@
 			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(92, 49);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(46, 17);
+			this.label4.Size = new System.Drawing.Size(62, 17);
 			this.label4.TabIndex = 3;
-			this.label4.Text = "label4";
+			this.label4.Text = "loading..";
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(61, 22);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(46, 17);
+			this.label3.Size = new System.Drawing.Size(62, 17);
 			this.label3.TabIndex = 2;
-			this.label3.Text = "label3";
+			this.label3.Text = "loading..";
 			// 
 			// label2
 			// 
@@ -156,12 +179,14 @@
 			this.ClientSize = new System.Drawing.Size(1064, 135);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "DetailsForm";
 			this.Text = "Form2";
 			this.Load += new System.EventHandler(this.DetailsForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.timeSlotDisplay)).EndInit();
 			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
@@ -179,5 +204,7 @@
         private System.Windows.Forms.Timer drawTimer;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.Label labelPastLimit;
+		private System.Windows.Forms.Label label6;
 	}
 }

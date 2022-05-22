@@ -33,6 +33,8 @@ namespace ActivityTracker
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.userMenu = new System.Windows.Forms.MenuStrip();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.optionsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.cleanDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -43,7 +45,7 @@ namespace ActivityTracker
 			this.listBoxActiveProcesses = new System.Windows.Forms.ListBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.textBoxAllProcesses = new System.Windows.Forms.TextBox();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button4 = new System.Windows.Forms.Button();
 			this.listBoxAllProcesses = new System.Windows.Forms.ListBox();
@@ -63,7 +65,7 @@ namespace ActivityTracker
 			this.userMenu.ImageScalingSize = new System.Drawing.Size(19, 19);
 			this.userMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.optionsToolStripMenuItem1});
 			this.userMenu.Location = new System.Drawing.Point(0, 0);
 			this.userMenu.Name = "userMenu";
 			this.userMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -78,11 +80,28 @@ namespace ActivityTracker
 			this.optionsToolStripMenuItem.Text = "Help";
 			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
 			// 
+			// optionsToolStripMenuItem1
+			// 
+			this.optionsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cleanDatabaseToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+			this.optionsToolStripMenuItem1.Name = "optionsToolStripMenuItem1";
+			this.optionsToolStripMenuItem1.Size = new System.Drawing.Size(75, 24);
+			this.optionsToolStripMenuItem1.Text = "Options";
+			// 
+			// cleanDatabaseToolStripMenuItem
+			// 
+			this.cleanDatabaseToolStripMenuItem.Name = "cleanDatabaseToolStripMenuItem";
+			this.cleanDatabaseToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
+			this.cleanDatabaseToolStripMenuItem.Text = "Clean Database";
+			this.cleanDatabaseToolStripMenuItem.Click += new System.EventHandler(this.cleanDatabaseToolStripMenuItem_Click);
+			// 
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
 			this.aboutToolStripMenuItem.Text = "About";
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// tabControl1
 			// 
@@ -182,7 +201,7 @@ namespace ActivityTracker
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.textBox2);
+			this.groupBox2.Controls.Add(this.textBoxAllProcesses);
 			this.groupBox2.Location = new System.Drawing.Point(8, 7);
 			this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.groupBox2.Name = "groupBox2";
@@ -192,14 +211,14 @@ namespace ActivityTracker
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Search";
 			// 
-			// textBox2
+			// textBoxAllProcesses
 			// 
-			this.textBox2.Location = new System.Drawing.Point(5, 21);
-			this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(225, 22);
-			this.textBox2.TabIndex = 1;
-			this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+			this.textBoxAllProcesses.Location = new System.Drawing.Point(5, 21);
+			this.textBoxAllProcesses.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.textBoxAllProcesses.Name = "textBoxAllProcesses";
+			this.textBoxAllProcesses.Size = new System.Drawing.Size(225, 22);
+			this.textBoxAllProcesses.TabIndex = 1;
+			this.textBoxAllProcesses.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
 			// 
 			// button3
 			// 
@@ -259,10 +278,11 @@ namespace ActivityTracker
 			this.ClientSize = new System.Drawing.Size(403, 450);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.userMenu);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.userMenu;
 			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.Name = "MainForm";
-			this.Text = "Process Tracker";
+			this.Text = "Activity Tracker";
 			this.Resize += new System.EventHandler(this.MainForm_Resize);
 			this.userMenu.ResumeLayout(false);
 			this.userMenu.PerformLayout();
@@ -293,12 +313,14 @@ namespace ActivityTracker
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox textBoxAllProcesses;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.ListBox listBoxAllProcesses;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.NotifyIcon trayIcon;
+		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem cleanDatabaseToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 	}
 }
 

@@ -32,12 +32,6 @@ namespace ActivityTracker
             _presenter = presenter;
         }
 
-        //TOOL MENU
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -46,7 +40,8 @@ namespace ActivityTracker
 
             // Confirm user wants to close
 
-            string message = @"Are you sure you want to close?.You can minimize the application and it will stay in your system tray.";
+            string message = "Are you sure you want to close?\n"
+                            +"You can minimize the application and it will stay in your system tray.";
             switch (MessageBox.Show(this, message, "Closing", MessageBoxButtons.YesNo))
             {
                 case DialogResult.No:
@@ -56,8 +51,20 @@ namespace ActivityTracker
                     break;
             }
         }
+        //TOOL MENU
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+          //  throw new Exception("Not implemented yet");
+        }
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
+         //   throw new Exception("Not implemented yet");
+        }
+        private void cleanDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _presenter.DeleteDatabase();
+        }
 
-        //Minimize to tray fuctionality 
+        //MINIMIZE TO TRAY
         private void MainForm_Resize(object sender, EventArgs e)
         {
             //if the form is minimized  
@@ -70,33 +77,6 @@ namespace ActivityTracker
             }
         }
 
-        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            Show();
-            this.WindowState = FormWindowState.Normal;
-            trayIcon.Visible = false;
-        }
-
-        //ACTIVE PROCESS LIST
-
-        // when a process is clicked a new window of type Form2 is opened for displaying information about the process
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxActiveProcesses.SelectedItem != null)
-            {
-                //We close the old window
-
-                if (_currentDetailsWindow != null)
-                {
-                    _currentDetailsWindow.Close();
-                }
-
-                //And open a new updated window
-                _currentDetailsWindow = new DetailsForm(_presenter, listBoxActiveProcesses.SelectedItem.ToString());
-                _currentDetailsWindow.Show();
-            }
-        }
-
         //Here we run the recurent logic of this aplication (witch is most of 
         private void sampleTimer_Tick(object sender, EventArgs e)
         {
@@ -106,7 +86,15 @@ namespace ActivityTracker
             }
         }
 
-        public void AddProcessToList(List<string> processNames)
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            trayIcon.Visible = false;
+        }
+
+        //ACTIVE PROCESS LIST
+        public void UpdateActiveProcessesList(List<string> processNames)
         {
 
             if (textBox1.Text == "")
@@ -161,16 +149,33 @@ namespace ActivityTracker
                 listBoxActiveProcesses.Items.Remove(displayedName);
             }
         }
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxActiveProcesses.SelectedItem != null)
+            {
+                //We close the old window
 
+                if (_currentDetailsWindow != null)
+                {
+                    _currentDetailsWindow.Close();
+                }
+
+                //And open a new updated window
+                _currentDetailsWindow = new DetailsForm(_presenter, listBoxActiveProcesses.SelectedItem.ToString());
+                _currentDetailsWindow.Show();
+            }
+        }
+
+        //ALL PROCESSES LIST
         /// <summary>
         /// Function that adds all of the processes ever used to the list 
         /// The search functionality of the form is also included here
         /// After the search is complete the original list is restored by using the tick refresh and the if bracket of the case with null string
         /// </summary>
         /// <param name="allProcessNames"></param>
-        public void AddAllProcessesToList(List<string> allProcessNames)
+        public void UpdateAllProcessesList(List<string> allProcessNames)
         {
-            if (textBox2.Text == "")
+            if (textBoxAllProcesses.Text == "")
             {
                 foreach (var name in allProcessNames)
                 {
@@ -185,7 +190,7 @@ namespace ActivityTracker
                 _searchListTemporary.Clear();
                 foreach (String s in listBoxAllProcesses.Items)
                 {
-                    if (s.ToUpper().Contains(textBox2.Text.ToUpper()))
+                    if (s.ToUpper().Contains(textBoxAllProcesses.Text.ToUpper()))
                         _searchListTemporary.Add(s);
                 }
 
@@ -199,7 +204,7 @@ namespace ActivityTracker
                 //in case a new process appeared while the search is made
                 foreach (var name in allProcessNames)
                 {
-                    if (!listBoxAllProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox2.Text.ToUpper()))
+                    if (!listBoxAllProcesses.Items.Contains(name) && name.ToUpper().Contains(textBoxAllProcesses.Text.ToUpper()))
                     {
                         listBoxAllProcesses.Items.Add(name);
                     }
@@ -223,7 +228,26 @@ namespace ActivityTracker
                 listBoxActiveProcesses.Items.Remove(displayedName);
             }
         }
+        private void listBoxAllProcesses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxAllProcesses.SelectedItem != null)
+            {
+                //We close the old window
 
+                if (_currentDetailsWindow != null)
+                {
+                    _currentDetailsWindow.Close();
+                }
+                //And open a new updated window
+                _currentDetailsWindow = new DetailsForm(_presenter, listBoxAllProcesses.SelectedItem.ToString());
+
+                //currentDetailsWindow.Text = ;
+                _currentDetailsWindow.Show();
+            }
+        }
+
+
+        //BUTTONS
         /// <summary>
         /// Function that enables the sorted attribute of the listbox of processes, thus sorting it ascending by name 
         /// </summary>
@@ -263,16 +287,6 @@ namespace ActivityTracker
         }
 
         /// <summary>
-        /// Function that sorts the list of all processes ascending
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button4_Click(object sender, EventArgs e)
-        {
-            listBoxAllProcesses.Sorted = true;
-        }
-
-        /// <summary>
         /// Function that sorts the list of all processes descending
         /// </summary>
         /// <param name="sender"></param>
@@ -303,6 +317,17 @@ namespace ActivityTracker
 
 
         /// <summary>
+        /// Function that sorts the list of all processes ascending
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button4_Click(object sender, EventArgs e)
+        {
+            listBoxAllProcesses.Sorted = true;
+        }
+
+        //SEARCH BOXES
+        /// <summary>
         /// Function that clears the listbox of processes when the searched word is empty, thus making the program restore the list to its original state
         /// </summary>
         /// <param name="sender"></param>
@@ -322,30 +347,10 @@ namespace ActivityTracker
         /// <param name="e"></param>
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            if (textBox2.Text == "")
+            if (textBoxAllProcesses.Text == "")
             {
                 listBoxActiveProcesses.Items.Clear();
             }
         }
-
-        private void listBoxAllProcesses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxAllProcesses.SelectedItem != null)
-            {
-                //We close the old window
-
-                if (_currentDetailsWindow != null)
-                {
-                    _currentDetailsWindow.Close();
-                }
-                //And open a new updated window
-                _currentDetailsWindow = new DetailsForm(_presenter, listBoxAllProcesses.SelectedItem.ToString());
-
-                //currentDetailsWindow.Text = ;
-                _currentDetailsWindow.Show();
-            }
-        }
-
-
 	}
 }

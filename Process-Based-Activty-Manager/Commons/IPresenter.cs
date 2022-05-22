@@ -9,9 +9,12 @@ namespace ActivityTracker
 
 	public interface IPresenter
 	{
-		void presenterTick();
 
 		List<Timeslot> RequestTimeslots(string processName);
 		uint RequestProcessTotalTime(string processName);
+
+		//Actions
+		void presenterTick();
+		void DeleteDatabase();
 	}
 }

@@ -24,7 +24,7 @@ namespace UnitTesting
         public static void InitializeDatabase(TestContext context)
         {
             // default location: Process-Based-Activty-Manager\Process-Based-Activty-Manager\UnitTesting\bin\Debug
-            _database = DatabaseManager.Instance("databaseTEST.sqlite3");
+            _database = new DatabaseManager("databaseTEST.sqlite3");
         }
 
         /// <summary>
@@ -217,9 +217,9 @@ namespace UnitTesting
                 long timeLookingFor = 0;
                 foreach (Timeslot timeslot in timeSlots)
                 {
-                    if (timeslot.getStartTime() == timestampStart)
+                    if (timeslot.StartTime == timestampStart)
                     {
-                        timeLookingFor = timeslot.getEndTime();
+                        timeLookingFor = timeslot.EndTime;
                         break;
                     }
                 }

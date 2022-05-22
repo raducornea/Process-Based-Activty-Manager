@@ -219,39 +219,26 @@ namespace ActivityTracker
             return userProcesses;
         }
 
+
         /// <summary>
-        /// Avem nevoie sa stim duratele de viata ale proceselor spre informarea utilizatorilor
+        /// Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data
         /// </summary>
         /// <param name="processID"></param>
-        /// <returns>Timpul rularii totale a aplicatiei de la inceput pana la prezent</returns>
-        public uint GetTotalTimeForProcess(string processID)
-		{
-            uint timestampsSum = 0;
+        public long AddNewTimeSlot(string processID)
+        {
+            long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
 
-            string query = "SELECT sum(date_stop - date_start) AS timestamps_sum " +
-                "FROM timestamps " +
-                "INNER JOIN user_processes ON " +
-                "timestamps.pid = user_processes.id " +
-                "WHERE pid == '" + processID + "'";
+            string query = "INSERT OR IGNORE INTO timestamps ('id','pid', 'date_start', 'date_stop') " +
+                "VALUES(@ID, @processID, @timestamp, @timestamp)";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
-            SQLiteDataReader result = command.ExecuteReader();
-            if (result.HasRows)
-            {
-                while (result.Read())
-                {
-                    try
-                    {
-                        timestampsSum = uint.Parse(result["timestamps_sum"].ToString());
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.StackTrace);
-                    }
-                }
-            }
+            command.Parameters.AddWithValue("@ID", timestamp);
+            command.Parameters.AddWithValue("@processID", processID);
+            command.Parameters.AddWithValue("@timestamp", timestamp);
 
-            return timestampsSum;
+            command.ExecuteNonQuery();
+
+            return timestamp;
         }
 
         /// <summary>
@@ -295,24 +282,38 @@ namespace ActivityTracker
         }
 
         /// <summary>
-        /// Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data
+        /// Avem nevoie sa stim duratele de viata ale proceselor spre informarea utilizatorilor
         /// </summary>
         /// <param name="processID"></param>
-        public long AddNewTimeSlot(string processID)
+        /// <returns>Timpul rularii totale a aplicatiei de la inceput pana la prezent</returns>
+        public uint GetTotalTimeForProcess(string processID)
         {
-            long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            uint timestampsSum = 0;
 
-            string query = "INSERT OR IGNORE INTO timestamps ('id','pid', 'date_start', 'date_stop') " +
-                "VALUES(@ID,@processID, @timestamp, @timestamp)";
+            string query = "SELECT sum(date_stop - date_start) AS timestamps_sum " +
+                "FROM timestamps " +
+                "INNER JOIN user_processes ON " +
+                "timestamps.pid = user_processes.id " +
+                "WHERE pid == '" + processID + "'";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 
-            command.Parameters.AddWithValue("@ID", timestamp);
-            command.Parameters.AddWithValue("@processID", processID);
-            command.Parameters.AddWithValue("@timestamp", timestamp);
+            SQLiteDataReader result = command.ExecuteReader();
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    try
+                    {
+                        timestampsSum = uint.Parse(result["timestamps_sum"].ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.StackTrace);
+                    }
+                }
+            }
 
-            command.ExecuteNonQuery();
-
-            return timestamp;
+            return timestampsSum;
         }
 
         /// <summary>
@@ -339,6 +340,16 @@ namespace ActivityTracker
         }
 
         /// <summary>
+        /// Se sterg toate timestamps din tabela, structura ei ramanand intacta
+        /// </summary>
+        public void DeleteTimeSlotsTable()
+        {
+            string query = "DELETE FROM timestamps";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            SQLiteDataReader result = command.ExecuteReader();
+        }
+
+        /// <summary>
         /// Porneste conexiunea cu baza de date
         /// </summary>
         private void OpenConnection()
@@ -359,7 +370,5 @@ namespace ActivityTracker
                 _connection.Close();
             }
         }
-
-
     }
 }

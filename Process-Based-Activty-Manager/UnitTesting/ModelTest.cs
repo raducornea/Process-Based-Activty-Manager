@@ -46,16 +46,6 @@ namespace UnitTesting
         }
 
         /// <summary>
-        /// Verificam daca timestamp-ul generat pe loc e identic cu cel din functtie generat
-        /// </summary>
-        [TestMethod]
-        public void TestAddNewTimeSlot()
-        {
-            long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-            Assert.AreEqual(timestamp, _database.AddNewTimeSlot(""));
-        }
-
-        /// <summary>
         /// Se testeaza crearea unui proces - verificand, asadar, 
         /// daca se returneaza corect din baza de data sub un format
         /// </summary>
@@ -141,19 +131,68 @@ namespace UnitTesting
             }
         }
 
+        /// <summary>
+        /// Se verifica daca procesele pe care le luam din baza de date verifica daca au caractere
+        /// </summary>
         [TestMethod]
         public void TestGetProcessesNames()
         {
             try
             {
-                _database.GetProcessesNames();
+                List<string> userProcesses = _database.GetProcessesNames();
+
+                foreach(string processName in userProcesses)
+                {
+                    Assert.AreNotEqual("", processName);
+                }
             }
             catch (Exception exception)
             {
                 Assert.Fail("Expected no exception in TestGetProcessesNames(), but got: " + exception.Message);
             }
-        }       
-        
+        }
+
+        /// <summary>
+        /// Testam generarea unui timestamp si verificam daca exista cu adevarat in tabela
+        /// </summary>
+        [TestMethod]
+        public void TestAddNewTimeSlot()
+        {
+            try 
+            {
+                string processName = "HackerActivity";
+
+                // se asuma ca nu este in tabela
+                _database.AddProcess(processName);
+
+                long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                long newTimeStamp = _database.AddNewTimeSlot(processName);
+
+                Assert.AreEqual(timestamp, newTimeStamp);
+
+                List<Timeslot> timeSlots = _database.GetTimeSlotsForProcess(processName);
+
+                // lista trebuie sa aiba elemente, tinand seama ca de abia am adaugat in baza de date
+                Assert.AreNotEqual(0, timeSlots.Count);
+
+                bool isFound = false;
+                foreach(Timeslot timeslot in timeSlots)
+                {
+                    if(timeslot.getStartTime() == timestamp)
+                    {
+                        isFound = true;
+                        break;
+                    }
+                }
+
+                Assert.IsTrue(isFound);
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail("Expected no exception in TestAddNewTimeSlot(), but got: " + exception.Message);
+            }
+        }
+
         [TestMethod]
         public void TestGetTotalTimeForProcess()
         {

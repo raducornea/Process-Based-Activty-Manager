@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presenter", "Controller\Pre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "Commons\Commons.csproj", "{3949AA7A-7949-4B87-BAAD-59F54832EC1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivtyManager", "ActivtyManager\ActivtyManager.csproj", "{6A77F526-BA5C-40AE-9EF5-B9A0514458DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivtyManager", "ActivtyManager\ActivtyManager.csproj", "{6A77F526-BA5C-40AE-9EF5-B9A0514458DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{0BD83DCC-0415-45F5-9D2B-BD093E029920}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{6A77F526-BA5C-40AE-9EF5-B9A0514458DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A77F526-BA5C-40AE-9EF5-B9A0514458DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A77F526-BA5C-40AE-9EF5-B9A0514458DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD83DCC-0415-45F5-9D2B-BD093E029920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD83DCC-0415-45F5-9D2B-BD093E029920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD83DCC-0415-45F5-9D2B-BD093E029920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD83DCC-0415-45F5-9D2B-BD093E029920}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

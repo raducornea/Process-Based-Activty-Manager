@@ -45,7 +45,7 @@ namespace ActivityTracker
 
 		public void DisplayAllProcess(List<string> processNames)
 		{
-			throw new NotImplementedException();
+			_mainWindow.AddAllProcessesToList(processNames);
 		}
 	}
 }

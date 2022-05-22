@@ -23,6 +23,10 @@ namespace ActivityTracker
 			//Display the updated process lists
 			_view.DisplayActiveProcess(_model.ActiveProcessNames);
 
+
+			//Display the complete list of processes
+			_view.DisplayAllProcess(_model.AllProcessNames);
+
 			//Update the timeslots
 			_model.UpdateTimeSlots();
 		}

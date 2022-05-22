@@ -52,7 +52,6 @@ namespace ActivityTracker
             timeSlotDisplay.BackgroundImage = surface;
             timeSlotDisplay.BackgroundImageLayout = ImageLayout.None;
 
-
             //this is only for markers
             Point pointX1 = new Point(0,0);
             Point pointX2 = new Point(xSize, 0);
@@ -66,7 +65,6 @@ namespace ActivityTracker
             }
 
             List <Timeslot> list = new List<Timeslot>();
-
           //  insertProcess(_timeslots);
 
         }
@@ -111,6 +109,17 @@ namespace ActivityTracker
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Adding the process information(name and total time) to the Details section
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DetailsForm_Load(object sender, EventArgs e)
+        {
+            label3.Text = this.Text;
+            
         }
     }
 }

@@ -20,7 +20,7 @@ namespace ActivityTracker
 		public Model()
 		{
 			// se obtine instanta bazei de date
-			_database = DatabaseManager.Instance;
+			_database = DatabaseManager.Instance("");
 
 			// For performance reasons we synchronize with the database only once at the start of the program.
 			// All the processes here don't have an active timestamp

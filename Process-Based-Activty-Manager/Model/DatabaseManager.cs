@@ -18,41 +18,46 @@ namespace ActivityTracker
         /// <summary>
         /// Obtine instanta clasei sau creaza una noua - Singleton
         /// </summary>
-        public static DatabaseManager Instance
+        public static DatabaseManager Instance(string databaseName)
         {
-            get
+            if (_instance == null)
             {
-                if (_instance == null)
-                {
-                    _instance = new DatabaseManager();
-                }
-                return _instance;
+                _instance = new DatabaseManager(databaseName);
             }
+            return _instance;
         }
 
         /// <summary>
         /// Realizeaza o conexiune SQLite in functie de path-uri diferite (dinamice)
         /// </summary>
-        private DatabaseManager()
+        private DatabaseManager(string databaseName)
         {
-            // trebuie avut in vedere ca aplicatia poate fi rulata de pe orice calculator, de aceea luam path-ul dinamic si nu-l setam ca absolute path
-            string path = Directory.GetCurrentDirectory() + @"\database.sqlite3";
+            // Vor exista doua baze de date: una pentru teste si una pentru aplicatia propriu-zisa.
+            if (databaseName == "")
+            {
+                databaseName = "database.sqlite3";
+            }
 
-            // de asemenea, path-ul gasit este in ActivityManager, NU ActivityTracker. Am pus in "ActivtyManager\bin\Debug\netcoreapp3.1" database.sqlite3
+            // Trebuie avut in vedere ca aplicatia poate fi rulata de pe orice calculator,
+            // de aceea luam path-ul dinamic si nu-l setam ca absolute path.
+            string path;
+            path = Directory.GetCurrentDirectory() + @"\" + databaseName;
+
+            // Path-ul gasit este in ActivityManager
             _connection = new SQLiteConnection(@"Data Source=" + path);
 
             OpenConnection();
 
-            if (!File.Exists("./database.sqlite3"))
+            if (!File.Exists("./" + databaseName))
             {
-                SQLiteConnection.CreateFile("database.sqlite3");
+                SQLiteConnection.CreateFile(databaseName);
             }
 
             // in cazul in care nu exista tabele, se vor crea
             CreateTables();
         }
 
-        // TODO: call CloseConnection upon exiting program
+        // Destructor to call CloseConnection upon exiting program or tests
         ~DatabaseManager()
 		{
             Debug.WriteLine("Destructor la DatabaseManager");

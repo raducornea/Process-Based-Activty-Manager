@@ -2,6 +2,7 @@
 using System;
 using ActivityTracker;
 using System.Data.SQLite;
+using System.IO;
 
 namespace UnitTesting
 {
@@ -13,7 +14,15 @@ namespace UnitTesting
         [ClassInitialize()]
         public static void InitializeDatabase(TestContext context)
         {
-            _database = DatabaseManager.Instance;
+            // default location: Process-Based-Activty-Manager\Process-Based-Activty-Manager\UnitTesting\bin\Debug
+            _database = DatabaseManager.Instance("databaseTEST.sqlite3");
+        }
+
+        [TestMethod]
+        public void TestDatabaseFileExistence()
+        {
+            string fileName = "./databaseTEST.sqlite3";
+            Assert.IsTrue(File.Exists(fileName));
         }
 
         [TestMethod]

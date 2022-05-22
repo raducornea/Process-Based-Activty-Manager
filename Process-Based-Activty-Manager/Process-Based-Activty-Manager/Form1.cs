@@ -12,298 +12,299 @@ using System.Collections;
 
 namespace ActivityTracker
 {
-	public partial class MainForm : Form
-	{
+    public partial class MainForm : Form
+    {
+        static private IPresenter _presenter;
+        private DetailsForm _currentDetailsWindow;
+        private ArrayList _descendingListTemporary;
+        private ArrayList _searchListTemporary;
 
-		static private IPresenter _presenter;
-		private DetailsForm currentDetailsWindow;
-		private ArrayList _descendingListTemporary;
-		private ArrayList _searchListTemporary;
+        public MainForm()
+        {
+            InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            _descendingListTemporary = new ArrayList();
+            _searchListTemporary = new ArrayList();
+        }
 
-		public MainForm()
-		{
-			InitializeComponent();
-			this.FormBorderStyle = FormBorderStyle.FixedSingle;
-			_descendingListTemporary = new ArrayList();
-			_searchListTemporary = new ArrayList();
-		}
+        public void setPresenter(IPresenter presenter)
+        {
+            _presenter = presenter;
+        }
 
-		public void setPresenter(IPresenter presenter)
-		{
-			_presenter = presenter;
-		}
+        //TOOL MENU
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-		//TOOL MENU
-		private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
+        }
 
-		}
+        //ACTIVE PROCESS LIST
 
-		//ACTIVE PROCESS LIST
+        // when a process is clicked a new window of type Form2 is opened for displaying information about the process
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxActiveProcesses.SelectedItem != null)
+            {
+                //We close the old window
 
-		// when a process is clicked a new window of type Form2 is opened for displaying information about the process
-		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (listBoxActiveProcesses.SelectedItem != null) {
-				//We close the old window
+                if (_currentDetailsWindow != null)
+                {
+                    _currentDetailsWindow.Close();
+                }
 
-				if(currentDetailsWindow != null) { 
-					currentDetailsWindow.Close();
+                //And open a new updated window
+                _currentDetailsWindow = new DetailsForm(_presenter, listBoxActiveProcesses.SelectedItem.ToString());
+                _currentDetailsWindow.Show();
+            }
+        }
 
-				}
-		
-				//And open a new updated window
-				currentDetailsWindow = new DetailsForm(_presenter, listBoxActiveProcesses.SelectedItem.ToString());
+        //Here we run the recurent logic of this aplication (witch is most of 
+        private void sampleTimer_Tick(object sender, EventArgs e)
+        {
+            if (_presenter != null)
+            {
+                _presenter.presenterTick();
+            }
+        }
 
-				//var timeslots = _presenter.RequestTimeslots(listBoxActiveProcesses.SelectedItem.ToString());
-				//var totalTime = _presenter.RequestProcessTotalTime(listBoxActiveProcesses.SelectedItem.ToString());
-				
-				//currentDetailsWindow.displayTimeslots(timeslots);
-				//currentDetailsWindow.displayTotalTime(totalTime);
+        public void AddProcessToList(List<string> processNames)
+        {
 
-				currentDetailsWindow.Show();
-			}
-		}
+            if (textBox1.Text == "")
+            {
+                foreach (var name in processNames)
+                {
+                    if (!listBoxActiveProcesses.Items.Contains(name))
+                    {
+                        listBoxActiveProcesses.Items.Add(name);
+                    }
+                }
+            }
+            else
+            {
+                _searchListTemporary.Clear();
+                foreach (String s in listBoxActiveProcesses.Items)
+                {
+                    if (s.ToUpper().Contains(textBox1.Text.ToUpper()))
+                    {
+                        _searchListTemporary.Add(s);
+                    }
+                }
 
-		//Here we run the recurent logic of this aplication (witch is most of 
-		private void sampleTimer_Tick(object sender, EventArgs e)
-		{
-			if (_presenter != null)
-			{
-				_presenter.presenterTick();
+                listBoxActiveProcesses.Items.Clear();
 
+                foreach (String s in _searchListTemporary)
+                {
+                    listBoxActiveProcesses.Items.Add(s);
+                }
 
-			//	if (currentDetailsWindow != null)
-			//	{
-					//Multithreaded issues
-					//var timeslots = _presenter.RequestTimeslots(listBoxActiveProcesses.SelectedItem.ToString());
-				//	currentDetailsWindow.displayTimeslots(timeslots);
-			//	}
-			}
-		}
+                //in case a new process appeared while the search is made
+                foreach (var name in processNames)
+                {
+                    if (!listBoxActiveProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox1.Text.ToUpper()))
+                    {
+                        listBoxActiveProcesses.Items.Add(name);
+                    }
+                }
+            }
+            // this does not break the search functionality
+            List<object> toRemoveList = new List<object>();
+            foreach (var displayedName in listBoxActiveProcesses.Items)
+            {
+                if (!processNames.Contains(displayedName))
+                {
+                    toRemoveList.Add(displayedName);
+                }
+            }
 
-		public void AddProcessToList(List<string> processNames)
-		{
+            foreach (var displayedName in toRemoveList)
+            {
+                listBoxActiveProcesses.Items.Remove(displayedName);
+            }
+        }
 
-			if (textBox1.Text == "")
-			{
-				foreach (var name in processNames)
-				{
-					if (!listBoxActiveProcesses.Items.Contains(name))
-					{
-						listBoxActiveProcesses.Items.Add(name);
-					}
-				}
-			}
-			else
-			{
-				_searchListTemporary.Clear();
-				foreach(String s in listBoxActiveProcesses.Items)
-				{
-					if(s.ToUpper().Contains(textBox1.Text.ToUpper()))
-						_searchListTemporary.Add(s);
-				}
+        /// <summary>
+        /// Function that adds all of the processes ever used to the list 
+        /// The search functionality of the form is also included here
+        /// After the search is complete the original list is restored by using the tick refresh and the if bracket of the case with null string
+        /// </summary>
+        /// <param name="allProcessNames"></param>
+        public void AddAllProcessesToList(List<string> allProcessNames)
+        {
+            if (textBox2.Text == "")
+            {
+                foreach (var name in allProcessNames)
+                {
+                    if (!listBoxAllProcesses.Items.Contains(name))
+                    {
+                        listBoxAllProcesses.Items.Add(name);
+                    }
+                }
+            }
+            else
+            {
+                _searchListTemporary.Clear();
+                foreach (String s in listBoxAllProcesses.Items)
+                {
+                    if (s.ToUpper().Contains(textBox2.Text.ToUpper()))
+                        _searchListTemporary.Add(s);
+                }
 
-				listBoxActiveProcesses.Items.Clear();
+                listBoxAllProcesses.Items.Clear();
 
-				foreach (String s in _searchListTemporary)
-					listBoxActiveProcesses.Items.Add(s);
+                foreach (String s in _searchListTemporary)
+                {
+                    listBoxAllProcesses.Items.Add(s);
+                }
 
-				//in case a new process appeared while the search is made
-				foreach (var name in processNames)
-				{
-					if (!listBoxActiveProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox1.Text.ToUpper()))
-					{
-						listBoxActiveProcesses.Items.Add(name);
-					}
-				}
-			}
-			// this does not break the search functionality
-			List<object> toRemoveList = new List<object>();
-			foreach (var displayedName in listBoxActiveProcesses.Items)
-			{
-				if (!processNames.Contains(displayedName))
-				{
-					toRemoveList.Add(displayedName);
-				}
-			}
+                //in case a new process appeared while the search is made
+                foreach (var name in allProcessNames)
+                {
+                    if (!listBoxAllProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox2.Text.ToUpper()))
+                    {
+                        listBoxAllProcesses.Items.Add(name);
+                    }
+                }
+            }
 
-			foreach( var displayedName in toRemoveList)
-			{
-				listBoxActiveProcesses.Items.Remove(displayedName);
-			}
-		}
+            // this does not break the search functionality
 
-		/// <summary>
-		/// Function that adds all of the processes ever used to the list 
-		/// </summary>
-		/// <param name="allProcessNames"></param>
-		public void AddAllProcessesToList(List<string> allProcessNames)
-		{
-			if (textBox2.Text == "")
-			{
-				foreach (var name in allProcessNames)
-				{
-					if (!listBoxAllProcesses.Items.Contains(name))
-					{
-						listBoxAllProcesses.Items.Add(name);
-					}
-				}
-			}
-			else
-			{
-				_searchListTemporary.Clear();
-				foreach (String s in listBoxAllProcesses.Items)
-				{
-					if (s.ToUpper().Contains(textBox2.Text.ToUpper()))
-						_searchListTemporary.Add(s);
-				}
+            List<object> toRemoveList = new List<object>();
 
-				listBoxAllProcesses.Items.Clear();
+            foreach (var displayedName in listBoxActiveProcesses.Items)
+            {
+                if (!allProcessNames.Contains(displayedName))
+                {
+                    toRemoveList.Add(displayedName);
+                }
+            }
 
-				foreach (String s in _searchListTemporary)
-					listBoxAllProcesses.Items.Add(s);
+            foreach (var displayedName in toRemoveList)
+            {
+                listBoxActiveProcesses.Items.Remove(displayedName);
+            }
+        }
 
-				//in case a new process appeared while the search is made
-				foreach (var name in allProcessNames)
-				{
-					if (!listBoxAllProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox2.Text.ToUpper()))
-					{
-						listBoxAllProcesses.Items.Add(name);
-					}
-				}
-			}
+        /// <summary>
+        /// Function that enables the sorted attribute of the listbox of processes, thus sorting it ascending by name 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            listBoxActiveProcesses.Sorted = true;
+        }
 
-			// this does not break the search functionality
+        /// <summary>
+        /// Function that uses a secondary ArrayList in order to sort the process listbox descending by name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _descendingListTemporary.Clear();
 
-			List<object> toRemoveList = new List<object>();
+            if (listBoxActiveProcesses.Sorted)
+                listBoxActiveProcesses.Sorted = false;
 
-			foreach (var displayedName in listBoxActiveProcesses.Items)
-			{
-				if (!allProcessNames.Contains(displayedName))
-				{
-					toRemoveList.Add(displayedName);
-				}
-			}
+            foreach (object listBoxItem in listBoxActiveProcesses.Items)
+            {
+                _descendingListTemporary.Add(listBoxItem);
+            }
+            listBoxActiveProcesses.Items.Clear();
 
-			foreach (var displayedName in toRemoveList)
-			{
-				listBoxActiveProcesses.Items.Remove(displayedName);
-			}
-		}
+            _descendingListTemporary.Sort();
+            _descendingListTemporary.Reverse();
 
-		/// <summary>
-		/// Function that enables the sorted attribute of the listbox of processes, thus sorting it ascending by name 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-			private void button1_Click(object sender, EventArgs e)
-		{
-			listBoxActiveProcesses.Sorted = true;
-		}
+            foreach (object listItem in _descendingListTemporary)
+            {
+                listBoxActiveProcesses.Items.Add(listItem);
+            }
 
-		/// <summary>
-		/// Function that uses a secondary ArrayList in order to sort the process listbox descending by name
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void button2_Click(object sender, EventArgs e)
-		{
-			_descendingListTemporary.Clear();
+        }
 
-			if (listBoxActiveProcesses.Sorted)
-				listBoxActiveProcesses.Sorted = false;
+        /// <summary>
+        /// Function that sorts the list of all processes ascending
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button4_Click(object sender, EventArgs e)
+        {
+            listBoxAllProcesses.Sorted = true;
+        }
 
-			foreach (object o in listBoxActiveProcesses.Items)
-				_descendingListTemporary.Add(o);
-			listBoxActiveProcesses.Items.Clear();
+        /// <summary>
+        /// Function that sorts the list of all processes descending
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button3_Click(object sender, EventArgs e)
+        {
 
-			_descendingListTemporary.Sort();
-			_descendingListTemporary.Reverse();
+            _descendingListTemporary.Clear();
 
-			foreach (object o in _descendingListTemporary)
-				listBoxActiveProcesses.Items.Add(o);
+            if (listBoxAllProcesses.Sorted)
+            {
+                listBoxAllProcesses.Sorted = false;
+            }
+            foreach (object listBoxItem in listBoxAllProcesses.Items)
+            {
+                _descendingListTemporary.Add(listBoxItem);
+            }
 
-		}
+            listBoxAllProcesses.Items.Clear();
+            _descendingListTemporary.Sort();
+            _descendingListTemporary.Reverse();
 
-		/// <summary>
-		/// Function that sorts the list of all processes ascending
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void button4_Click(object sender, EventArgs e)
-		{
-			listBoxAllProcesses.Sorted = true;
-		}
-
-		/// <summary>
-		/// Function that sorts the list of all processes descending
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void button3_Click(object sender, EventArgs e)
-		{
-
-			_descendingListTemporary.Clear();
-
-			if (listBoxAllProcesses.Sorted)
-				listBoxAllProcesses.Sorted = false;
-
-			foreach (object o in listBoxAllProcesses.Items)
-				_descendingListTemporary.Add(o);
-			listBoxAllProcesses.Items.Clear();
-
-			_descendingListTemporary.Sort();
-			_descendingListTemporary.Reverse();
-
-			foreach (object o in _descendingListTemporary)
-				listBoxAllProcesses.Items.Add(o);
-		}
+            foreach (object listItem in _descendingListTemporary)
+            {
+                listBoxAllProcesses.Items.Add(listItem);
+            }
+        }
 
 
-		/// <summary>
-		/// Function that clears the listbox of processes when the searched word is empty, thus making the program restore the list to its original state
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void textBox1_TextChanged(object sender, EventArgs e)
-		{
-			if (textBox1.Text == "")
-				listBoxActiveProcesses.Items.Clear();
-		}
+        /// <summary>
+        /// Function that clears the listbox of processes when the searched word is empty, thus making the program restore the list to its original state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "")
+            {
+                listBoxActiveProcesses.Items.Clear();
+            }
+        }
 
-		/// <summary>
-		/// Similar to the textbox1, textbox2 needs to clear the search reasult list when the text returns to nothing
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+        /// <summary>
+        /// Similar to the textbox1, textbox2 needs to clear the search reasult list when the text returns to nothing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-			if (textBox2.Text == "")
-				listBoxActiveProcesses.Items.Clear();
-		}
+            if (textBox2.Text == "")
+            {
+                listBoxActiveProcesses.Items.Clear();
+            }
+        }
 
         private void listBoxAllProcesses_SelectedIndexChanged(object sender, EventArgs e)
         {
-			if (listBoxAllProcesses.SelectedItem != null)
-			{
-				//We close the old window
+            if (listBoxAllProcesses.SelectedItem != null)
+            {
+                //We close the old window
 
-				if (currentDetailsWindow != null)
-				{
-					currentDetailsWindow.Close();
+                if (_currentDetailsWindow != null)
+                {
+                    _currentDetailsWindow.Close();
+                }
+                //And open a new updated window
+                _currentDetailsWindow = new DetailsForm(_presenter, listBoxAllProcesses.SelectedItem.ToString());
 
-				}
-				//And open a new updated window
-				currentDetailsWindow = new DetailsForm(_presenter, listBoxAllProcesses.SelectedItem.ToString());
-
-				//var timeslots = _presenter.RequestTimeslots(listBoxAllProcesses.SelectedItem.ToString());
-				//var totalTime = _presenter.RequestProcessTotalTime(listBoxAllProcesses.SelectedItem.ToString());
-
-
-				//currentDetailsWindow.Text = ;
-				currentDetailsWindow.Show();
-			}
-		}
+                //currentDetailsWindow.Text = ;
+                _currentDetailsWindow.Show();
+            }
+        }
     }
 }

@@ -301,6 +301,7 @@ namespace ActivityTracker
 				var timeslots = _presenter.RequestTimeslots(listBoxAllProcesses.SelectedItem.ToString());
 				var totalTime = _presenter.RequestProcessTotalTime(listBoxAllProcesses.SelectedItem.ToString());
 
+				currentDetailsWindow.setPresenter(_presenter);
 				currentDetailsWindow.displayTimeslots(timeslots);
 				currentDetailsWindow.displayTotalTime(totalTime);
 

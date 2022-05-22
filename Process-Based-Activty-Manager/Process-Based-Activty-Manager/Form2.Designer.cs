@@ -120,6 +120,7 @@
             // 
             // drawTimer
             // 
+            this.drawTimer.Enabled = true;
             this.drawTimer.Tick += new System.EventHandler(this.drawTimer_Tick);
             // 
             // DetailsForm

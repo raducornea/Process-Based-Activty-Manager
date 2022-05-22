@@ -120,16 +120,18 @@ namespace ActivityTracker
         private void DetailsForm_Load(object sender, EventArgs e)
         {
             label3.Text = this.Text;
-        
         }
 
         public void displayTotalTime(uint totalTime)
         {
-            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(totalTime);
-            label4.Text = dateTimeOffset.ToString();
+            int hours,minutes, seconds;
+            minutes = (int)totalTime / 60;
+            seconds = (int)(totalTime - minutes * 60);
+            hours = (int)(minutes / 60);
+            minutes = (int)(minutes - hours * 60);
+
+            label4.Text = hours.ToString() +" : " + minutes.ToString() + " : " + seconds.ToString()  ;
         }
-
-
         /// <summary>
         /// Since the data is already changing while this is running there is no point of adding this in the presenter.
         /// This is only useful for refreshing the drawing
@@ -141,6 +143,9 @@ namespace ActivityTracker
             initCanvas();
             var timeslots = _presenter.RequestTimeslots(this.Text);
             displayTimeslots(timeslots);
+
+            var totalTime = _presenter.RequestProcessTotalTime(this.Text);
+            displayTotalTime(totalTime);
         }
     }
 }

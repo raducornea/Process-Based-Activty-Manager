@@ -14,26 +14,26 @@ namespace UnitTesting
         [TestMethod]
         public void TestTimestampDuration_30_80()
         {
-            Assert.AreEqual(50, (new Timeslot(0, "", 30, 80).getDuration()));
+            Assert.AreEqual(50, (new Timeslot(0, "", 30, 80).Duration));
         }
                         
         [TestMethod]
         public void TestTimestampDuration_0_99999()
         {
-            Assert.AreEqual(99999, (new Timeslot(0, "", 0, 99999).getDuration()));
+            Assert.AreEqual(99999, (new Timeslot(0, "", 0, 99999).Duration));
         }
 
 
         [TestMethod]
         public void TestTimestamp_StartTime_521_998()
         {
-            Assert.AreEqual(521, new Timeslot(0, "", 521, 998).getStartTime());
+            Assert.AreEqual(521, new Timeslot(0, "", 521, 998).StartTime);
         }
         
         [TestMethod]
         public void TestTimestamp_EndTime_521_998()
         {
-            Assert.AreEqual(998, new Timeslot(0, "", 521, 998).getEndTime());
+            Assert.AreEqual(998, new Timeslot(0, "", 521, 998).EndTime);
         }
 
         [TestMethod]
@@ -79,21 +79,21 @@ namespace UnitTesting
         public void TestTimestampDurations_30_80()
         {
             var value = new Timeslot(0, "", 30, 80);
-            Assert.IsTrue(value.getStartTime() < value.getEndTime());
+            Assert.IsTrue(value.StartTime < value.EndTime);
         }
 
         [TestMethod]
         public void TestTimestampDurations_80_521()
         {
             var value = new Timeslot(0, "", 80, 521);
-            Assert.AreEqual(441, value.getDuration());
+            Assert.AreEqual(441, value.Duration);
         }
 
         [TestMethod]
         public void TestTimestampDurations_0_99999()
         {
             var value = new Timeslot(0, "", 0, 99999);
-            Assert.IsTrue(value.getStartTime() < value.getEndTime());
+            Assert.IsTrue(value.StartTime < value.EndTime);
         }
 
 

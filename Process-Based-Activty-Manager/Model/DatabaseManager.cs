@@ -293,7 +293,7 @@ namespace ActivityTracker
             string query = "SELECT sum(date_stop - date_start) AS timestamps_sum " +
                 "FROM timestamps " +
                 "INNER JOIN user_processes ON " +
-                "timestamps.pid = user_processes.id " +
+                "timestamps.pid == user_processes.id " +
                 "WHERE pid == '" + processID + "'";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
 

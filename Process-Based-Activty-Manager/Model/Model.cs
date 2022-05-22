@@ -189,7 +189,9 @@ namespace ActivityTracker
 					}
 					else   //Daca exista in baza de date, doar recuperam detalii pe baza numelui
 					{
-						storedProcess = _database.GetProcessFromName(APIProcess.ProcessName);
+						//storedProcess = _database.GetProcessFromName(APIProcess.ProcessName);
+
+						storedProcess = new StoredProcess("id:"+APIProcess.ProcessName, APIProcess.ProcessName);
 					}
 
 					//Aici doar adaugam un nou timeslot pentru procesul activ

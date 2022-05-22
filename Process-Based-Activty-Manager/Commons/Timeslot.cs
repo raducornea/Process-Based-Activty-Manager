@@ -26,19 +26,19 @@ namespace ActivityTracker
             _endTime = endTime;
         }
 
-        public long getDuration()
+        public long Duration
         {
-            return _endTime - _startTime;
+            get { return _endTime - _startTime; }
         }
 
-        public long getStartTime()
+        public long StartTime
         {
-            return _startTime;
+            get { return _startTime; }
         }
 
-        public long getEndTime()
+        public long EndTime
         {
-            return _endTime;
+            get { return _endTime; }
         }
     }
 }

@@ -38,6 +38,45 @@ namespace ActivityTracker
 
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+
+            string message = @"Are you sure you want to close?.You can minimize the application and it will stay in your system tray.";
+            switch (MessageBox.Show(this, message, "Closing", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.No:
+                    e.Cancel = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //Minimize to tray fuctionality 
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            //if the form is minimized  
+            //hide it from the task bar  
+            //and show the system tray icon (represented by the NotifyIcon control)  
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                trayIcon.Visible = true;
+            }
+        }
+
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            trayIcon.Visible = false;
+        }
+
         //ACTIVE PROCESS LIST
 
         // when a process is clicked a new window of type Form2 is opened for displaying information about the process
@@ -306,5 +345,7 @@ namespace ActivityTracker
                 _currentDetailsWindow.Show();
             }
         }
-    }
+
+
+	}
 }

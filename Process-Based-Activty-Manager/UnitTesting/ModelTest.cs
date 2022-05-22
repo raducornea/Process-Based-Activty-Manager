@@ -178,7 +178,7 @@ namespace UnitTesting
                 bool isFound = false;
                 foreach(Timeslot timeslot in timeSlots)
                 {
-                    if(timeslot.getStartTime() == timestamp)
+                    if(timeslot.StartTime == timestamp)
                     {
                         isFound = true;
                         break;

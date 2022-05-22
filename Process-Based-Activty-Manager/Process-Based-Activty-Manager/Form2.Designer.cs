@@ -32,6 +32,8 @@
 			this.timeSlotDisplay = new System.Windows.Forms.PictureBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -45,7 +47,7 @@
 			// timeSlotDisplay
 			// 
 			this.timeSlotDisplay.Location = new System.Drawing.Point(7, 22);
-			this.timeSlotDisplay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.timeSlotDisplay.Margin = new System.Windows.Forms.Padding(4);
 			this.timeSlotDisplay.Name = "timeSlotDisplay";
 			this.timeSlotDisplay.Size = new System.Drawing.Size(667, 74);
 			this.timeSlotDisplay.TabIndex = 1;
@@ -66,6 +68,8 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.label5);
+			this.groupBox2.Controls.Add(this.comboBox1);
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.label3);
 			this.groupBox2.Controls.Add(this.label2);
@@ -74,10 +78,35 @@
 			this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.groupBox2.Size = new System.Drawing.Size(241, 111);
+			this.groupBox2.Size = new System.Drawing.Size(349, 111);
 			this.groupBox2.TabIndex = 3;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Details";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(10, 78);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(104, 17);
+			this.label5.TabIndex = 5;
+			this.label5.Text = "Displayed time:";
+			// 
+			// comboBox1
+			// 
+			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Items.AddRange(new object[] {
+            "1 minute",
+            "5 minutes",
+            "30 minutes",
+            "1 hour",
+            "24 hours"});
+			this.comboBox1.Location = new System.Drawing.Point(120, 76);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(138, 24);
+			this.comboBox1.TabIndex = 4;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
 			// label4
 			// 
@@ -124,10 +153,10 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(952, 135);
+			this.ClientSize = new System.Drawing.Size(1064, 135);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "DetailsForm";
 			this.Text = "Form2";
 			this.Load += new System.EventHandler(this.DetailsForm_Load);
@@ -148,5 +177,7 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer drawTimer;
-    }
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.ComboBox comboBox1;
+	}
 }

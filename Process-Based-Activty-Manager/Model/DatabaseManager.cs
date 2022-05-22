@@ -219,7 +219,6 @@ namespace ActivityTracker
             return userProcesses;
         }
 
-
         /// <summary>
         /// Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data
         /// </summary>
@@ -325,9 +324,8 @@ namespace ActivityTracker
         {
             long timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
 
-
             string query = @"UPDATE timestamps  
-                            SET date_stop =  @timestamp
+                            SET date_stop = @timestamp
                             WHERE id == @ID AND pid == @processID;";
 
             SQLiteCommand command = new SQLiteCommand(query, _connection);
@@ -347,6 +345,15 @@ namespace ActivityTracker
             string query = "DELETE FROM timestamps";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
             SQLiteDataReader result = command.ExecuteReader();
+        }
+
+        /// <summary>
+        /// Sterge ambele tabele din existenta
+        /// </summary>
+        public void DeleteTables()
+        {
+            DeleteTimeSlotsTable();
+            DeleteProcessTable();
         }
 
         /// <summary>
@@ -370,5 +377,6 @@ namespace ActivityTracker
                 _connection.Close();
             }
         }
+
     }
 }

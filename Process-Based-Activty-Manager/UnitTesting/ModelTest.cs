@@ -4,6 +4,7 @@ using ActivityTracker;
 using System.Data.SQLite;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace UnitTesting
 {
@@ -193,12 +194,84 @@ namespace UnitTesting
             }
         }
 
+        /// <summary>
+        /// Test pentru a verifica daca timestamp-ul daca se modifica corect
+        /// </summary>
         [TestMethod]
-        public void TestGetTotalTimeForProcess()
+        public async Task TestUpdateTimeSlot()
         {
             try
             {
-                _database.GetTotalTimeForProcess("");
+                string processName = "SuspiciousActivity";
+
+                long timestampStart = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.AddNewTimeSlot(processName);
+
+                await Task.Delay(1000);
+
+                // timestampEnd should be the same as the one in the table after updating it
+                long timestampEnd = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.UpdateTimeSlot(timestampStart, processName);
+
+                List<Timeslot> timeSlots = _database.GetTimeSlotsForProcess(processName);
+                long timeLookingFor = 0;
+                foreach (Timeslot timeslot in timeSlots)
+                {
+                    if (timeslot.getStartTime() == timestampStart)
+                    {
+                        timeLookingFor = timeslot.getEndTime();
+                        break;
+                    }
+                }
+
+                Assert.AreNotEqual(0, timeLookingFor);
+                Assert.AreEqual(1, timestampEnd - timestampStart);
+                Assert.AreEqual(timestampEnd, timeLookingFor);
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail("Expected no exception in TestUpdateTimeSlot(), but got: " + exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Test de verificare suma din timestamp-uri ale unui proces
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task TestGetTotalTimeForProcess()
+        {
+            try
+            {
+                // trebuie lucrat pe curat
+                _database.DeleteTimeSlotsTable();
+                _database.DeleteProcessTable();
+
+                // din cauza INNER JOIN-ULUI, e necesar sa fie corect asociate!
+                string processName = "SuspiciousActivity";
+                _database.AddProcess(processName);
+                processName = "id:" + "SuspiciousActivity";
+
+                // make a timestamp
+                long timestampStart1 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.AddNewTimeSlot(processName);
+                await Task.Delay(1000);
+                long timestampEnd1 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.UpdateTimeSlot(timestampStart1, processName);
+                // ar trebui sa aiba 1 secunda in total pana acum la suma
+
+                // make a new timestamp for the same process
+                long timestampStart2 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.AddNewTimeSlot(processName);
+                await Task.Delay(1000);
+                long timestampEnd2 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.UpdateTimeSlot(timestampStart2, processName);
+                // ar trebui sa aiba 1 secunda + 1 secunda in total pana acum la suma = 2
+
+                uint sum = _database.GetTotalTimeForProcess(processName);
+                uint expectedSum = 2;
+
+                Assert.AreEqual(expectedSum, sum);
             }
             catch (Exception exception)
             {
@@ -206,12 +279,41 @@ namespace UnitTesting
             }
         }        
 
+        /// <summary>
+        /// Se verifica daca intr-adevar exista elemente in lista respectiva, mai precis daca chiar s-au adaugat
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
-        public void TestGetTimeSlotsForProcess()
+        public async Task TestGetTimeSlotsForProcess()
         {
             try
             {
-                _database.GetTimeSlotsForProcess("");
+                // trebuie lucrat pe curat
+                _database.DeleteTimeSlotsTable();
+                _database.DeleteProcessTable();
+
+                // din cauza INNER JOIN-ULUI, e necesar sa fie corect asociate!
+                string processName = "SuspiciousActivity";
+                _database.AddProcess(processName);
+                processName = "id:" + "SuspiciousActivity";
+
+                // make a timestamp
+                long timestampStart1 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.AddNewTimeSlot(processName);
+                await Task.Delay(1000);
+                long timestampEnd1 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.UpdateTimeSlot(timestampStart1, processName);
+
+                // make a new timestamp for the same process
+                long timestampStart2 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.AddNewTimeSlot(processName);
+                await Task.Delay(1000);
+                long timestampEnd2 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+                _database.UpdateTimeSlot(timestampStart2, processName);
+
+                List<Timeslot> timeslots = _database.GetTimeSlotsForProcess(processName);
+
+                Assert.AreEqual(2, timeslots.Count);
             }
             catch (Exception exception)
             {

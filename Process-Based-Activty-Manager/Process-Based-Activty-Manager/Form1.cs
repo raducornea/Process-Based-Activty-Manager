@@ -195,22 +195,13 @@ namespace ActivityTracker
 			{
 				listBoxActiveProcesses.Items.Remove(displayedName);
 			}
-
-
-
-
 		}
 
-
-
-
-
-
-			/// <summary>
-			/// Function that enables the sorted attribute of the listbox of processes, thus sorting it ascending by name 
-			/// </summary>
-			/// <param name="sender"></param>
-			/// <param name="e"></param>
+		/// <summary>
+		/// Function that enables the sorted attribute of the listbox of processes, thus sorting it ascending by name 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 			private void button1_Click(object sender, EventArgs e)
 		{
 			listBoxActiveProcesses.Sorted = true;
@@ -297,5 +288,29 @@ namespace ActivityTracker
 				listBoxActiveProcesses.Items.Clear();
 		}
 
+        private void listBoxAllProcesses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			if (listBoxAllProcesses.SelectedItem != null)
+			{
+				//We close the old window
+
+				if (currentDetailsWindow != null)
+				{
+					currentDetailsWindow.Close();
+
+				}
+				//And open a new updated window
+				currentDetailsWindow = new DetailsForm();
+
+				var timeslots = _presenter.RequestTimeslots(listBoxAllProcesses.SelectedItem.ToString());
+				var totalTime = _presenter.RequestProcessTotalTime(listBoxAllProcesses.SelectedItem.ToString());
+
+				currentDetailsWindow.displayTimeslots(timeslots);
+				currentDetailsWindow.displayTotalTime(totalTime);
+
+				currentDetailsWindow.Text = listBoxAllProcesses.SelectedItem.ToString();
+				currentDetailsWindow.Show();
+			}
+		}
     }
 }

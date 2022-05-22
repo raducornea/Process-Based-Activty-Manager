@@ -23,7 +23,7 @@ namespace ActivityTracker
         public Pen pen = new Pen(Color.Black, 1);
         public Bitmap surface;
 
-        const int xSize = 900;
+        const int xSize = 590;
         const int ySize = 60;
 
         public DetailsForm()

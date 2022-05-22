@@ -214,6 +214,7 @@ namespace ActivityTracker
             this.listBoxAllProcesses.Name = "listBoxAllProcesses";
             this.listBoxAllProcesses.Size = new System.Drawing.Size(180, 238);
             this.listBoxAllProcesses.TabIndex = 5;
+            this.listBoxAllProcesses.SelectedIndexChanged += new System.EventHandler(this.listBoxAllProcesses_SelectedIndexChanged);
             // 
             // sampleTimer
             // 

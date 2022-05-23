@@ -17,7 +17,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using ActivityTracker;
-using System.Data.SQLite;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -284,10 +283,12 @@ namespace UnitTesting
                 _database.UpdateTimeSlot(timestampStart2, processName);
                 // ar trebui sa aiba 1 secunda + 1 secunda in total pana acum la suma = 2
 
-                uint sum = _database.GetTotalTimeForProcess(processName);
+                uint actualsum = _database.GetTotalTimeForProcess(processName);
                 uint expectedSum = 2;
+                long sumCalculated = (timestampEnd2 - timestampStart2) + (timestampEnd1 - timestampStart1);
 
-                Assert.AreEqual(expectedSum, sum);
+                Assert.AreEqual(sumCalculated, actualsum);
+                Assert.AreEqual(expectedSum, actualsum);
             }
             catch (Exception exception)
             {
@@ -317,14 +318,12 @@ namespace UnitTesting
                 long timestampStart1 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                 _database.AddNewTimeSlot(processName);
                 await Task.Delay(1000);
-                long timestampEnd1 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                 _database.UpdateTimeSlot(timestampStart1, processName);
 
                 // make a new timestamp for the same process
                 long timestampStart2 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                 _database.AddNewTimeSlot(processName);
                 await Task.Delay(1000);
-                long timestampEnd2 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
                 _database.UpdateTimeSlot(timestampStart2, processName);
 
                 List<Timeslot> timeslots = _database.GetTimeSlotsForProcess(processName);
@@ -336,6 +335,5 @@ namespace UnitTesting
                 Assert.Fail("Expected no exception in TestGetTimeSlotsForProcess(), but got: " + exception.Message);
             }
         }
-
     }
 }

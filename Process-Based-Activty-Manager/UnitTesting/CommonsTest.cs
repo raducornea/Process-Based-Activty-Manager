@@ -16,14 +16,13 @@
 
 using ActivityTracker;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTesting
 {
+    /// <summary>
+    /// Clasa pentru a testa diverse functionalitati din Commons
+    /// </summary>
     [TestClass]
     public class CommonsTest
     {
@@ -38,7 +37,6 @@ namespace UnitTesting
         {
             Assert.AreEqual(99999, (new Timeslot(0, "", 0, 99999).Duration));
         }
-
 
         [TestMethod]
         public void TestTimestamp_StartTime_521_998()
@@ -80,14 +78,12 @@ namespace UnitTesting
             new Timeslot(0, "", 521, -521);
         }
 
-
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void TestTimestampDuration_MINUS521_MINUS521()
         {
             new Timeslot(0, "", -521, -521);
         }
-
 
         [TestMethod]
         public void TestTimestampDurations_30_80()
@@ -109,9 +105,6 @@ namespace UnitTesting
             var value = new Timeslot(0, "", 0, 99999);
             Assert.IsTrue(value.StartTime < value.EndTime);
         }
-
-
-
 
         [TestMethod]
         public void TestUniqueProcesID()

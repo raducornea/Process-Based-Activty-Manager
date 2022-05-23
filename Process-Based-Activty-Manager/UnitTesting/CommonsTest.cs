@@ -1,4 +1,20 @@
-﻿using ActivityTracker;
+﻿/*******************************************************************************
+ *                                                                             *
+ *  File:        CommonsTest.cs                                                *
+ *  Copyright:   (c) 2022, Cornea Radu-Valentin                                *
+ *  E-mail:      radu-valentin.cornea@student.tuiasi.ro                        *
+ *  Website:     https://github.com/raducornea/Process-Based-Activty-Manager   *
+ *  Description: Unit Tests for Commons File                                   *
+ *                                                                             *
+ *  This code and information is provided "as is" without warranty of          *
+ *  any kind, either expressed or implied, including but not limited           *
+ *  to the implied warranties of merchantability or fitness for a              *
+ *  particular purpose. You are free to use this source code in your           *
+ *  applications as long as the original copyright notice is included.         *
+ *                                                                             *
+ *******************************************************************************/
+
+using ActivityTracker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,8 +87,6 @@ namespace UnitTesting
         {
             new Timeslot(0, "", -521, -521);
         }
-
-
 
 
         [TestMethod]

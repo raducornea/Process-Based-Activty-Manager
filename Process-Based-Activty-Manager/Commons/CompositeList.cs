@@ -14,11 +14,7 @@
  *                                                                             *
  *******************************************************************************/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActivityTracker
 {
@@ -26,23 +22,23 @@ namespace ActivityTracker
 	{
 		private List<StoredProcess> _dormantProcessList;
 		private List<ActiveProcess> _activeProcessList;
-
 		private List<ActiveProcess> _activeProcessToRemove;
 
 		public CompositeProcessList()
 		{
 			_dormantProcessList = new List<StoredProcess>();
 			_activeProcessList = new List<ActiveProcess>();
-
 			_activeProcessToRemove = new List<ActiveProcess>();
 		}
 
-		//You recover every process, be it dormant or active
+		/// <summary>
+		/// You recover every process, be it dormant or active
+		/// </summary>
 		public List<StoredProcess> AllProcessesList
 		{
-			get{
+			get
+			{
 				List<StoredProcess> allProcessesList = _dormantProcessList;
-
 				allProcessesList.AddRange(_activeProcessList);
 				return allProcessesList;
 			}
@@ -55,6 +51,7 @@ namespace ActivityTracker
 				return _dormantProcessList;
 			}
 		}
+
 		public List<ActiveProcess> ActiveProcessesList
 		{
 			get
@@ -63,7 +60,7 @@ namespace ActivityTracker
 			}
 		}
 
-		//The cornerstone of this design
+		// The cornerstone of this design
 		public void ActivateProcess(StoredProcess storedProcess, System.Diagnostics.Process p, long newTimeslotID)
 		{
 			_dormantProcessList.Remove(storedProcess);
@@ -72,8 +69,8 @@ namespace ActivityTracker
 
 		public void DeactivateProcess(ActiveProcess activeProcess)
 		{
-			_activeProcessToRemove.Add(activeProcess);	//Everything here will be deleted when the 
-			_dormantProcessList.Add(activeProcess);		//not sure what happens here
+			_activeProcessToRemove.Add(activeProcess);	// Everything here will be deleted when the 
+			_dormantProcessList.Add(activeProcess);		// not sure what happens here
 		}
 
 		public void ReadyToRemove()
@@ -84,8 +81,6 @@ namespace ActivityTracker
 			}
 			_activeProcessToRemove.Clear();
 		}
-
-		//Some other stuff
 
 		public void AddDormantProcesses(List<StoredProcess> newDormantProcesses)
 		{

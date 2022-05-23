@@ -14,7 +14,6 @@
  *                                                                             *
  *******************************************************************************/
 
-using System;
 using System.Collections.Generic;
 
 namespace ActivityTracker
@@ -30,20 +29,21 @@ namespace ActivityTracker
 			_model = model;
 		}
 
-		//This fuction works periodically, called by a timer in the main form.
+		/// <summary>
+		/// This fuction works periodically, called by a timer in the main form.
+		/// </summary>
 		public void presenterTick()
 		{
-			//Update the process lists
+			// Update the process lists
 			_model.ScreenProcesses();
 
-			//Display the updated process lists
+			// Display the updated process lists
 			_view.DisplayActiveProcess(_model.ActiveProcessNames);
 
-
-			//Display the complete list of processes
+			// Display the complete list of processes
 			_view.DisplayAllProcess(_model.AllProcessNames);
 
-			//Update the timeslots
+			// Update the timeslots
 			_model.UpdateTimeSlots();
 		}
 
@@ -51,7 +51,6 @@ namespace ActivityTracker
 		{
 			_model.ResetAllInformation();
 		}
-
 
 		public List<Timeslot> RequestTimeslots(string processName)
 		{

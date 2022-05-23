@@ -379,6 +379,5 @@ namespace ActivityTracker
                 _connection.Close();
             }
         }
-
     }
 }

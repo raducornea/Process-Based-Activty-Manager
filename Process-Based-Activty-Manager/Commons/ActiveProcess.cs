@@ -15,10 +15,6 @@
  *******************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace ActivityTracker
@@ -51,7 +47,6 @@ namespace ActivityTracker
                 return _asociatedProcess;
             }
         }
-
         public ActiveProcess(StoredProcess dormandProcess, Process asociatedProcess, long currentTimeslotID): 
             base(dormandProcess.UniqueProcesID, dormandProcess.ProcessName)
         {

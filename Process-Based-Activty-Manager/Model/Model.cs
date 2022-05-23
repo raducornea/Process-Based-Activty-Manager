@@ -26,7 +26,6 @@ namespace ActivityTracker
 	public class Model : IModel
 	{
 		private CompositeProcessList _generalProcessList;
-
 		private IPresenter _presenter;
 		private DatabaseManager _database;
 
@@ -46,15 +45,22 @@ namespace ActivityTracker
 		}
 
 		//INTERFACE
-
 		public List<StoredProcess> AllProcessesList
 		{
-			get { return _generalProcessList.AllProcessesList; }
+			get => _generalProcessList.AllProcessesList;
+		}
+		public List<ActiveProcess> ActiveProcess
+		{
+			get => _generalProcessList.ActiveProcessesList;
 		}
 
+		/// <summary>
+		/// Proprietate pentru a obtine o lista cu toate numele proceselor
+		/// </summary>
 		public List<string> AllProcessNames
 		{
-			get {
+			get 
+			{
 				List<string> processNames = new List<string>();
 				foreach (StoredProcess storedProcess in _generalProcessList.AllProcessesList)
 				{
@@ -63,13 +69,9 @@ namespace ActivityTracker
 				return processNames;
 			}
 		}
-		public List<ActiveProcess> ActiveProcess
-		{
-			get { return _generalProcessList.ActiveProcessesList; }
-		}
 
 		/// <summary>
-		/// Proprietate pentru a primi numele proceselor curente
+		/// Proprietate pentru a obtine toate numele proceselor active
 		/// </summary>
 		public List<string> ActiveProcessNames
 		{
@@ -84,9 +86,10 @@ namespace ActivityTracker
 			}
 		}
 
-
-		///END INTERFACE
-
+		//END INTERFACE
+		/// <summary>
+		/// Proprietate pentru a obtine toate numele proceselor inactive
+		/// </summary>
 		public List<string> DormandProcessNames
 		{
 			get
@@ -100,6 +103,9 @@ namespace ActivityTracker
 			}
 		}
 
+		/// <summary>
+		/// Proprietate pentru a obtine toate timestamp-urile proceselor active
+		/// </summary>
 		public List<long> ActiveTimestampsID
 		{
 			get
@@ -114,13 +120,14 @@ namespace ActivityTracker
 			}
 		}
 
-
+		/// <summary>
+		/// Pentru a sterge in intregime informatia monitorizata
+		/// </summary>
 		public void ResetAllInformation()
 		{
 			_database.DeleteTables();
 			_generalProcessList.RemoveEverything();
 		}
-
 
 		/// <summary>
 		/// Se cauta obtinerea timpului total petrecut pe un anumit proces din baza de date, in functie de numele lui
@@ -164,8 +171,6 @@ namespace ActivityTracker
 			}
 		}
 
-
-
 		/// <summary>
 		/// Se seteaza prezentatorul - MVP Pattern
 		/// </summary>
@@ -180,27 +185,25 @@ namespace ActivityTracker
 		/// </summary>
 		public void ScreenProcesses()
 		{
-			//We recover all active processes
+			// We recover all active processes
 			var processCollection = new List<Process>(Process.GetProcesses());
 
 			foreach (Process APIProcess in processCollection)
 			{
-				//Daca e in lista de procese recuperate dar nu e in lista de procese active,
-				//recupereaza detalii din baza de date si adauga la lista de procese active
+				// Daca e in lista de procese recuperate dar nu e in lista de procese active,
+				// recupereaza detalii din baza de date si adauga la lista de procese active
 				if (!ActiveProcessNames.Contains(APIProcess.ProcessName))
 				{
 					StoredProcess storedProcess = null;
 
-					//Daca nu exista deloc in baza de date trebuie adaugat si aici
+					// Daca nu exista deloc in baza de date trebuie adaugat si aici
 					if (!DormandProcessNames.Contains(APIProcess.ProcessName))
 					{
 						try
 						{
-							//We insert the new found process and also recover it's ID
+							// We insert the new found process, also recover it's ID
 							string processID = _database.AddProcess(APIProcess.ProcessName);
-
 							storedProcess = new StoredProcess(processID, APIProcess.ProcessName);
-
 							_generalProcessList.AddDormantProcess(storedProcess);
 						}
 						catch (Exception e)
@@ -209,17 +212,16 @@ namespace ActivityTracker
 						}
 						Console.WriteLine("Am adaugat {0} in baza de date.", APIProcess.ProcessName);
 					}
-					else   //Daca exista in baza de date, doar recuperam detalii pe baza numelui
+					// Daca exista in baza de date, doar recuperam detalii pe baza numelui
+					else
 					{
-						//storedProcess = _database.GetProcessFromName(APIProcess.ProcessName);
-
-						storedProcess = new StoredProcess("id:"+APIProcess.ProcessName, APIProcess.ProcessName);
+						storedProcess = new StoredProcess("id:" + APIProcess.ProcessName, APIProcess.ProcessName);
 					}
 
-					//Aici doar adaugam un nou timeslot pentru procesul activ
+					// Adaugam un timeslot nou pentru procesul activ
 					long newTimeslotID = _database.AddNewTimeSlot(storedProcess.UniqueProcesID);
 
-					//Activam procesul ca timeslot-ul lui sa fie updatat
+					// Activam procesul ca timeslot-ul lui sa fie updatat
 					_generalProcessList.ActivateProcess(storedProcess, APIProcess, newTimeslotID);
 				}
 			}

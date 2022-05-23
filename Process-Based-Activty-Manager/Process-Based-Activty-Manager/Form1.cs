@@ -16,14 +16,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using System.Collections;
 
 namespace ActivityTracker
@@ -43,7 +37,7 @@ namespace ActivityTracker
             _searchListTemporary = new ArrayList();
         }
 
-        public void setPresenter(IPresenter presenter)
+        public void SetPresenter(IPresenter presenter)
         {
             _presenter = presenter;
         }
@@ -55,7 +49,6 @@ namespace ActivityTracker
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
             // Confirm user wants to close
-
             string message = "Are you sure you want to close?\n"
                             +"You can minimize the application and it will stay in your system tray.";
             switch (MessageBox.Show(this, message, "Closing", MessageBoxButtons.YesNo))
@@ -67,25 +60,28 @@ namespace ActivityTracker
                     break;
             }
         }
-        //TOOL MENU
+
+        // TOOL MENU
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          //  throw new Exception("Not implemented yet");
+         //  throw new Exception("Not implemented yet");
         }
+
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
-         //   throw new Exception("Not implemented yet");
+        //   throw new Exception("Not implemented yet");
         }
+
         private void cleanDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _presenter.DeleteDatabase();
         }
 
-        //MINIMIZE TO TRAY
+        // MINIMIZE TO TRAY
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            //if the form is minimized  
-            //hide it from the task bar  
-            //and show the system tray icon (represented by the NotifyIcon control)  
+            // if the form is minimized,
+            // hide it from the task bar  
+            // and show the system tray icon (represented by the NotifyIcon control)  
             if (this.WindowState == FormWindowState.Minimized)
             {
                 Hide();
@@ -93,7 +89,7 @@ namespace ActivityTracker
             }
         }
 
-        //Here we run the recurent logic of this aplication (witch is most of 
+        // Here we run the recurent logic of this aplication
         private void sampleTimer_Tick(object sender, EventArgs e)
         {
             if (_presenter != null)
@@ -109,7 +105,7 @@ namespace ActivityTracker
             trayIcon.Visible = false;
         }
 
-        //ACTIVE PROCESS LIST
+        // ACTIVE PROCESS LIST
         public void UpdateActiveProcessesList(List<string> processNames)
         {
 
@@ -141,7 +137,7 @@ namespace ActivityTracker
                     listBoxActiveProcesses.Items.Add(s);
                 }
 
-                //in case a new process appeared while the search is made
+                // in case a new process appeared while the search is made
                 foreach (var name in processNames)
                 {
                     if (!listBoxActiveProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox1.Text.ToUpper()))
@@ -150,6 +146,7 @@ namespace ActivityTracker
                     }
                 }
             }
+
             // this does not break the search functionality
             List<object> toRemoveList = new List<object>();
             foreach (var displayedName in listBoxActiveProcesses.Items)
@@ -165,24 +162,24 @@ namespace ActivityTracker
                 listBoxActiveProcesses.Items.Remove(displayedName);
             }
         }
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxActiveProcesses.SelectedItem != null)
             {
-                //We close the old window
-
+                // We close the old window
                 if (_currentDetailsWindow != null)
                 {
                     _currentDetailsWindow.Close();
                 }
 
-                //And open a new updated window
+                // And open a new updated window
                 _currentDetailsWindow = new DetailsForm(_presenter, listBoxActiveProcesses.SelectedItem.ToString());
                 _currentDetailsWindow.Show();
             }
         }
 
-        //ALL PROCESSES LIST
+        // ALL PROCESSES LIST
         /// <summary>
         /// Function that adds all of the processes ever used to the list 
         /// The search functionality of the form is also included here
@@ -228,7 +225,6 @@ namespace ActivityTracker
             }
 
             // this does not break the search functionality
-
             List<object> toRemoveList = new List<object>();
 
             foreach (var displayedName in listBoxActiveProcesses.Items)
@@ -244,6 +240,7 @@ namespace ActivityTracker
                 listBoxActiveProcesses.Items.Remove(displayedName);
             }
         }
+
         private void listBoxAllProcesses_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxAllProcesses.SelectedItem != null)
@@ -261,7 +258,6 @@ namespace ActivityTracker
                 _currentDetailsWindow.Show();
             }
         }
-
 
         //BUTTONS
         /// <summary>
@@ -299,7 +295,6 @@ namespace ActivityTracker
             {
                 listBoxActiveProcesses.Items.Add(listItem);
             }
-
         }
 
         /// <summary>
@@ -330,7 +325,6 @@ namespace ActivityTracker
                 listBoxAllProcesses.Items.Add(listItem);
             }
         }
-
 
         /// <summary>
         /// Function that sorts the list of all processes ascending

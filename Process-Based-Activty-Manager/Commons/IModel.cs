@@ -76,7 +76,6 @@ namespace ActivityTracker
 
 		/// <summary>
 		/// Se obtin toate procesele rulante curente si se adauga in baza de date
-		///
 		/// </summary>
 		void ScreenProcesses();
 

@@ -15,10 +15,6 @@
  *******************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActivityTracker
 {
@@ -44,17 +40,17 @@ namespace ActivityTracker
 
         public long Duration
         {
-            get { return _endTime - _startTime; }
+            get => _endTime - _startTime;
         }
 
         public long StartTime
         {
-            get { return _startTime; }
+            get => _startTime;
         }
 
         public long EndTime
         {
-            get { return _endTime; }
+            get => _endTime;
         }
     }
 }

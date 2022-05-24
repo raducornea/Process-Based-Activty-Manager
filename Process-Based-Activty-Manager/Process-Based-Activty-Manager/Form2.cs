@@ -41,6 +41,13 @@ namespace ActivityTracker
 		private const int _xSize = 660;
 		private const int _ySize = 60;
 
+
+		/// <summary>
+		/// Constructor that takes a presenter and a process name
+		/// It creates the window object and the class members that will be used to draw the time slot
+		/// </summary>
+		/// <param name="presenter"></param>
+		/// <param name="processName"></param>
 		public DetailsForm(IPresenter presenter, String processName)
 		{
 			InitializeComponent();
@@ -87,6 +94,9 @@ namespace ActivityTracker
 			_linePen.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
 		}
 
+		/// <summary>
+		/// Function that draws lines on the graphics object, relative to its size
+		/// </summary>
 		private void DrawBackgroundLines()
 		{
 			//this is only for markers
@@ -100,7 +110,12 @@ namespace ActivityTracker
 			}
 		}
 
-
+		/// <summary>
+		/// Function that displays the time slots using a graphics object.
+		/// It converts the timeslot from an interval of time in seconds to an interval of pixels 
+		/// Also there is a call to the DrawBackgroundLines() function for initializing the lines on which the timeslots are drawn
+		/// </summary>
+		/// <param name="times"></param>
 		public void displayTimeslots(List<Timeslot> times)
 		{
 			DrawBackgroundLines();
@@ -155,6 +170,11 @@ namespace ActivityTracker
 			label3.Text = _processName;
 		}
 
+		/// <summary>
+		/// Function that displays the total time a process has been active on a label from the UI
+		/// Some calculus is required for having an exact conversion from the seconds stored in the database
+		/// </summary>
+		/// <param name="totalTime"></param>
 		public void displayTotalTime(uint totalTime)
 		{
 			int hours, minutes, seconds;
@@ -187,12 +207,13 @@ namespace ActivityTracker
 			displayTotalTime(totalTime);
 		}
 
-		//Discarded
 
-		private void pictureBox1_Click(object sender, EventArgs e) { }
-
-		private void helpToolStripMenuItem_Click(object sender, EventArgs e) { }
-
+		/// <summary>
+		/// Function that changes the timeline size via user input in a combo box
+		/// The result is changing the range of time that the user can see in the timeslot window
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			switch (comboBox1.Text)
@@ -216,11 +237,20 @@ namespace ActivityTracker
 					labelPastLimit.Text = "1 hour ago";
 					break;
 				case "24 hours":
-					_timelineSize =86400;
+					_timelineSize = 86400;
 					labelPastLimit.Text = "24 hours ago";
 					break;
 			}
 
 		}
+
+
+		// Discarded Functions
+
+		private void pictureBox1_Click(object sender, EventArgs e) { }
+
+		private void helpToolStripMenuItem_Click(object sender, EventArgs e) { }
+
+
 	}
 }

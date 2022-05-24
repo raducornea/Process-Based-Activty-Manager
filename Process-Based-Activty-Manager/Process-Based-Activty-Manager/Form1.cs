@@ -29,6 +29,9 @@ namespace ActivityTracker
         private ArrayList _descendingListTemporary;
         private ArrayList _searchListTemporary;
 
+        /// <summary>
+        /// Constructor that creates the main window object
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -42,6 +45,10 @@ namespace ActivityTracker
             _presenter = presenter;
         }
 
+        /// <summary>
+        /// The closing function for the form. It has the option for minimization in the system tray if the user wills it
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -61,7 +68,11 @@ namespace ActivityTracker
             }
         }
 
-        // TOOL MENU
+        /// <summary>
+        /// Function that opens the about section of the ToolStripMenu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
          //  throw new Exception("Not implemented yet");
@@ -71,12 +82,21 @@ namespace ActivityTracker
         //   throw new Exception("Not implemented yet");
         }
 
+        /// <summary>
+        /// Function that opens the clean database section of the ToolStripMenu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cleanDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _presenter.DeleteDatabase();
         }
 
-        // MINIMIZE TO TRAY
+        /// <summary>
+        /// Function that minimizes the process of the Activity Manager App to the system tray
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_Resize(object sender, EventArgs e)
         {
             // if the form is minimized,
@@ -89,7 +109,11 @@ namespace ActivityTracker
             }
         }
 
-        // Here we run the recurent logic of this aplication
+        /// <summary>
+        /// A timer function, where the recurent logic of this aplication is ran
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sampleTimer_Tick(object sender, EventArgs e)
         {
             if (_presenter != null)
@@ -98,6 +122,11 @@ namespace ActivityTracker
             }
         }
 
+        /// <summary>
+        /// Function for bringing the main window of the program back into user view from the system tray
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             Show();
@@ -105,7 +134,12 @@ namespace ActivityTracker
             trayIcon.Visible = false;
         }
 
-        // ACTIVE PROCESS LIST
+        /// <summary>
+        /// Function that updates the acive process list in the listbox. 
+        /// It also adds the search functionality into it by using a temporary search list to add the results of the search
+        /// This function is called every tick for updated information
+        /// </summary>
+        /// <param name="processNames"></param>
         public void UpdateActiveProcessesList(List<string> processNames)
         {
 
@@ -163,6 +197,11 @@ namespace ActivityTracker
             }
         }
 
+        /// <summary>
+        /// Function that opens a new details window for a selected process from the listbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxActiveProcesses.SelectedItem != null)
@@ -241,6 +280,11 @@ namespace ActivityTracker
             }
         }
 
+        /// <summary>
+        /// Function that opens a new details window for a selected process from the listbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxAllProcesses_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxAllProcesses.SelectedItem != null)

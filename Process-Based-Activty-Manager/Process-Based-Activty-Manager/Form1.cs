@@ -78,8 +78,13 @@ namespace ActivityTracker
          //  throw new Exception("Not implemented yet");
         }
 
+        /// <summary>
+        /// Function that opens the help section of the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
-        //   throw new Exception("Not implemented yet");
+            System.Diagnostics.Process.Start("helper.chm");
         }
 
         /// <summary>

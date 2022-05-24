@@ -194,18 +194,19 @@ namespace ActivityTracker
             }
         }
 
+     
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
         /// <summary>
         /// Function that opens the about section of the ToolStripMenu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-         //  throw new Exception("Not implemented yet");
-        }
-
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
-        //   throw new Exception("Not implemented yet");
+            var path = Application.StartupPath + "helper.chm";
+            Help.ShowHelp(this, path);
         }
 
         /// <summary>

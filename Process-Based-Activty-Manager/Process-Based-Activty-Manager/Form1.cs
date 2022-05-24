@@ -195,8 +195,15 @@ namespace ActivityTracker
         }
 
      
+
+        /// <summary>
+        /// Function that displays a message box with the about text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("This is an application that monitors the processes that run on a Windows based operating system");
         }
 
         /// <summary>

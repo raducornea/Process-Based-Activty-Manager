@@ -342,7 +342,7 @@ namespace ActivityTracker
         /// <summary>
         /// Se sterg toate timestamps din tabela, structura ei ramanand intacta
         /// </summary>
-        private void DeleteTimeSlotsTable()
+        public void DeleteTimeSlotsTable()
         {
             string query = "DELETE FROM timestamps";
             SQLiteCommand command = new SQLiteCommand(query, _connection);
@@ -352,7 +352,7 @@ namespace ActivityTracker
         /// <summary>
         /// Se sterg toate procesele din tabela, structura ei ramanand intacta
         /// </summary>
-        private void DeleteProcessTable()
+        public void DeleteProcessTable()
         {
             string query = "DELETE FROM user_processes";
             SQLiteCommand command = new SQLiteCommand(query, _connection);

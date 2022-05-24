@@ -69,32 +69,6 @@ namespace ActivityTracker
 		}
 
         /// <summary>
-        /// Cand nu sunt tabele create, creaza-le automat
-        /// NOTE: there is not DATE type in SQLite. We use REAL instead
-        /// Docs: https://www.sqlite.org/lang_datefunc.html
-        /// </summary>
-        public void CreateTables()
-        {
-            string queryUserProcesses = @"CREATE TABLE IF NOT EXISTS user_processes (
-                id VARCHAR(100) PRIMARY KEY UNIQUE,
-                title VARCHAR(100) NOT NULL UNIQUE
-            );";
-            SQLiteCommand command = new SQLiteCommand(queryUserProcesses, _connection);
-            command.ExecuteNonQuery();
-
-            string queryTimestamps = @"CREATE TABLE IF NOT EXISTS timestamps ( 
-                id INTEGER NOT NULL ,  
-                pid VARCHAR(100) NOT NULL,  
-                date_start REAL, 
-                date_stop REAL,  
-                FOREIGN KEY(pid) REFERENCES user_processes(id),  
-                PRIMARY KEY (id, pid)  
-            );";
-            command = new SQLiteCommand(queryTimestamps, _connection);
-            command.ExecuteNonQuery();
-        }
-
-        /// <summary>
         /// Se adauga un nou proces in baza de date
         /// </summary>
         /// <param name="title"></param>
@@ -178,16 +152,6 @@ namespace ActivityTracker
             }
 
             return userProcesses;
-        }
-
-        /// <summary>
-        /// Se sterg toate procesele din tabela, structura ei ramanand intacta
-        /// </summary>
-        public void DeleteProcessTable()
-        {
-            string query = "DELETE FROM user_processes";
-            SQLiteCommand command = new SQLiteCommand(query, _connection);
-            SQLiteDataReader result = command.ExecuteReader();
         }
 
         /// <summary>
@@ -340,13 +304,29 @@ namespace ActivityTracker
         }
 
         /// <summary>
-        /// Se sterg toate timestamps din tabela, structura ei ramanand intacta
+        /// Cand nu sunt tabele create, creaza-le automat
+        /// NOTE: there is not DATE type in SQLite. We use REAL instead
+        /// Docs: https://www.sqlite.org/lang_datefunc.html
         /// </summary>
-        public void DeleteTimeSlotsTable()
+        public void CreateTables()
         {
-            string query = "DELETE FROM timestamps";
-            SQLiteCommand command = new SQLiteCommand(query, _connection);
-            SQLiteDataReader result = command.ExecuteReader();
+            string queryUserProcesses = @"CREATE TABLE IF NOT EXISTS user_processes (
+                id VARCHAR(100) PRIMARY KEY UNIQUE,
+                title VARCHAR(100) NOT NULL UNIQUE
+            );";
+            SQLiteCommand command = new SQLiteCommand(queryUserProcesses, _connection);
+            command.ExecuteNonQuery();
+
+            string queryTimestamps = @"CREATE TABLE IF NOT EXISTS timestamps ( 
+                id INTEGER NOT NULL ,  
+                pid VARCHAR(100) NOT NULL,  
+                date_start REAL, 
+                date_stop REAL,  
+                FOREIGN KEY(pid) REFERENCES user_processes(id),  
+                PRIMARY KEY (id, pid)  
+            );";
+            command = new SQLiteCommand(queryTimestamps, _connection);
+            command.ExecuteNonQuery();
         }
 
         /// <summary>
@@ -356,6 +336,27 @@ namespace ActivityTracker
         {
             DeleteTimeSlotsTable();
             DeleteProcessTable();
+        }
+
+        //PRIVATE FUCTIONS
+        /// <summary>
+        /// Se sterg toate timestamps din tabela, structura ei ramanand intacta
+        /// </summary>
+        private void DeleteTimeSlotsTable()
+        {
+            string query = "DELETE FROM timestamps";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            SQLiteDataReader result = command.ExecuteReader();
+        }
+
+        /// <summary>
+        /// Se sterg toate procesele din tabela, structura ei ramanand intacta
+        /// </summary>
+        private void DeleteProcessTable()
+        {
+            string query = "DELETE FROM user_processes";
+            SQLiteCommand command = new SQLiteCommand(query, _connection);
+            SQLiteDataReader result = command.ExecuteReader();
         }
 
         /// <summary>

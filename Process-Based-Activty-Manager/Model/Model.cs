@@ -25,8 +25,8 @@ namespace ActivityTracker
 	/// </summary>
 	public class Model : IModel
 	{
-		private CompositeProcessList _generalProcessList;
 		private IPresenter _presenter;
+		private CompositeProcessList _generalProcessList;
 		private DatabaseManager _database;
 
 		/// <summary>
@@ -43,8 +43,17 @@ namespace ActivityTracker
 
 			_generalProcessList.AddDormantProcesses(_database.GetProcesses());
 		}
-
 		//INTERFACE
+
+		/// <summary>
+		/// Se seteaza prezentatorul - MVP Pattern
+		/// </summary>
+		/// <param name="presenter"></param>
+		public void SetPresenter(IPresenter presenter)
+		{
+			_presenter = presenter;
+		}
+
 		public List<StoredProcess> AllProcessesList
 		{
 			get => _generalProcessList.AllProcessesList;
@@ -86,11 +95,10 @@ namespace ActivityTracker
 			}
 		}
 
-		//END INTERFACE
 		/// <summary>
 		/// Proprietate pentru a obtine toate numele proceselor inactive
 		/// </summary>
-		public List<string> DormandProcessNames
+		private List<string> DormandProcessNames
 		{
 			get
 			{
@@ -103,31 +111,7 @@ namespace ActivityTracker
 			}
 		}
 
-		/// <summary>
-		/// Proprietate pentru a obtine toate timestamp-urile proceselor active
-		/// </summary>
-		public List<long> ActiveTimestampsID
-		{
-			get
-			{
-				List<long> timeslotIDs = new List<long>();
-
-				foreach (ActiveProcess activeProcess in _generalProcessList.ActiveProcessesList)
-				{
-					timeslotIDs.Add(activeProcess.CurrentTimeslotID);
-				}
-				return timeslotIDs;
-			}
-		}
-
-		/// <summary>
-		/// Pentru a sterge in intregime informatia monitorizata
-		/// </summary>
-		public void ResetAllInformation()
-		{
-			_database.DeleteTables();
-			_generalProcessList.RemoveEverything();
-		}
+		//FUCNTII
 
 		/// <summary>
 		/// Se cauta obtinerea timpului total petrecut pe un anumit proces din baza de date, in functie de numele lui
@@ -150,34 +134,16 @@ namespace ActivityTracker
 		}
 
 		/// <summary>
-		/// Se adauga un timeslot nou - posibil atunci cand apare un nou proces pe fundal
-		/// </summary>
-		/// <param name="processID"></param>
-		public void AddNewTimeSlot(string processID)
-		{
-			_database.AddNewTimeSlot(processID);
-		}
-
-		/// <summary>
 		/// Se updateaza timeslot-ul din baza de data - mai precis, se modifica durata de executie in functie de end time
 		/// </summary>
 		/// <param name="timeslotID"></param>
 		/// <param name="duration"></param>
-		void IModel.UpdateTimeSlots() 
+		public void UpdateTimeSlots() 
 		{
 			foreach (var activeProcess in _generalProcessList.ActiveProcessesList)
 			{
 				_database.UpdateTimeSlot(activeProcess.CurrentTimeslotID, activeProcess.UniqueProcesID);
 			}
-		}
-
-		/// <summary>
-		/// Se seteaza prezentatorul - MVP Pattern
-		/// </summary>
-		/// <param name="presenter"></param>
-		public void SetPresenter(IPresenter presenter)
-		{
-			_presenter = presenter;
 		}
 
 		/// <summary>
@@ -244,6 +210,15 @@ namespace ActivityTracker
 			_generalProcessList.ReadyToRemove();
 
 			Console.WriteLine("Ciclu terminat");
+		}
+
+		/// <summary>
+		/// Pentru a sterge in intregime informatia monitorizata
+		/// </summary>
+		public void ResetAllInformation()
+		{
+			_database.DeleteTables();
+			_generalProcessList.RemoveEverything();
 		}
 	}
 }

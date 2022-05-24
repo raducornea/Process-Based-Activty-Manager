@@ -15,6 +15,7 @@
  *******************************************************************************/
 
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ActivityTracker
 {
@@ -60,8 +61,9 @@ namespace ActivityTracker
 			}
 		}
 
+		//FUCTIONS 
 		// The cornerstone of this design
-		public void ActivateProcess(StoredProcess storedProcess, System.Diagnostics.Process p, long newTimeslotID)
+		public void ActivateProcess(StoredProcess storedProcess, Process p, long newTimeslotID)
 		{
 			_dormantProcessList.Remove(storedProcess);
 			_activeProcessList.Add(new ActiveProcess(storedProcess, p, newTimeslotID));

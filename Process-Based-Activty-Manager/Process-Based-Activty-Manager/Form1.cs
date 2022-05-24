@@ -24,7 +24,7 @@ namespace ActivityTracker
 {
     public partial class MainForm : Form
     {
-        static private IPresenter _presenter;
+        private static IPresenter _presenter;
         private DetailsForm _currentDetailsWindow;
         private ArrayList _descendingListTemporary;
         private ArrayList _searchListTemporary;
@@ -44,6 +44,132 @@ namespace ActivityTracker
         {
             _presenter = presenter;
         }
+
+        /// <summary>
+        /// Function that updates the acive process list in the listbox. 
+        /// It also adds the search functionality into it by using a temporary search list to add the results of the search
+        /// This function is called every tick for updated information
+        /// </summary>
+        /// <param name="processNames"></param>
+        public void UpdateActiveProcessesList(List<string> processNames)
+        {
+
+            if (textBox1.Text == "")
+            {
+                foreach (var name in processNames)
+                {
+                    if (!listBoxActiveProcesses.Items.Contains(name))
+                    {
+                        listBoxActiveProcesses.Items.Add(name);
+                    }
+                }
+            }
+            else
+            {
+                _searchListTemporary.Clear();
+                foreach (String s in listBoxActiveProcesses.Items)
+                {
+                    if (s.ToUpper().Contains(textBox1.Text.ToUpper()))
+                    {
+                        _searchListTemporary.Add(s);
+                    }
+                }
+
+                listBoxActiveProcesses.Items.Clear();
+
+                foreach (String s in _searchListTemporary)
+                {
+                    listBoxActiveProcesses.Items.Add(s);
+                }
+
+                // in case a new process appeared while the search is made
+                foreach (var name in processNames)
+                {
+                    if (!listBoxActiveProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox1.Text.ToUpper()))
+                    {
+                        listBoxActiveProcesses.Items.Add(name);
+                    }
+                }
+            }
+
+            // this does not break the search functionality
+            List<object> toRemoveList = new List<object>();
+            foreach (var displayedName in listBoxActiveProcesses.Items)
+            {
+                if (!processNames.Contains(displayedName))
+                {
+                    toRemoveList.Add(displayedName);
+                }
+            }
+
+            foreach (var displayedName in toRemoveList)
+            {
+                listBoxActiveProcesses.Items.Remove(displayedName);
+            }
+        }
+
+        // ALL PROCESSES LIST
+        /// <summary>
+        /// Function that adds all of the processes ever used to the list 
+        /// The search functionality of the form is also included here
+        /// After the search is complete the original list is restored by using the tick refresh and the if bracket of the case with null string
+        /// </summary>
+        /// <param name="allProcessNames"></param>
+        public void UpdateAllProcessesList(List<string> allProcessNames)
+        {
+            if (textBoxAllProcesses.Text == "")
+            {
+                foreach (var name in allProcessNames)
+                {
+                    if (!listBoxAllProcesses.Items.Contains(name))
+                    {
+                        listBoxAllProcesses.Items.Add(name);
+                    }
+                }
+            }
+            else
+            {
+                _searchListTemporary.Clear();
+                foreach (String s in listBoxAllProcesses.Items)
+                {
+                    if (s.ToUpper().Contains(textBoxAllProcesses.Text.ToUpper()))
+                        _searchListTemporary.Add(s);
+                }
+
+                listBoxAllProcesses.Items.Clear();
+
+                foreach (String s in _searchListTemporary)
+                {
+                    listBoxAllProcesses.Items.Add(s);
+                }
+
+                //in case a new process appeared while the search is made
+                foreach (var name in allProcessNames)
+                {
+                    if (!listBoxAllProcesses.Items.Contains(name) && name.ToUpper().Contains(textBoxAllProcesses.Text.ToUpper()))
+                    {
+                        listBoxAllProcesses.Items.Add(name);
+                    }
+                }
+            }
+
+            // this does not break the search functionality
+            List<object> toRemoveList = new List<object>();
+
+            foreach (var displayedName in listBoxActiveProcesses.Items)
+            {
+                if (!allProcessNames.Contains(displayedName))
+                {
+                    toRemoveList.Add(displayedName);
+                }
+            }
+
+            foreach (var displayedName in toRemoveList)
+            {
+                listBoxActiveProcesses.Items.Remove(displayedName);
+            }
+        }
+
 
         /// <summary>
         /// The closing function for the form. It has the option for minimization in the system tray if the user wills it
@@ -135,69 +261,6 @@ namespace ActivityTracker
         }
 
         /// <summary>
-        /// Function that updates the acive process list in the listbox. 
-        /// It also adds the search functionality into it by using a temporary search list to add the results of the search
-        /// This function is called every tick for updated information
-        /// </summary>
-        /// <param name="processNames"></param>
-        public void UpdateActiveProcessesList(List<string> processNames)
-        {
-
-            if (textBox1.Text == "")
-            {
-                foreach (var name in processNames)
-                {
-                    if (!listBoxActiveProcesses.Items.Contains(name))
-                    {
-                        listBoxActiveProcesses.Items.Add(name);
-                    }
-                }
-            }
-            else
-            {
-                _searchListTemporary.Clear();
-                foreach (String s in listBoxActiveProcesses.Items)
-                {
-                    if (s.ToUpper().Contains(textBox1.Text.ToUpper()))
-                    {
-                        _searchListTemporary.Add(s);
-                    }
-                }
-
-                listBoxActiveProcesses.Items.Clear();
-
-                foreach (String s in _searchListTemporary)
-                {
-                    listBoxActiveProcesses.Items.Add(s);
-                }
-
-                // in case a new process appeared while the search is made
-                foreach (var name in processNames)
-                {
-                    if (!listBoxActiveProcesses.Items.Contains(name) && name.ToUpper().Contains(textBox1.Text.ToUpper()))
-                    {
-                        listBoxActiveProcesses.Items.Add(name);
-                    }
-                }
-            }
-
-            // this does not break the search functionality
-            List<object> toRemoveList = new List<object>();
-            foreach (var displayedName in listBoxActiveProcesses.Items)
-            {
-                if (!processNames.Contains(displayedName))
-                {
-                    toRemoveList.Add(displayedName);
-                }
-            }
-
-            foreach (var displayedName in toRemoveList)
-            {
-                listBoxActiveProcesses.Items.Remove(displayedName);
-            }
-        }
-
-        /// <summary>
         /// Function that opens a new details window for a selected process from the listbox
         /// </summary>
         /// <param name="sender"></param>
@@ -215,68 +278,6 @@ namespace ActivityTracker
                 // And open a new updated window
                 _currentDetailsWindow = new DetailsForm(_presenter, listBoxActiveProcesses.SelectedItem.ToString());
                 _currentDetailsWindow.Show();
-            }
-        }
-
-        // ALL PROCESSES LIST
-        /// <summary>
-        /// Function that adds all of the processes ever used to the list 
-        /// The search functionality of the form is also included here
-        /// After the search is complete the original list is restored by using the tick refresh and the if bracket of the case with null string
-        /// </summary>
-        /// <param name="allProcessNames"></param>
-        public void UpdateAllProcessesList(List<string> allProcessNames)
-        {
-            if (textBoxAllProcesses.Text == "")
-            {
-                foreach (var name in allProcessNames)
-                {
-                    if (!listBoxAllProcesses.Items.Contains(name))
-                    {
-                        listBoxAllProcesses.Items.Add(name);
-                    }
-                }
-            }
-            else
-            {
-                _searchListTemporary.Clear();
-                foreach (String s in listBoxAllProcesses.Items)
-                {
-                    if (s.ToUpper().Contains(textBoxAllProcesses.Text.ToUpper()))
-                        _searchListTemporary.Add(s);
-                }
-
-                listBoxAllProcesses.Items.Clear();
-
-                foreach (String s in _searchListTemporary)
-                {
-                    listBoxAllProcesses.Items.Add(s);
-                }
-
-                //in case a new process appeared while the search is made
-                foreach (var name in allProcessNames)
-                {
-                    if (!listBoxAllProcesses.Items.Contains(name) && name.ToUpper().Contains(textBoxAllProcesses.Text.ToUpper()))
-                    {
-                        listBoxAllProcesses.Items.Add(name);
-                    }
-                }
-            }
-
-            // this does not break the search functionality
-            List<object> toRemoveList = new List<object>();
-
-            foreach (var displayedName in listBoxActiveProcesses.Items)
-            {
-                if (!allProcessNames.Contains(displayedName))
-                {
-                    toRemoveList.Add(displayedName);
-                }
-            }
-
-            foreach (var displayedName in toRemoveList)
-            {
-                listBoxActiveProcesses.Items.Remove(displayedName);
             }
         }
 

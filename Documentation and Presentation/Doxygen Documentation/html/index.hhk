@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a75e2c62ea584f6df145560e5a2ba7254"><param name="Name" value="ActiveProcessNames"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespace_activity_tracker.html"><param name="Name" value="ActivityTracker"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_active_process.html"><param name="Name" value="ActivityTracker::ActiveProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_composite_process_list.html"><param name="Name" value="ActivityTracker::CompositeProcessList"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_composite_process_list.html"><param name="Name" value="ActivityTracker::CompositeProcessList"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_composite_process_list.html#a5b3f6026354b1d7b3f789e1fbbb93484"><param name="Name" value="AllProcessesList"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a457feef760f33cdba84a3cb8939d0cf8"><param name="Name" value="AddNewTimeSlot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aa09bde8616a0be3c966021dfabbd92ee"><param name="Name" value="AddProcess"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a7340e8ed17cd4adde0244460e0ce8190"><param name="Name" value="CreateTables"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#ac9d2b467f06ba39a8dccea44e9daaf00"><param name="Name" value="DatabaseManager"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#adff0556bc5c389a87933c554abe5daf5"><param name="Name" value="DeleteProcessTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aa5270972fcde2de1a6268e275537487f"><param name="Name" value="DeleteTables"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#af0fa8ec00986e151473d2b44f33959ce"><param name="Name" value="DeleteTimeSlotsTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a0db063fe434051bd8b68eaf306e79073"><param name="Name" value="GetProcessFromName"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aeaa1b7ac642ee39881a19aef21528b23"><param name="Name" value="GetProcesses"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aeb106e8e17a913a362ccd6bfea611122"><param name="Name" value="GetProcessesNames"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#ace8a1d9ae971b2a5da4572aae88ba477"><param name="Name" value="GetTimeSlotsForProcess"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a0c66fc8dc846f2f13d69244e3de17cfa"><param name="Name" value="GetTotalTimeForProcess"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html"><param name="Name" value="ActivityTracker::DatabaseManager"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#adfa6791a59fd7dbc282c773835e96e49"><param name="Name" value="UpdateTimeSlot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html"><param name="Name" value="ActivityTracker::DetailsForm"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html"><param name="Name" value="ActivityTracker::DetailsForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a293b61eb2d1951b7d51d14703d6adc89"><param name="Name" value="DetailsForm"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html"><param name="Name" value="ActivityTracker::DetailsForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a6149dab147b62873c73a67bcdc08e300"><param name="Name" value="Dispose"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html"><param name="Name" value="ActivityTracker::DetailsForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a6a4a8ef69e4e54550d0fc023451c3832"><param name="Name" value="displayTimeslots"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html"><param name="Name" value="ActivityTracker::DetailsForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a5a9fc2a6ef7d9821568366a706865f02"><param name="Name" value="displayTotalTime"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#ad4b758212bf5a61b9e08d983d5cf0822"><param name="Name" value="AllProcessesList"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a2dd10e53246d5e8532554e327d9c3840"><param name="Name" value="GetProcessTimeslots"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a361bf594c402b67863ca08139b52224d"><param name="Name" value="GetProcessTotalTime"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a6b86d90cb65aa3e6805e04737c2b9ba7"><param name="Name" value="ScreenProcesses"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a0425866e756d479182776b5a2b48c8e1"><param name="Name" value="SetPresenter"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#afe3fd63078ad035c2e3fd149d78dfc02"><param name="Name" value="UpdateTimeSlots"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_presenter.html"><param name="Name" value="ActivityTracker::IPresenter"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_view.html"><param name="Name" value="ActivityTracker::IView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html"><param name="Name" value="ActivityTracker::MainForm"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html"><param name="Name" value="ActivityTracker::MainForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#a2220c00debb346494e0d48e01f8b4881"><param name="Name" value="Dispose"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html"><param name="Name" value="ActivityTracker::MainForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#aec55b5f7ad55867a3f1493523584ef78"><param name="Name" value="MainForm"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html"><param name="Name" value="ActivityTracker::MainForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#ad91bdbf44c28bde7a7b0cfecce402b6e"><param name="Name" value="OnFormClosing"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html"><param name="Name" value="ActivityTracker::MainForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#aa5d1f5c12c9cebdbc61d4a589de520b5"><param name="Name" value="UpdateActiveProcessesList"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html"><param name="Name" value="ActivityTracker::MainForm"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#a78ece2d7de0ef1e14c70615e11d7d338"><param name="Name" value="UpdateAllProcessesList"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a75e2c62ea584f6df145560e5a2ba7254"><param name="Name" value="ActiveProcessNames"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a2552ebf46841287f61a3e0bc7234144f"><param name="Name" value="AllProcessNames"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#ad6717f1218ddb8f8bbfa1d69d7db9ce9"><param name="Name" value="AllProcessesList"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a93476b3d29a811844427798545b9b2c3"><param name="Name" value="GetProcessTimeslots"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a1bb69ab8f58d9607157ad35397f405ab"><param name="Name" value="GetProcessTotalTime"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a9ed451c9f60a938552e965cf1376afed"><param name="Name" value="Model"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a398fb2ce83eeda2921c39a1246cf146a"><param name="Name" value="ResetAllInformation"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#afc4a49fc83416e3c4bcecbb6250a047f"><param name="Name" value="ScreenProcesses"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#af221548452ef294e2fe4328cf49af887"><param name="Name" value="SetPresenter"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a2b44f784ba28bd78da45ed512bcee8dd"><param name="Name" value="UpdateTimeSlots"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_presenter.html"><param name="Name" value="ActivityTracker::Presenter"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_presenter.html"><param name="Name" value="ActivityTracker::Presenter"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_presenter.html#a70028553cfa4e5c47bccf21efb1387ab"><param name="Name" value="presenterTick"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_stored_process.html"><param name="Name" value="ActivityTracker::StoredProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_timeslot.html"><param name="Name" value="ActivityTracker::Timeslot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_view.html"><param name="Name" value="ActivityTracker::View"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespace_activty_manager.html"><param name="Name" value="ActivtyManager"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a457feef760f33cdba84a3cb8939d0cf8"><param name="Name" value="AddNewTimeSlot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aa09bde8616a0be3c966021dfabbd92ee"><param name="Name" value="AddProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a2552ebf46841287f61a3e0bc7234144f"><param name="Name" value="AllProcessNames"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_composite_process_list.html#a5b3f6026354b1d7b3f789e1fbbb93484"><param name="Name" value="AllProcessesList"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_composite_process_list.html#a5b3f6026354b1d7b3f789e1fbbb93484"><param name="Name" value="ActivityTracker::CompositeProcessList"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#ad4b758212bf5a61b9e08d983d5cf0822"><param name="Name" value="AllProcessesList"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#ad4b758212bf5a61b9e08d983d5cf0822"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#ad6717f1218ddb8f8bbfa1d69d7db9ce9"><param name="Name" value="AllProcessesList"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#ad6717f1218ddb8f8bbfa1d69d7db9ce9"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a7340e8ed17cd4adde0244460e0ce8190"><param name="Name" value="CreateTables"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#ac9d2b467f06ba39a8dccea44e9daaf00"><param name="Name" value="DatabaseManager"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#adff0556bc5c389a87933c554abe5daf5"><param name="Name" value="DeleteProcessTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aa5270972fcde2de1a6268e275537487f"><param name="Name" value="DeleteTables"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#af0fa8ec00986e151473d2b44f33959ce"><param name="Name" value="DeleteTimeSlotsTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a293b61eb2d1951b7d51d14703d6adc89"><param name="Name" value="DetailsForm"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a6149dab147b62873c73a67bcdc08e300"><param name="Name" value="Dispose"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a6149dab147b62873c73a67bcdc08e300"><param name="Name" value="ActivityTracker::DetailsForm"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#a2220c00debb346494e0d48e01f8b4881"><param name="Name" value="Dispose"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#a2220c00debb346494e0d48e01f8b4881"><param name="Name" value="ActivityTracker::MainForm"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a0db063fe434051bd8b68eaf306e79073"><param name="Name" value="GetProcessFromName"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a2dd10e53246d5e8532554e327d9c3840"><param name="Name" value="GetProcessTimeslots"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a2dd10e53246d5e8532554e327d9c3840"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a93476b3d29a811844427798545b9b2c3"><param name="Name" value="GetProcessTimeslots"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a93476b3d29a811844427798545b9b2c3"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a361bf594c402b67863ca08139b52224d"><param name="Name" value="GetProcessTotalTime"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a361bf594c402b67863ca08139b52224d"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a1bb69ab8f58d9607157ad35397f405ab"><param name="Name" value="GetProcessTotalTime"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a1bb69ab8f58d9607157ad35397f405ab"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aeaa1b7ac642ee39881a19aef21528b23"><param name="Name" value="GetProcesses"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#aeb106e8e17a913a362ccd6bfea611122"><param name="Name" value="GetProcessesNames"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#ace8a1d9ae971b2a5da4572aae88ba477"><param name="Name" value="GetTimeSlotsForProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#a0c66fc8dc846f2f13d69244e3de17cfa"><param name="Name" value="GetTotalTimeForProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#aa7f2ccf8fbd2721c336ca920331de466"><param name="Name" value="InitializeDatabase"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#aec55b5f7ad55867a3f1493523584ef78"><param name="Name" value="MainForm"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a9ed451c9f60a938552e965cf1376afed"><param name="Name" value="Model"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#ad91bdbf44c28bde7a7b0cfecce402b6e"><param name="Name" value="OnFormClosing"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespace_process___based___activty___manager.html"><param name="Name" value="Process_Based_Activty_Manager"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespace_process___based___activty___manager_1_1_properties.html"><param name="Name" value="Process_Based_Activty_Manager::Properties"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a398fb2ce83eeda2921c39a1246cf146a"><param name="Name" value="ResetAllInformation"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a6b86d90cb65aa3e6805e04737c2b9ba7"><param name="Name" value="ScreenProcesses"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a6b86d90cb65aa3e6805e04737c2b9ba7"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#afc4a49fc83416e3c4bcecbb6250a047f"><param name="Name" value="ScreenProcesses"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#afc4a49fc83416e3c4bcecbb6250a047f"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a0425866e756d479182776b5a2b48c8e1"><param name="Name" value="SetPresenter"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#a0425866e756d479182776b5a2b48c8e1"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#af221548452ef294e2fe4328cf49af887"><param name="Name" value="SetPresenter"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#af221548452ef294e2fe4328cf49af887"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#aa0789c3216fd40ac48beb95f51139f91"><param name="Name" value="TestAddNewTimeSlot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a8a70bde18db74bc5b676894babea0eea"><param name="Name" value="TestAddProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a743bf7f931b2012ff8d755c292e6972d"><param name="Name" value="TestDatabaseExistence"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#ab18aa90a409436724da808bf951d133f"><param name="Name" value="TestDatabaseFileExistence"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a5e52b07a31eee6cc6790eb239af85af9"><param name="Name" value="TestGetProcesses"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#aba9b823af4750874078b2debb3086f22"><param name="Name" value="TestGetProcessesNames"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#afca450a0ef98430d52ad83e1ae62b8a8"><param name="Name" value="TestGetTimeSlotsForProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a43306fe824c8f5a809716c6dda45b022"><param name="Name" value="TestGetTotalTimeForProcess"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a91a6a969be64d3003f945dd1b77c39fb"><param name="Name" value="TestUpdateTimeSlot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespace_unit_testing.html"><param name="Name" value="UnitTesting"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_commons_test.html"><param name="Name" value="UnitTesting::CommonsTest"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#aa7f2ccf8fbd2721c336ca920331de466"><param name="Name" value="InitializeDatabase"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#aa0789c3216fd40ac48beb95f51139f91"><param name="Name" value="TestAddNewTimeSlot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a8a70bde18db74bc5b676894babea0eea"><param name="Name" value="TestAddProcess"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a743bf7f931b2012ff8d755c292e6972d"><param name="Name" value="TestDatabaseExistence"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#ab18aa90a409436724da808bf951d133f"><param name="Name" value="TestDatabaseFileExistence"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a5e52b07a31eee6cc6790eb239af85af9"><param name="Name" value="TestGetProcesses"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#aba9b823af4750874078b2debb3086f22"><param name="Name" value="TestGetProcessesNames"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#afca450a0ef98430d52ad83e1ae62b8a8"><param name="Name" value="TestGetTimeSlotsForProcess"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a43306fe824c8f5a809716c6dda45b022"><param name="Name" value="TestGetTotalTimeForProcess"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html"><param name="Name" value="UnitTesting::ModelTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_unit_testing_1_1_model_test.html#a91a6a969be64d3003f945dd1b77c39fb"><param name="Name" value="TestUpdateTimeSlot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#aa5d1f5c12c9cebdbc61d4a589de520b5"><param name="Name" value="UpdateActiveProcessesList"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_main_form.html#a78ece2d7de0ef1e14c70615e11d7d338"><param name="Name" value="UpdateAllProcessesList"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_database_manager.html#adfa6791a59fd7dbc282c773835e96e49"><param name="Name" value="UpdateTimeSlot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#afe3fd63078ad035c2e3fd149d78dfc02"><param name="Name" value="UpdateTimeSlots"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interface_activity_tracker_1_1_i_model.html#afe3fd63078ad035c2e3fd149d78dfc02"><param name="Name" value="ActivityTracker::IModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a2b44f784ba28bd78da45ed512bcee8dd"><param name="Name" value="UpdateTimeSlots"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_model.html#a2b44f784ba28bd78da45ed512bcee8dd"><param name="Name" value="ActivityTracker::Model"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a6a4a8ef69e4e54550d0fc023451c3832"><param name="Name" value="displayTimeslots"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_details_form.html#a5a9fc2a6ef7d9821568366a706865f02"><param name="Name" value="displayTotalTime"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_activity_tracker_1_1_presenter.html#a70028553cfa4e5c47bccf21efb1387ab"><param name="Name" value="presenterTick"></OBJECT>
+</UL>
+</BODY>
+</HTML>

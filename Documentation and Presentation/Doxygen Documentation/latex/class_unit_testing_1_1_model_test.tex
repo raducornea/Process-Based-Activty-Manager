@@ -1,0 +1,98 @@
+\hypertarget{class_unit_testing_1_1_model_test}{}\doxysection{Unit\+Testing.\+Model\+Test Class Reference}
+\label{class_unit_testing_1_1_model_test}\index{UnitTesting.ModelTest@{UnitTesting.ModelTest}}
+
+
+Clasa pentru testarea unitatilor in Database  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_ab18aa90a409436724da808bf951d133f}\label{class_unit_testing_1_1_model_test_ab18aa90a409436724da808bf951d133f}} 
+void {\bfseries Test\+Database\+File\+Existence} ()
+\begin{DoxyCompactList}\small\item\em Se verifica existenta fisierului cu baza de date \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_a743bf7f931b2012ff8d755c292e6972d}\label{class_unit_testing_1_1_model_test_a743bf7f931b2012ff8d755c292e6972d}} 
+void {\bfseries Test\+Database\+Existence} ()
+\begin{DoxyCompactList}\small\item\em Se verifica existenta propriu-\/zisa a bazei de date ca instanta \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_a8a70bde18db74bc5b676894babea0eea}\label{class_unit_testing_1_1_model_test_a8a70bde18db74bc5b676894babea0eea}} 
+void {\bfseries Test\+Add\+Process} ()
+\begin{DoxyCompactList}\small\item\em Se testeaza crearea unui proces -\/ verificand, asadar, daca se returneaza corect din baza de data sub un format \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_a5e52b07a31eee6cc6790eb239af85af9}\label{class_unit_testing_1_1_model_test_a5e52b07a31eee6cc6790eb239af85af9}} 
+void {\bfseries Test\+Get\+Processes} ()
+\begin{DoxyCompactList}\small\item\em Trebuie considerata situatia in care sunt introduse noi procese, daca stergerile se fac cum trebuie \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_aba9b823af4750874078b2debb3086f22}\label{class_unit_testing_1_1_model_test_aba9b823af4750874078b2debb3086f22}} 
+void {\bfseries Test\+Get\+Processes\+Names} ()
+\begin{DoxyCompactList}\small\item\em Se verifica daca procesele pe care le luam din baza de date verifica daca au caractere \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_aa0789c3216fd40ac48beb95f51139f91}\label{class_unit_testing_1_1_model_test_aa0789c3216fd40ac48beb95f51139f91}} 
+void {\bfseries Test\+Add\+New\+Time\+Slot} ()
+\begin{DoxyCompactList}\small\item\em Testam generarea unui timestamp si verificam daca exista cu adevarat in tabela \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_a91a6a969be64d3003f945dd1b77c39fb}\label{class_unit_testing_1_1_model_test_a91a6a969be64d3003f945dd1b77c39fb}} 
+async Task {\bfseries Test\+Update\+Time\+Slot} ()
+\begin{DoxyCompactList}\small\item\em Test pentru a verifica daca timestamp-\/ul daca se modifica corect \end{DoxyCompactList}\item 
+async Task \mbox{\hyperlink{class_unit_testing_1_1_model_test_a43306fe824c8f5a809716c6dda45b022}{Test\+Get\+Total\+Time\+For\+Process}} ()
+\begin{DoxyCompactList}\small\item\em Test de verificare suma din timestamp-\/uri ale unui proces \end{DoxyCompactList}\item 
+async Task \mbox{\hyperlink{class_unit_testing_1_1_model_test_afca450a0ef98430d52ad83e1ae62b8a8}{Test\+Get\+Time\+Slots\+For\+Process}} ()
+\begin{DoxyCompactList}\small\item\em Se verifica daca intr-\/adevar exista elemente in lista respectiva, mai precis daca chiar s-\/au adaugat \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_unit_testing_1_1_model_test_aa7f2ccf8fbd2721c336ca920331de466}{Initialize\+Database}} (Test\+Context context)
+\begin{DoxyCompactList}\small\item\em Este necesar sa existe baza de date pentru a rula testele \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_a7eafc84e32ac7e0260be71a8b7ac64b3}\label{class_unit_testing_1_1_model_test_a7eafc84e32ac7e0260be71a8b7ac64b3}} 
+static \mbox{\hyperlink{class_activity_tracker_1_1_database_manager}{Database\+Manager}} {\bfseries \+\_\+database}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clasa pentru testarea unitatilor in Database 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_aa7f2ccf8fbd2721c336ca920331de466}\label{class_unit_testing_1_1_model_test_aa7f2ccf8fbd2721c336ca920331de466}} 
+\index{UnitTesting.ModelTest@{UnitTesting.ModelTest}!InitializeDatabase@{InitializeDatabase}}
+\index{InitializeDatabase@{InitializeDatabase}!UnitTesting.ModelTest@{UnitTesting.ModelTest}}
+\doxysubsubsection{\texorpdfstring{InitializeDatabase()}{InitializeDatabase()}}
+{\footnotesize\ttfamily static void Unit\+Testing.\+Model\+Test.\+Initialize\+Database (\begin{DoxyParamCaption}\item[{Test\+Context}]{context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Este necesar sa existe baza de date pentru a rula testele 
+
+
+\begin{DoxyParams}{Parameters}
+{\em context} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_afca450a0ef98430d52ad83e1ae62b8a8}\label{class_unit_testing_1_1_model_test_afca450a0ef98430d52ad83e1ae62b8a8}} 
+\index{UnitTesting.ModelTest@{UnitTesting.ModelTest}!TestGetTimeSlotsForProcess@{TestGetTimeSlotsForProcess}}
+\index{TestGetTimeSlotsForProcess@{TestGetTimeSlotsForProcess}!UnitTesting.ModelTest@{UnitTesting.ModelTest}}
+\doxysubsubsection{\texorpdfstring{TestGetTimeSlotsForProcess()}{TestGetTimeSlotsForProcess()}}
+{\footnotesize\ttfamily async Task Unit\+Testing.\+Model\+Test.\+Test\+Get\+Time\+Slots\+For\+Process (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Se verifica daca intr-\/adevar exista elemente in lista respectiva, mai precis daca chiar s-\/au adaugat 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_unit_testing_1_1_model_test_a43306fe824c8f5a809716c6dda45b022}\label{class_unit_testing_1_1_model_test_a43306fe824c8f5a809716c6dda45b022}} 
+\index{UnitTesting.ModelTest@{UnitTesting.ModelTest}!TestGetTotalTimeForProcess@{TestGetTotalTimeForProcess}}
+\index{TestGetTotalTimeForProcess@{TestGetTotalTimeForProcess}!UnitTesting.ModelTest@{UnitTesting.ModelTest}}
+\doxysubsubsection{\texorpdfstring{TestGetTotalTimeForProcess()}{TestGetTotalTimeForProcess()}}
+{\footnotesize\ttfamily async Task Unit\+Testing.\+Model\+Test.\+Test\+Get\+Total\+Time\+For\+Process (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Test de verificare suma din timestamp-\/uri ale unui proces 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unit\+Testing/Model\+Test.\+cs\end{DoxyCompactItemize}

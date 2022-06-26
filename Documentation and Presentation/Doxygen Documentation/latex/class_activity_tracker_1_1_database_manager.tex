@@ -1,0 +1,174 @@
+\hypertarget{class_activity_tracker_1_1_database_manager}{}\doxysection{Activity\+Tracker.\+Database\+Manager Class Reference}
+\label{class_activity_tracker_1_1_database_manager}\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+
+
+Clasa pentru operatii directe cu baza de date, folosita pentru extragerea si afisarea informatiilor in interfata  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_ac9d2b467f06ba39a8dccea44e9daaf00}\label{class_activity_tracker_1_1_database_manager_ac9d2b467f06ba39a8dccea44e9daaf00}} 
+{\bfseries Database\+Manager} (string database\+Name)
+\begin{DoxyCompactList}\small\item\em Realizeaza o conexiune SQLite in functie de path-\/uri diferite (dinamice) \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_aa09bde8616a0be3c966021dfabbd92ee}{Add\+Process}} (string title)
+\begin{DoxyCompactList}\small\item\em Se adauga un nou proces in baza de date \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}} \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_a0db063fe434051bd8b68eaf306e79073}{Get\+Process\+From\+Name}} (string name)
+\begin{DoxyCompactList}\small\item\em Se obtin procesele din baza de date cu totul \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}} $>$ \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_aeaa1b7ac642ee39881a19aef21528b23}{Get\+Processes}} ()
+\begin{DoxyCompactList}\small\item\em Se obtine lista de procese, ca obiecte de tip \mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}}, din baza de date \end{DoxyCompactList}\item 
+List$<$ string $>$ \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_aeb106e8e17a913a362ccd6bfea611122}{Get\+Processes\+Names}} ()
+\begin{DoxyCompactList}\small\item\em Obtine lista numelor proceselor pentru a le afisa pe interfata \end{DoxyCompactList}\item 
+long \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_a457feef760f33cdba84a3cb8939d0cf8}{Add\+New\+Time\+Slot}} (string process\+ID)
+\begin{DoxyCompactList}\small\item\em Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$ \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_ace8a1d9ae971b2a5da4572aae88ba477}{Get\+Time\+Slots\+For\+Process}} (string process\+ID)
+\begin{DoxyCompactList}\small\item\em Se obtin toate timestamp-\/urile pentru un proces, ca sa le vada utilizatorul \end{DoxyCompactList}\item 
+uint \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_a0c66fc8dc846f2f13d69244e3de17cfa}{Get\+Total\+Time\+For\+Process}} (string process\+ID)
+\begin{DoxyCompactList}\small\item\em Avem nevoie sa stim duratele de viata ale proceselor spre informarea utilizatorilor \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_database_manager_adfa6791a59fd7dbc282c773835e96e49}{Update\+Time\+Slot}} (long timestamp\+ID, string process\+ID)
+\begin{DoxyCompactList}\small\item\em Pe parcursul aplicatiei e nevoie sa updatam si timestamp-\/urile din cand in cand, ca sa nu ramana aceleasi date \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_a7340e8ed17cd4adde0244460e0ce8190}\label{class_activity_tracker_1_1_database_manager_a7340e8ed17cd4adde0244460e0ce8190}} 
+void {\bfseries Create\+Tables} ()
+\begin{DoxyCompactList}\small\item\em Cand nu sunt tabele create, creaza-\/le automat NOTE\+: there is not DATE type in SQLite. We use REAL instead Docs\+: \href{https://www.sqlite.org/lang_datefunc.html}{\texttt{ https\+://www.\+sqlite.\+org/lang\+\_\+datefunc.\+html}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_aa5270972fcde2de1a6268e275537487f}\label{class_activity_tracker_1_1_database_manager_aa5270972fcde2de1a6268e275537487f}} 
+void {\bfseries Delete\+Tables} ()
+\begin{DoxyCompactList}\small\item\em Sterge ambele tabele din existenta \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_af0fa8ec00986e151473d2b44f33959ce}\label{class_activity_tracker_1_1_database_manager_af0fa8ec00986e151473d2b44f33959ce}} 
+void {\bfseries Delete\+Time\+Slots\+Table} ()
+\begin{DoxyCompactList}\small\item\em Se sterg toate timestamps din tabela, structura ei ramanand intacta \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_adff0556bc5c389a87933c554abe5daf5}\label{class_activity_tracker_1_1_database_manager_adff0556bc5c389a87933c554abe5daf5}} 
+void {\bfseries Delete\+Process\+Table} ()
+\begin{DoxyCompactList}\small\item\em Se sterg toate procesele din tabela, structura ei ramanand intacta \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clasa pentru operatii directe cu baza de date, folosita pentru extragerea si afisarea informatiilor in interfata 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_a457feef760f33cdba84a3cb8939d0cf8}\label{class_activity_tracker_1_1_database_manager_a457feef760f33cdba84a3cb8939d0cf8}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!AddNewTimeSlot@{AddNewTimeSlot}}
+\index{AddNewTimeSlot@{AddNewTimeSlot}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{AddNewTimeSlot()}{AddNewTimeSlot()}}
+{\footnotesize\ttfamily long Activity\+Tracker.\+Database\+Manager.\+Add\+New\+Time\+Slot (\begin{DoxyParamCaption}\item[{string}]{process\+ID }\end{DoxyParamCaption})}
+
+
+
+Pentru un anumit proces se genereaza un timestamp nou care are atat la start cat si end aceeasi data 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process\+ID} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_aa09bde8616a0be3c966021dfabbd92ee}\label{class_activity_tracker_1_1_database_manager_aa09bde8616a0be3c966021dfabbd92ee}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!AddProcess@{AddProcess}}
+\index{AddProcess@{AddProcess}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{AddProcess()}{AddProcess()}}
+{\footnotesize\ttfamily string Activity\+Tracker.\+Database\+Manager.\+Add\+Process (\begin{DoxyParamCaption}\item[{string}]{title }\end{DoxyParamCaption})}
+
+
+
+Se adauga un nou proces in baza de date 
+
+
+\begin{DoxyParams}{Parameters}
+{\em title} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_aeaa1b7ac642ee39881a19aef21528b23}\label{class_activity_tracker_1_1_database_manager_aeaa1b7ac642ee39881a19aef21528b23}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!GetProcesses@{GetProcesses}}
+\index{GetProcesses@{GetProcesses}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{GetProcesses()}{GetProcesses()}}
+{\footnotesize\ttfamily List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}} $>$ Activity\+Tracker.\+Database\+Manager.\+Get\+Processes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Se obtine lista de procese, ca obiecte de tip \mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}}, din baza de date 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_aeb106e8e17a913a362ccd6bfea611122}\label{class_activity_tracker_1_1_database_manager_aeb106e8e17a913a362ccd6bfea611122}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!GetProcessesNames@{GetProcessesNames}}
+\index{GetProcessesNames@{GetProcessesNames}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{GetProcessesNames()}{GetProcessesNames()}}
+{\footnotesize\ttfamily List$<$ string $>$ Activity\+Tracker.\+Database\+Manager.\+Get\+Processes\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Obtine lista numelor proceselor pentru a le afisa pe interfata 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_a0db063fe434051bd8b68eaf306e79073}\label{class_activity_tracker_1_1_database_manager_a0db063fe434051bd8b68eaf306e79073}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!GetProcessFromName@{GetProcessFromName}}
+\index{GetProcessFromName@{GetProcessFromName}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{GetProcessFromName()}{GetProcessFromName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}} Activity\+Tracker.\+Database\+Manager.\+Get\+Process\+From\+Name (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+
+
+Se obtin procesele din baza de date cu totul 
+
+\begin{DoxyReturn}{Returns}
+Se returneaza un obiect de tip \mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}}
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_ace8a1d9ae971b2a5da4572aae88ba477}\label{class_activity_tracker_1_1_database_manager_ace8a1d9ae971b2a5da4572aae88ba477}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!GetTimeSlotsForProcess@{GetTimeSlotsForProcess}}
+\index{GetTimeSlotsForProcess@{GetTimeSlotsForProcess}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{GetTimeSlotsForProcess()}{GetTimeSlotsForProcess()}}
+{\footnotesize\ttfamily List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$ Activity\+Tracker.\+Database\+Manager.\+Get\+Time\+Slots\+For\+Process (\begin{DoxyParamCaption}\item[{string}]{process\+ID }\end{DoxyParamCaption})}
+
+
+
+Se obtin toate timestamp-\/urile pentru un proces, ca sa le vada utilizatorul 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process\+ID} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Lista tuturor timestamp-\/urilor
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_a0c66fc8dc846f2f13d69244e3de17cfa}\label{class_activity_tracker_1_1_database_manager_a0c66fc8dc846f2f13d69244e3de17cfa}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!GetTotalTimeForProcess@{GetTotalTimeForProcess}}
+\index{GetTotalTimeForProcess@{GetTotalTimeForProcess}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{GetTotalTimeForProcess()}{GetTotalTimeForProcess()}}
+{\footnotesize\ttfamily uint Activity\+Tracker.\+Database\+Manager.\+Get\+Total\+Time\+For\+Process (\begin{DoxyParamCaption}\item[{string}]{process\+ID }\end{DoxyParamCaption})}
+
+
+
+Avem nevoie sa stim duratele de viata ale proceselor spre informarea utilizatorilor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process\+ID} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Timpul rularii totale a aplicatiei de la inceput pana la prezent
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_activity_tracker_1_1_database_manager_adfa6791a59fd7dbc282c773835e96e49}\label{class_activity_tracker_1_1_database_manager_adfa6791a59fd7dbc282c773835e96e49}} 
+\index{ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}!UpdateTimeSlot@{UpdateTimeSlot}}
+\index{UpdateTimeSlot@{UpdateTimeSlot}!ActivityTracker.DatabaseManager@{ActivityTracker.DatabaseManager}}
+\doxysubsubsection{\texorpdfstring{UpdateTimeSlot()}{UpdateTimeSlot()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Database\+Manager.\+Update\+Time\+Slot (\begin{DoxyParamCaption}\item[{long}]{timestamp\+ID,  }\item[{string}]{process\+ID }\end{DoxyParamCaption})}
+
+
+
+Pe parcursul aplicatiei e nevoie sa updatam si timestamp-\/urile din cand in cand, ca sa nu ramana aceleasi date 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timeslot\+ID} & \\
+\hline
+{\em duration} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Model/Database\+Manager.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,97 @@
+\hypertarget{class_activity_tracker_1_1_main_form}{}\doxysection{Activity\+Tracker.\+Main\+Form Class Reference}
+\label{class_activity_tracker_1_1_main_form}\index{ActivityTracker.MainForm@{ActivityTracker.MainForm}}
+Inheritance diagram for Activity\+Tracker.\+Main\+Form\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_activity_tracker_1_1_main_form}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_main_form_aec55b5f7ad55867a3f1493523584ef78}\label{class_activity_tracker_1_1_main_form_aec55b5f7ad55867a3f1493523584ef78}} 
+{\bfseries Main\+Form} ()
+\begin{DoxyCompactList}\small\item\em Constructor that creates the main window object \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_main_form_a92debc8a9473920dd15339f69c7005d1}\label{class_activity_tracker_1_1_main_form_a92debc8a9473920dd15339f69c7005d1}} 
+void {\bfseries Set\+Presenter} (\mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{IPresenter}} presenter)
+\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_main_form_aa5d1f5c12c9cebdbc61d4a589de520b5}{Update\+Active\+Processes\+List}} (List$<$ string $>$ process\+Names)
+\begin{DoxyCompactList}\small\item\em Function that updates the acive process list in the listbox. It also adds the search functionality into it by using a temporary search list to add the results of the search This function is called every tick for updated information \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_main_form_a78ece2d7de0ef1e14c70615e11d7d338}{Update\+All\+Processes\+List}} (List$<$ string $>$ all\+Process\+Names)
+\begin{DoxyCompactList}\small\item\em Function that adds all of the processes ever used to the list The search functionality of the form is also included here After the search is complete the original list is restored by using the tick refresh and the if bracket of the case with null string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_activity_tracker_1_1_main_form_ad91bdbf44c28bde7a7b0cfecce402b6e}{On\+Form\+Closing}} (Form\+Closing\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em The closing function for the form. It has the option for minimization in the system tray if the user wills it \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_activity_tracker_1_1_main_form_a2220c00debb346494e0d48e01f8b4881}{Dispose}} (bool disposing)
+\begin{DoxyCompactList}\small\item\em Clean up any resources being used. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_activity_tracker_1_1_main_form_a2220c00debb346494e0d48e01f8b4881}\label{class_activity_tracker_1_1_main_form_a2220c00debb346494e0d48e01f8b4881}} 
+\index{ActivityTracker.MainForm@{ActivityTracker.MainForm}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!ActivityTracker.MainForm@{ActivityTracker.MainForm}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}}
+{\footnotesize\ttfamily override void Activity\+Tracker.\+Main\+Form.\+Dispose (\begin{DoxyParamCaption}\item[{bool}]{disposing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Clean up any resources being used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em disposing} & true if managed resources should be disposed; otherwise, false.\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_activity_tracker_1_1_main_form_ad91bdbf44c28bde7a7b0cfecce402b6e}\label{class_activity_tracker_1_1_main_form_ad91bdbf44c28bde7a7b0cfecce402b6e}} 
+\index{ActivityTracker.MainForm@{ActivityTracker.MainForm}!OnFormClosing@{OnFormClosing}}
+\index{OnFormClosing@{OnFormClosing}!ActivityTracker.MainForm@{ActivityTracker.MainForm}}
+\doxysubsubsection{\texorpdfstring{OnFormClosing()}{OnFormClosing()}}
+{\footnotesize\ttfamily override void Activity\+Tracker.\+Main\+Form.\+On\+Form\+Closing (\begin{DoxyParamCaption}\item[{Form\+Closing\+Event\+Args}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The closing function for the form. It has the option for minimization in the system tray if the user wills it 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_activity_tracker_1_1_main_form_aa5d1f5c12c9cebdbc61d4a589de520b5}\label{class_activity_tracker_1_1_main_form_aa5d1f5c12c9cebdbc61d4a589de520b5}} 
+\index{ActivityTracker.MainForm@{ActivityTracker.MainForm}!UpdateActiveProcessesList@{UpdateActiveProcessesList}}
+\index{UpdateActiveProcessesList@{UpdateActiveProcessesList}!ActivityTracker.MainForm@{ActivityTracker.MainForm}}
+\doxysubsubsection{\texorpdfstring{UpdateActiveProcessesList()}{UpdateActiveProcessesList()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Main\+Form.\+Update\+Active\+Processes\+List (\begin{DoxyParamCaption}\item[{List$<$ string $>$}]{process\+Names }\end{DoxyParamCaption})}
+
+
+
+Function that updates the acive process list in the listbox. It also adds the search functionality into it by using a temporary search list to add the results of the search This function is called every tick for updated information 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process\+Names} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_activity_tracker_1_1_main_form_a78ece2d7de0ef1e14c70615e11d7d338}\label{class_activity_tracker_1_1_main_form_a78ece2d7de0ef1e14c70615e11d7d338}} 
+\index{ActivityTracker.MainForm@{ActivityTracker.MainForm}!UpdateAllProcessesList@{UpdateAllProcessesList}}
+\index{UpdateAllProcessesList@{UpdateAllProcessesList}!ActivityTracker.MainForm@{ActivityTracker.MainForm}}
+\doxysubsubsection{\texorpdfstring{UpdateAllProcessesList()}{UpdateAllProcessesList()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Main\+Form.\+Update\+All\+Processes\+List (\begin{DoxyParamCaption}\item[{List$<$ string $>$}]{all\+Process\+Names }\end{DoxyParamCaption})}
+
+
+
+Function that adds all of the processes ever used to the list The search functionality of the form is also included here After the search is complete the original list is restored by using the tick refresh and the if bracket of the case with null string 
+
+
+\begin{DoxyParams}{Parameters}
+{\em all\+Process\+Names} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Process-\/\+Based-\/\+Activty-\/\+Manager/Form1.\+cs\item 
+Process-\/\+Based-\/\+Activty-\/\+Manager/Form1.\+Designer.\+cs\end{DoxyCompactItemize}

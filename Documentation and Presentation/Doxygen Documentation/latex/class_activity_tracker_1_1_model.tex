@@ -1,0 +1,220 @@
+\hypertarget{class_activity_tracker_1_1_model}{}\doxysection{Activity\+Tracker.\+Model Class Reference}
+\label{class_activity_tracker_1_1_model}\index{ActivityTracker.Model@{ActivityTracker.Model}}
+
+
+\mbox{\hyperlink{class_activity_tracker_1_1_model}{Model}} class from MVP Pattern -\/ daca aveti adaugari, puneti aici  
+
+
+Inheritance diagram for Activity\+Tracker.\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_activity_tracker_1_1_model}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a9ed451c9f60a938552e965cf1376afed}\label{class_activity_tracker_1_1_model_a9ed451c9f60a938552e965cf1376afed}} 
+{\bfseries Model} ()
+\begin{DoxyCompactList}\small\item\em Constructor pentru \mbox{\hyperlink{class_activity_tracker_1_1_model}{Model}} -\/ trebuie initializata si lista de timestamp-\/uri, fiind prima rulare a programului \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_model_af221548452ef294e2fe4328cf49af887}{Set\+Presenter}} (\mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{IPresenter}} presenter)
+\begin{DoxyCompactList}\small\item\em Se seteaza prezentatorul -\/ MVP Pattern \end{DoxyCompactList}\item 
+uint \mbox{\hyperlink{class_activity_tracker_1_1_model_a1bb69ab8f58d9607157ad35397f405ab}{Get\+Process\+Total\+Time}} (string process\+Name)
+\begin{DoxyCompactList}\small\item\em Se cauta obtinerea timpului total petrecut pe un anumit proces din baza de date, in functie de numele lui \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$ \mbox{\hyperlink{class_activity_tracker_1_1_model_a93476b3d29a811844427798545b9b2c3}{Get\+Process\+Timeslots}} (string process\+Name)
+\begin{DoxyCompactList}\small\item\em Se cauta toate timestamp-\/urile unui proces spre a fi afisate pe interfata grafica \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_model_a2b44f784ba28bd78da45ed512bcee8dd}{Update\+Time\+Slots}} ()
+\begin{DoxyCompactList}\small\item\em Se updateaza timeslot-\/ul din baza de data -\/ mai precis, se modifica durata de executie in functie de end time \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_model_afc4a49fc83416e3c4bcecbb6250a047f}{Screen\+Processes}} ()
+\begin{DoxyCompactList}\small\item\em The core of our fuctionality \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_model_a398fb2ce83eeda2921c39a1246cf146a}{Reset\+All\+Information}} ()
+\begin{DoxyCompactList}\small\item\em Pentru a sterge in intregime informatia monitorizata \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}} $>$ \mbox{\hyperlink{class_activity_tracker_1_1_model_ad6717f1218ddb8f8bbfa1d69d7db9ce9}{All\+Processes\+List}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Proprietate pentru obtinerea proceselor rulante curente \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_active_process}{Active\+Process}} $>$ \mbox{\hyperlink{class_activity_tracker_1_1_model_a678ffaad45ab4b9b5972992c6bc75e70}{Active\+Process}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+List$<$ string $>$ \mbox{\hyperlink{class_activity_tracker_1_1_model_a2552ebf46841287f61a3e0bc7234144f}{All\+Process\+Names}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Proprietate pentru a obtine o lista cu toate numele proceselor \end{DoxyCompactList}\item 
+List$<$ string $>$ \mbox{\hyperlink{class_activity_tracker_1_1_model_a75e2c62ea584f6df145560e5a2ba7254}{Active\+Process\+Names}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Proprietate pentru a obtine toate numele proceselor active \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_activity_tracker_1_1_model}{Model}} class from MVP Pattern -\/ daca aveti adaugari, puneti aici 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a93476b3d29a811844427798545b9b2c3}\label{class_activity_tracker_1_1_model_a93476b3d29a811844427798545b9b2c3}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!GetProcessTimeslots@{GetProcessTimeslots}}
+\index{GetProcessTimeslots@{GetProcessTimeslots}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{GetProcessTimeslots()}{GetProcessTimeslots()}}
+{\footnotesize\ttfamily List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$ Activity\+Tracker.\+Model.\+Get\+Process\+Timeslots (\begin{DoxyParamCaption}\item[{string}]{process\+Name }\end{DoxyParamCaption})}
+
+
+
+Se cauta toate timestamp-\/urile unui proces spre a fi afisate pe interfata grafica 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process\+ID} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model_a2dd10e53246d5e8532554e327d9c3840}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a1bb69ab8f58d9607157ad35397f405ab}\label{class_activity_tracker_1_1_model_a1bb69ab8f58d9607157ad35397f405ab}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!GetProcessTotalTime@{GetProcessTotalTime}}
+\index{GetProcessTotalTime@{GetProcessTotalTime}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{GetProcessTotalTime()}{GetProcessTotalTime()}}
+{\footnotesize\ttfamily uint Activity\+Tracker.\+Model.\+Get\+Process\+Total\+Time (\begin{DoxyParamCaption}\item[{string}]{process\+Name }\end{DoxyParamCaption})}
+
+
+
+Se cauta obtinerea timpului total petrecut pe un anumit proces din baza de date, in functie de numele lui 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process\+ID} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model_a361bf594c402b67863ca08139b52224d}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a398fb2ce83eeda2921c39a1246cf146a}\label{class_activity_tracker_1_1_model_a398fb2ce83eeda2921c39a1246cf146a}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!ResetAllInformation@{ResetAllInformation}}
+\index{ResetAllInformation@{ResetAllInformation}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{ResetAllInformation()}{ResetAllInformation()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Model.\+Reset\+All\+Information (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Pentru a sterge in intregime informatia monitorizata 
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_afc4a49fc83416e3c4bcecbb6250a047f}\label{class_activity_tracker_1_1_model_afc4a49fc83416e3c4bcecbb6250a047f}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!ScreenProcesses@{ScreenProcesses}}
+\index{ScreenProcesses@{ScreenProcesses}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{ScreenProcesses()}{ScreenProcesses()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Model.\+Screen\+Processes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The core of our fuctionality 
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model_a6b86d90cb65aa3e6805e04737c2b9ba7}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_af221548452ef294e2fe4328cf49af887}\label{class_activity_tracker_1_1_model_af221548452ef294e2fe4328cf49af887}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!SetPresenter@{SetPresenter}}
+\index{SetPresenter@{SetPresenter}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{SetPresenter()}{SetPresenter()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Model.\+Set\+Presenter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{IPresenter}}}]{presenter }\end{DoxyParamCaption})}
+
+
+
+Se seteaza prezentatorul -\/ MVP Pattern 
+
+
+\begin{DoxyParams}{Parameters}
+{\em presenter} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model_a0425866e756d479182776b5a2b48c8e1}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a2b44f784ba28bd78da45ed512bcee8dd}\label{class_activity_tracker_1_1_model_a2b44f784ba28bd78da45ed512bcee8dd}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!UpdateTimeSlots@{UpdateTimeSlots}}
+\index{UpdateTimeSlots@{UpdateTimeSlots}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{UpdateTimeSlots()}{UpdateTimeSlots()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Model.\+Update\+Time\+Slots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Se updateaza timeslot-\/ul din baza de data -\/ mai precis, se modifica durata de executie in functie de end time 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timeslot\+ID} & \\
+\hline
+{\em duration} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model_afe3fd63078ad035c2e3fd149d78dfc02}{Activity\+Tracker.\+IModel}}.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a678ffaad45ab4b9b5972992c6bc75e70}\label{class_activity_tracker_1_1_model_a678ffaad45ab4b9b5972992c6bc75e70}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!ActiveProcess@{ActiveProcess}}
+\index{ActiveProcess@{ActiveProcess}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{ActiveProcess}{ActiveProcess}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_activity_tracker_1_1_active_process}{Active\+Process}}$>$ Activity\+Tracker.\+Model.\+Active\+Process\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a75e2c62ea584f6df145560e5a2ba7254}\label{class_activity_tracker_1_1_model_a75e2c62ea584f6df145560e5a2ba7254}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!ActiveProcessNames@{ActiveProcessNames}}
+\index{ActiveProcessNames@{ActiveProcessNames}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{ActiveProcessNames}{ActiveProcessNames}}
+{\footnotesize\ttfamily List$<$string$>$ Activity\+Tracker.\+Model.\+Active\+Process\+Names\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Proprietate pentru a obtine toate numele proceselor active 
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_ad6717f1218ddb8f8bbfa1d69d7db9ce9}\label{class_activity_tracker_1_1_model_ad6717f1218ddb8f8bbfa1d69d7db9ce9}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!AllProcessesList@{AllProcessesList}}
+\index{AllProcessesList@{AllProcessesList}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{AllProcessesList}{AllProcessesList}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{class_activity_tracker_1_1_stored_process}{Stored\+Process}}$>$ Activity\+Tracker.\+Model.\+All\+Processes\+List\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Proprietate pentru obtinerea proceselor rulante curente 
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model_ad4b758212bf5a61b9e08d983d5cf0822}{Activity\+Tracker.\+IModel}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_model_a2552ebf46841287f61a3e0bc7234144f}\label{class_activity_tracker_1_1_model_a2552ebf46841287f61a3e0bc7234144f}} 
+\index{ActivityTracker.Model@{ActivityTracker.Model}!AllProcessNames@{AllProcessNames}}
+\index{AllProcessNames@{AllProcessNames}!ActivityTracker.Model@{ActivityTracker.Model}}
+\doxysubsubsection{\texorpdfstring{AllProcessNames}{AllProcessNames}}
+{\footnotesize\ttfamily List$<$string$>$ Activity\+Tracker.\+Model.\+All\+Process\+Names\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Proprietate pentru a obtine o lista cu toate numele proceselor 
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_model}{Activity\+Tracker.\+IModel}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Model/Model.\+cs\end{DoxyCompactItemize}

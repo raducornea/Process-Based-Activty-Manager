@@ -1,0 +1,96 @@
+\hypertarget{class_activity_tracker_1_1_details_form}{}\doxysection{Activity\+Tracker.\+Details\+Form Class Reference}
+\label{class_activity_tracker_1_1_details_form}\index{ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}}
+Inheritance diagram for Activity\+Tracker.\+Details\+Form\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_activity_tracker_1_1_details_form}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_activity_tracker_1_1_details_form_a293b61eb2d1951b7d51d14703d6adc89}{Details\+Form}} (\mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{IPresenter}} presenter, String process\+Name)
+\begin{DoxyCompactList}\small\item\em Constructor that takes a presenter and a process name It creates the window object and the class members that will be used to draw the time slot \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_details_form_a6a4a8ef69e4e54550d0fc023451c3832}{display\+Timeslots}} (List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$ times)
+\begin{DoxyCompactList}\small\item\em Function that displays the time slots using a graphics object. It converts the timeslot from an interval of time in seconds to an interval of pixels Also there is a call to the Draw\+Background\+Lines() function for initializing the lines on which the timeslots are drawn \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_details_form_a5a9fc2a6ef7d9821568366a706865f02}{display\+Total\+Time}} (uint total\+Time)
+\begin{DoxyCompactList}\small\item\em Function that displays the total time a process has been active on a label from the UI Some calculus is required for having an exact conversion from the seconds stored in the database \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_activity_tracker_1_1_details_form_a6149dab147b62873c73a67bcdc08e300}{Dispose}} (bool disposing)
+\begin{DoxyCompactList}\small\item\em Clean up any resources being used. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_activity_tracker_1_1_details_form_a293b61eb2d1951b7d51d14703d6adc89}\label{class_activity_tracker_1_1_details_form_a293b61eb2d1951b7d51d14703d6adc89}} 
+\index{ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}!DetailsForm@{DetailsForm}}
+\index{DetailsForm@{DetailsForm}!ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}}
+\doxysubsubsection{\texorpdfstring{DetailsForm()}{DetailsForm()}}
+{\footnotesize\ttfamily Activity\+Tracker.\+Details\+Form.\+Details\+Form (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{IPresenter}}}]{presenter,  }\item[{String}]{process\+Name }\end{DoxyParamCaption})}
+
+
+
+Constructor that takes a presenter and a process name It creates the window object and the class members that will be used to draw the time slot 
+
+
+\begin{DoxyParams}{Parameters}
+{\em presenter} & \\
+\hline
+{\em process\+Name} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_activity_tracker_1_1_details_form_a6a4a8ef69e4e54550d0fc023451c3832}\label{class_activity_tracker_1_1_details_form_a6a4a8ef69e4e54550d0fc023451c3832}} 
+\index{ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}!displayTimeslots@{displayTimeslots}}
+\index{displayTimeslots@{displayTimeslots}!ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}}
+\doxysubsubsection{\texorpdfstring{displayTimeslots()}{displayTimeslots()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Details\+Form.\+display\+Timeslots (\begin{DoxyParamCaption}\item[{List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$}]{times }\end{DoxyParamCaption})}
+
+
+
+Function that displays the time slots using a graphics object. It converts the timeslot from an interval of time in seconds to an interval of pixels Also there is a call to the Draw\+Background\+Lines() function for initializing the lines on which the timeslots are drawn 
+
+
+\begin{DoxyParams}{Parameters}
+{\em times} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_activity_tracker_1_1_details_form_a5a9fc2a6ef7d9821568366a706865f02}\label{class_activity_tracker_1_1_details_form_a5a9fc2a6ef7d9821568366a706865f02}} 
+\index{ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}!displayTotalTime@{displayTotalTime}}
+\index{displayTotalTime@{displayTotalTime}!ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}}
+\doxysubsubsection{\texorpdfstring{displayTotalTime()}{displayTotalTime()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Details\+Form.\+display\+Total\+Time (\begin{DoxyParamCaption}\item[{uint}]{total\+Time }\end{DoxyParamCaption})}
+
+
+
+Function that displays the total time a process has been active on a label from the UI Some calculus is required for having an exact conversion from the seconds stored in the database 
+
+
+\begin{DoxyParams}{Parameters}
+{\em total\+Time} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_activity_tracker_1_1_details_form_a6149dab147b62873c73a67bcdc08e300}\label{class_activity_tracker_1_1_details_form_a6149dab147b62873c73a67bcdc08e300}} 
+\index{ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!ActivityTracker.DetailsForm@{ActivityTracker.DetailsForm}}
+\doxysubsubsection{\texorpdfstring{Dispose()}{Dispose()}}
+{\footnotesize\ttfamily override void Activity\+Tracker.\+Details\+Form.\+Dispose (\begin{DoxyParamCaption}\item[{bool}]{disposing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Clean up any resources being used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em disposing} & true if managed resources should be disposed; otherwise, false.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Process-\/\+Based-\/\+Activty-\/\+Manager/Form2.\+cs\item 
+Process-\/\+Based-\/\+Activty-\/\+Manager/Form2.\+Designer.\+cs\end{DoxyCompactItemize}

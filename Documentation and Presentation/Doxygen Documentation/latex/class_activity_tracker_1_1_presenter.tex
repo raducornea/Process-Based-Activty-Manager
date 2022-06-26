@@ -1,0 +1,74 @@
+\hypertarget{class_activity_tracker_1_1_presenter}{}\doxysection{Activity\+Tracker.\+Presenter Class Reference}
+\label{class_activity_tracker_1_1_presenter}\index{ActivityTracker.Presenter@{ActivityTracker.Presenter}}
+Inheritance diagram for Activity\+Tracker.\+Presenter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_activity_tracker_1_1_presenter}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_activity_tracker_1_1_presenter_a13b168f8587ca393d06f1c1a60929dc7}\label{class_activity_tracker_1_1_presenter_a13b168f8587ca393d06f1c1a60929dc7}} 
+{\bfseries Presenter} (\mbox{\hyperlink{interface_activity_tracker_1_1_i_view}{IView}} view, \mbox{\hyperlink{interface_activity_tracker_1_1_i_model}{IModel}} model)
+\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_presenter_a70028553cfa4e5c47bccf21efb1387ab}{presenter\+Tick}} ()
+\begin{DoxyCompactList}\small\item\em This fuction works periodically, called by a timer in the main form. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_activity_tracker_1_1_presenter_aea36c5ec9b73a554169d0453dfd35ac7}{Delete\+Database}} ()
+\item 
+List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$ \mbox{\hyperlink{class_activity_tracker_1_1_presenter_ae42c6eebaf79c7f3c427c0681119269e}{Request\+Timeslots}} (string process\+Name)
+\item 
+uint \mbox{\hyperlink{class_activity_tracker_1_1_presenter_a429a30dfc5f3e8f14aea67fe74436c06}{Request\+Process\+Total\+Time}} (string process\+Name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_activity_tracker_1_1_presenter_aea36c5ec9b73a554169d0453dfd35ac7}\label{class_activity_tracker_1_1_presenter_aea36c5ec9b73a554169d0453dfd35ac7}} 
+\index{ActivityTracker.Presenter@{ActivityTracker.Presenter}!DeleteDatabase@{DeleteDatabase}}
+\index{DeleteDatabase@{DeleteDatabase}!ActivityTracker.Presenter@{ActivityTracker.Presenter}}
+\doxysubsubsection{\texorpdfstring{DeleteDatabase()}{DeleteDatabase()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Presenter.\+Delete\+Database (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{Activity\+Tracker.\+IPresenter}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_presenter_a70028553cfa4e5c47bccf21efb1387ab}\label{class_activity_tracker_1_1_presenter_a70028553cfa4e5c47bccf21efb1387ab}} 
+\index{ActivityTracker.Presenter@{ActivityTracker.Presenter}!presenterTick@{presenterTick}}
+\index{presenterTick@{presenterTick}!ActivityTracker.Presenter@{ActivityTracker.Presenter}}
+\doxysubsubsection{\texorpdfstring{presenterTick()}{presenterTick()}}
+{\footnotesize\ttfamily void Activity\+Tracker.\+Presenter.\+presenter\+Tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This fuction works periodically, called by a timer in the main form. 
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{Activity\+Tracker.\+IPresenter}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_presenter_a429a30dfc5f3e8f14aea67fe74436c06}\label{class_activity_tracker_1_1_presenter_a429a30dfc5f3e8f14aea67fe74436c06}} 
+\index{ActivityTracker.Presenter@{ActivityTracker.Presenter}!RequestProcessTotalTime@{RequestProcessTotalTime}}
+\index{RequestProcessTotalTime@{RequestProcessTotalTime}!ActivityTracker.Presenter@{ActivityTracker.Presenter}}
+\doxysubsubsection{\texorpdfstring{RequestProcessTotalTime()}{RequestProcessTotalTime()}}
+{\footnotesize\ttfamily uint Activity\+Tracker.\+Presenter.\+Request\+Process\+Total\+Time (\begin{DoxyParamCaption}\item[{string}]{process\+Name }\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{Activity\+Tracker.\+IPresenter}}.
+
+\mbox{\Hypertarget{class_activity_tracker_1_1_presenter_ae42c6eebaf79c7f3c427c0681119269e}\label{class_activity_tracker_1_1_presenter_ae42c6eebaf79c7f3c427c0681119269e}} 
+\index{ActivityTracker.Presenter@{ActivityTracker.Presenter}!RequestTimeslots@{RequestTimeslots}}
+\index{RequestTimeslots@{RequestTimeslots}!ActivityTracker.Presenter@{ActivityTracker.Presenter}}
+\doxysubsubsection{\texorpdfstring{RequestTimeslots()}{RequestTimeslots()}}
+{\footnotesize\ttfamily List$<$ \mbox{\hyperlink{class_activity_tracker_1_1_timeslot}{Timeslot}} $>$ Activity\+Tracker.\+Presenter.\+Request\+Timeslots (\begin{DoxyParamCaption}\item[{string}]{process\+Name }\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_activity_tracker_1_1_i_presenter}{Activity\+Tracker.\+IPresenter}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Controller/Presenter.\+cs\end{DoxyCompactItemize}
